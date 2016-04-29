@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyPointViewController">
+            <connections>
+                <outlet property="tableVi" destination="vk5-Hy-H13" id="4IR-Qe-hf2"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="WRD-K8-I8J"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vk5-Hy-H13">
+                    <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="rHf-Ti-KTd"/>
+                        <outlet property="delegate" destination="-1" id="4vY-ZI-ITW"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="vk5-Hy-H13" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="44" id="EFr-id-sZy"/>
+                <constraint firstItem="vk5-Hy-H13" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="S9G-8f-hni"/>
+                <constraint firstAttribute="bottom" secondItem="vk5-Hy-H13" secondAttribute="bottom" id="SnP-eh-L9P"/>
+                <constraint firstAttribute="trailing" secondItem="vk5-Hy-H13" secondAttribute="trailing" id="zH9-Pt-pxe"/>
+            </constraints>
+            <point key="canvasLocation" x="36" y="270"/>
+        </view>
+    </objects>
+</document>

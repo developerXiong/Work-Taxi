@@ -1,0 +1,44 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "926CD0A8D822AA7B42A10E7BB31033CD9EBBF365+++3FAAD41",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "926CD0A8D822AA7B42A10E7BB31033CD9EBBF365+++D722C87" : 0,
+    "926CD0A8D822AA7B42A10E7BB31033CD9EBBF365+++55EB980" : 0,
+    "926CD0A8D822AA7B42A10E7BB31033CD9EBBF365+++19D22EE" : 0,
+    "926CD0A8D822AA7B42A10E7BB31033CD9EBBF365+++3FAAD41" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "EC9C5695-5230-4EE9-9E56-4F150C8203C0",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "926CD0A8D822AA7B42A10E7BB31033CD9EBBF365+++D722C87" : "eTaxi-iOS\/",
+    "926CD0A8D822AA7B42A10E7BB31033CD9EBBF365+++55EB980" : "eTaxi-iOS%202\/",
+    "926CD0A8D822AA7B42A10E7BB31033CD9EBBF365+++19D22EE" : "eTaxi-iOS%202\/",
+    "926CD0A8D822AA7B42A10E7BB31033CD9EBBF365+++3FAAD41" : "eTaxi-iOS%E5%89%AF%E6%9C%AC\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "eTaxi-iOS",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "eTaxi-iOS.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/jeader.com\/r\/eTaxi-iOS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "926CD0A8D822AA7B42A10E7BB31033CD9EBBF365+++19D22EE"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/jeader.com\/r\/eTaxi-iOS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "926CD0A8D822AA7B42A10E7BB31033CD9EBBF365+++3FAAD41"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/192.168.1.250\/r\/eTaxi-iOS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "926CD0A8D822AA7B42A10E7BB31033CD9EBBF365+++55EB980"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/jeader.com\/r\/eTaxi-iOS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "926CD0A8D822AA7B42A10E7BB31033CD9EBBF365+++D722C87"
+    }
+  ]
+}

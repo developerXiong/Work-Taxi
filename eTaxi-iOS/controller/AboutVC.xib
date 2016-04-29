@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AboutVC">
+            <connections>
+                <outlet property="mmParallaxPresenter" destination="OvE-7W-SEk" id="ekh-WR-Jqh"/>
+                <outlet property="resetPresenter" destination="YrL-lm-i9i" id="BKz-EQ-goT"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OvE-7W-SEk" customClass="MMParallaxPresenter">
+                    <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                </scrollView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YrL-lm-i9i">
+                    <rect key="frame" x="270" y="620" width="90" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="90" id="BZw-Zs-fpQ"/>
+                        <constraint firstAttribute="height" constant="30" id="jZt-f5-IKX"/>
+                    </constraints>
+                    <state key="normal" title="重置按钮">
+                        <color key="titleShadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="resetPresenter:" destination="-1" eventType="touchUpInside" id="xc2-Gb-EIb"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="YrL-lm-i9i" secondAttribute="trailing" constant="15" id="2lu-hD-TCp"/>
+                <constraint firstItem="OvE-7W-SEk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="8gj-ss-HSj"/>
+                <constraint firstAttribute="bottom" secondItem="OvE-7W-SEk" secondAttribute="bottom" id="BIE-VM-WHK"/>
+                <constraint firstItem="OvE-7W-SEk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="GIe-K0-09m"/>
+                <constraint firstItem="OvE-7W-SEk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="I94-oz-bzx"/>
+                <constraint firstAttribute="trailing" secondItem="OvE-7W-SEk" secondAttribute="trailing" id="PUS-hy-727"/>
+                <constraint firstItem="OvE-7W-SEk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="RNE-sO-Ij2"/>
+                <constraint firstAttribute="bottom" secondItem="YrL-lm-i9i" secondAttribute="bottom" constant="17" id="nV3-lb-xkp"/>
+                <constraint firstAttribute="bottom" secondItem="OvE-7W-SEk" secondAttribute="bottom" id="reF-ZH-fyS"/>
+                <constraint firstAttribute="trailing" secondItem="OvE-7W-SEk" secondAttribute="trailing" id="tZs-nW-xEA"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="RNE-sO-Ij2"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="15.5" y="295.5"/>
+        </view>
+    </objects>
+</document>

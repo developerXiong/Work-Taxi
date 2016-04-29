@@ -1,0 +1,109 @@
+//
+//  HeadFile.pch
+//  eTaxi-iOS
+//
+//  Created by jeader on 16/1/7.
+//  Copyright © 2016年 jeader. All rights reserved.
+//
+
+#ifndef HeadFile_pch
+#define HeadFile_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import "UIViewController+CustomModelView.h"
+
+#import "PersonalVC.h"
+
+#import "UIImageView+photoBrowser.h"
+#import "GetData.h"
+#import "NSString+StringForUrl.h"
+
+#define JDScreenSize [UIScreen mainScreen].bounds.size
+/*
+ 判断是模拟器还是真机 1是真机 0是模拟器
+ */
+#if TARGET_IPHONE_SIMULATOR
+#define SIMULATOR 1
+#elif TARGET_OS_IPHONE
+#define SIMULATOR 0
+#endif
+
+//积分兑换的plist文件
+#define IntegrateFilePath [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"inter.plist"]
+
+//维修预约的plist文件
+#define RepairFilePath [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"repair.plist"]
+
+//失物招领的plist文件
+#define LostAndFoundFilePath [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"lost.plist"]
+
+//路况申报的plist文件
+#define RoadFilePath [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"road.plist"]
+
+//总违章数量
+#define TOTALPECC [[NSUserDefaults standardUserDefaults]objectForKey:@"totalPecc"]
+
+//用户手机号和密码
+#define PHONENO [[NSUserDefaults standardUserDefaults]objectForKey:@"phone"]
+#define PASSWORD [[NSUserDefaults standardUserDefaults]objectForKey:@"password"]
+//车牌号和发动机后六位
+#define PLATE [[NSUserDefaults standardUserDefaults]objectForKey:@"plateNo"]
+#define ENGINE [[NSUserDefaults standardUserDefaults]objectForKey:@"engineNo"]
+//用户名 服务证号和 公司
+#define NAME [[NSUserDefaults standardUserDefaults]objectForKey:@"name"]
+#define SERVICENO [[NSUserDefaults standardUserDefaults]objectForKey:@"serviceNo"]
+#define TAXICOMPANY [[NSUserDefaults standardUserDefaults]objectForKey:@"taxiCompany"]
+#define KM [[NSUserDefaults standardUserDefaults]objectForKey:@"KM"]
+#define SCORE [[NSUserDefaults standardUserDefaults]objectForKey:@"leftScore"]
+#define LOGINTIME [[NSUserDefaults standardUserDefaults]objectForKey:@"loginTime"]
+
+//推送的消息
+#define PUSHDATA [[NSUserDefaults standardUserDefaults]objectForKey:@"pushArr"]
+
+//view的背景颜色 浅灰底色
+#define ViewBackgroundColor [UIColor colorWithRed:234/255.0 green:234/255.0 blue:234/255.0 alpha:1.0]
+
+//线的颜色
+#define LineBackgroundColor [UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1.0]
+
+//灰色字体颜色
+#define TextLightColor [UIColor colorWithRed:110/255.0 green:110/255.0 blue:110/255.0 alpha:1.0]
+
+//红色
+#define RedColor [UIColor colorWithRed:212/255.0 green:35/255.0 blue:39/255.0 alpha:1.0]
+
+/**
+ *  黑色字体
+ */
+#define BLACKCOLOR [UIColor colorWithRed:64/255.0 green:64/255.0 blue:64/255.0 alpha:1.0]
+
+/**
+ *  蓝色
+ */
+#define BLUECOLOR [UIColor colorWithRed:30/255.0 green:103/255.0 blue:203/255.0 alpha:1.0]
+
+/**
+ *  路况申报 失物招领 维修预约的 透明字体颜色
+ */
+#define LostTextColor [UIColor colorWithRed:180/255.0 green:180/255.0 blue:180/255.0 alpha:1.0]
+
+#define LostAndRoadBtnViewH ((JDScreenSize.width - 2)/3 * 0.8) * 3 + 2
+
+/**
+ *  根据RGB获取颜色
+ */
+#define COLORWITHRGB(R, G, B, A) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]
+
+#ifdef DEBUG
+
+#define JDLog(...) NSLog(__VA_ARGS__)
+
+#else
+
+#define JDLog(...)
+
+#endif
+
+#endif /* HeadFile_pch */

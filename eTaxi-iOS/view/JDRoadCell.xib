@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="road" rowHeight="125" id="KGk-i7-Jjw" customClass="JDRoadCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="125"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="124"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="申报时间：2016/02/24" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r0f-AQ-e5P">
+                        <rect key="frame" x="100" y="47" width="275" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="OJ4-zV-ioG"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="申报地点：凤凰广场B座" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FiB-b2-A77">
+                        <rect key="frame" x="100" y="79" width="275" height="30"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="路况：拥堵" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5s-uB-oC4">
+                        <rect key="frame" x="100" y="15" width="275" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="UIz-AZ-Sv8"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3Rp-fS-RZp">
+                        <rect key="frame" x="3" y="16" width="92" height="92"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="92" id="4yp-Pl-RBh"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="r0f-AQ-e5P" firstAttribute="top" secondItem="D5s-uB-oC4" secondAttribute="bottom" constant="2" id="5BG-Hr-6Rm"/>
+                    <constraint firstAttribute="trailing" secondItem="r0f-AQ-e5P" secondAttribute="trailing" id="GbZ-ix-BMg"/>
+                    <constraint firstItem="3Rp-fS-RZp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="LLm-eA-FO3"/>
+                    <constraint firstItem="D5s-uB-oC4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="NPO-Ki-Eyj"/>
+                    <constraint firstAttribute="trailing" secondItem="D5s-uB-oC4" secondAttribute="trailing" id="XuX-7W-ArI"/>
+                    <constraint firstItem="FiB-b2-A77" firstAttribute="leading" secondItem="r0f-AQ-e5P" secondAttribute="leading" id="g0x-pF-LLH"/>
+                    <constraint firstItem="D5s-uB-oC4" firstAttribute="leading" secondItem="3Rp-fS-RZp" secondAttribute="trailing" constant="5" id="hFA-Cd-7yL"/>
+                    <constraint firstItem="3Rp-fS-RZp" firstAttribute="centerY" secondItem="r0f-AQ-e5P" secondAttribute="centerY" id="kQl-qi-nvM"/>
+                    <constraint firstItem="FiB-b2-A77" firstAttribute="trailing" secondItem="r0f-AQ-e5P" secondAttribute="trailing" id="sRt-bs-iew"/>
+                    <constraint firstItem="3Rp-fS-RZp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-5" id="vfS-WC-xob"/>
+                    <constraint firstItem="FiB-b2-A77" firstAttribute="top" secondItem="r0f-AQ-e5P" secondAttribute="bottom" constant="2" id="vso-kq-HbJ"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="FiB-b2-A77" secondAttribute="bottom" constant="7" id="wgo-0X-e3o"/>
+                    <constraint firstItem="FiB-b2-A77" firstAttribute="leading" secondItem="D5s-uB-oC4" secondAttribute="leading" id="z4o-br-xgt"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="roadAdd" destination="FiB-b2-A77" id="tnh-2p-Xpr"/>
+                <outlet property="roadImageV" destination="3Rp-fS-RZp" id="aLN-A9-fe7"/>
+                <outlet property="roadTime" destination="r0f-AQ-e5P" id="RuC-kF-WR8"/>
+                <outlet property="roadType" destination="D5s-uB-oC4" id="7zW-dC-bIP"/>
+            </connections>
+            <point key="canvasLocation" x="269.5" y="175.5"/>
+        </tableViewCell>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell1" rowHeight="100" id="JEz-lA-Bnd" customClass="JDRoadCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JEz-lA-Bnd" id="UHi-mh-1Fc">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="269.5" y="424"/>
+        </tableViewCell>
+    </objects>
+</document>

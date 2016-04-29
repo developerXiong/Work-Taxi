@@ -1,0 +1,19 @@
+//
+//  JDVipCell.h
+//  eTaxi-iOS
+//
+//  Created by jeader on 16/3/25.
+//  Copyright © 2016年 jeader. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface JDVipCell : UITableViewCell
+/**
+ *  顶部的label
+ */
+@property (weak, nonatomic) IBOutlet UILabel *topLabel;
+
+@property (weak, nonatomic) IBOutlet UIView *boView;
+
+@end

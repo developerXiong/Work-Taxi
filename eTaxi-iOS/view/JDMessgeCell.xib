@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="messCell" id="KGk-i7-Jjw" customClass="JDMessgeCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="119"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="积分商城" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HX3-EM-SSB">
+                        <rect key="frame" x="13" y="8" width="307" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="Hs7-kk-N59"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016/03/10 12:01:53" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Cm-sr-uor">
+                        <rect key="frame" x="13" y="27" width="307" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="Lqc-7C-JkB"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4uY-ij-HDr">
+                        <rect key="frame" x="0.0" y="52" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Gpp-am-CgD"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="积分商场大量新品上架，无车日优惠酬宾，全场9折。至此一天，过期不候。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18O-lm-4e7">
+                        <rect key="frame" x="13" y="61" width="307" height="39"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="39" id="GJn-Ej-bqk"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="提醒小点" translatesAutoresizingMaskIntoConstraints="NO" id="HH5-5L-tke">
+                        <rect key="frame" x="8" y="8" width="8" height="8"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="8" id="FV0-hM-rxt"/>
+                            <constraint firstAttribute="width" constant="8" id="hHY-tL-AAd"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="18O-lm-4e7" secondAttribute="trailing" id="0k3-fr-HK3"/>
+                    <constraint firstItem="HH5-5L-tke" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="1oM-hl-nhX"/>
+                    <constraint firstItem="4Cm-sr-uor" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="4Vm-d6-IC4"/>
+                    <constraint firstAttribute="trailing" secondItem="4Cm-sr-uor" secondAttribute="trailing" id="4hI-ju-JRN"/>
+                    <constraint firstItem="18O-lm-4e7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="6RF-gj-S9I"/>
+                    <constraint firstItem="4Cm-sr-uor" firstAttribute="top" secondItem="HX3-EM-SSB" secondAttribute="bottom" constant="-6" id="BB9-CO-Tch"/>
+                    <constraint firstAttribute="trailing" secondItem="HX3-EM-SSB" secondAttribute="trailing" id="TNt-kn-CrU"/>
+                    <constraint firstAttribute="trailing" secondItem="4uY-ij-HDr" secondAttribute="trailing" id="ULf-n8-Vfv"/>
+                    <constraint firstItem="4uY-ij-HDr" firstAttribute="top" secondItem="4Cm-sr-uor" secondAttribute="bottom" id="ZPz-mk-8SR"/>
+                    <constraint firstItem="HH5-5L-tke" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="f3a-ie-fu2"/>
+                    <constraint firstItem="HX3-EM-SSB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="iKk-lp-K6o"/>
+                    <constraint firstItem="4uY-ij-HDr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="pZl-h6-osL"/>
+                    <constraint firstItem="18O-lm-4e7" firstAttribute="top" secondItem="4uY-ij-HDr" secondAttribute="bottom" constant="8" id="zTQ-cd-7Is"/>
+                    <constraint firstItem="HX3-EM-SSB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="zx1-y5-iGb"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="describe" destination="18O-lm-4e7" id="xZE-qh-Stj"/>
+                <outlet property="messPoint" destination="HH5-5L-tke" id="c3C-AH-LCV"/>
+                <outlet property="time" destination="4Cm-sr-uor" id="d8w-DK-d1e"/>
+                <outlet property="title" destination="HX3-EM-SSB" id="J8i-qa-kJR"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="提醒小点" width="8" height="8"/>
+    </resources>
+</document>

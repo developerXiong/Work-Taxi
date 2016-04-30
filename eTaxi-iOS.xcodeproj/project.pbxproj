@@ -157,6 +157,10 @@
 		6A9BF0141CA29F4600167FE0 /* JDVIPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9BF0121CA29F4600167FE0 /* JDVIPViewController.m */; };
 		6A9BF0151CA29F4600167FE0 /* JDVIPViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A9BF0131CA29F4600167FE0 /* JDVIPViewController.xib */; };
 		6A9BF0181CA29F5A00167FE0 /* JDVipAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9BF0171CA29F5A00167FE0 /* JDVipAnimationView.m */; };
+		6AA3FD841CD32C3000FC2E40 /* JDMorethanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA3FD821CD32C3000FC2E40 /* JDMorethanViewController.m */; };
+		6AA3FD851CD32C3000FC2E40 /* JDMorethanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AA3FD831CD32C3000FC2E40 /* JDMorethanViewController.xib */; };
+		6AA3FD891CD3462300FC2E40 /* JDAboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA3FD871CD3462300FC2E40 /* JDAboutUsViewController.m */; };
+		6AA3FD8A1CD3462300FC2E40 /* JDAboutUsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AA3FD881CD3462300FC2E40 /* JDAboutUsViewController.xib */; };
 		6AA4D7F21C80532F001D1062 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AA4D7F11C80532F001D1062 /* Assets.xcassets */; };
 		6AA5B4161CB64A080072B18D /* JDVipInfoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA5B4151CB64A080072B18D /* JDVipInfoData.m */; };
 		6AA5B4191CB64DB60072B18D /* JDGetVipinfoTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA5B4181CB64DB60072B18D /* JDGetVipinfoTools.m */; };
@@ -583,6 +587,12 @@
 		6A9BF0131CA29F4600167FE0 /* JDVIPViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JDVIPViewController.xib; sourceTree = "<group>"; };
 		6A9BF0161CA29F5A00167FE0 /* JDVipAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDVipAnimationView.h; sourceTree = "<group>"; };
 		6A9BF0171CA29F5A00167FE0 /* JDVipAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDVipAnimationView.m; sourceTree = "<group>"; };
+		6AA3FD811CD32C3000FC2E40 /* JDMorethanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDMorethanViewController.h; sourceTree = "<group>"; };
+		6AA3FD821CD32C3000FC2E40 /* JDMorethanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDMorethanViewController.m; sourceTree = "<group>"; };
+		6AA3FD831CD32C3000FC2E40 /* JDMorethanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JDMorethanViewController.xib; sourceTree = "<group>"; };
+		6AA3FD861CD3462300FC2E40 /* JDAboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDAboutUsViewController.h; sourceTree = "<group>"; };
+		6AA3FD871CD3462300FC2E40 /* JDAboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDAboutUsViewController.m; sourceTree = "<group>"; };
+		6AA3FD881CD3462300FC2E40 /* JDAboutUsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JDAboutUsViewController.xib; sourceTree = "<group>"; };
 		6AA4D7F11C80532F001D1062 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6AA5B4141CB64A080072B18D /* JDVipInfoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDVipInfoData.h; sourceTree = "<group>"; };
 		6AA5B4151CB64A080072B18D /* JDVipInfoData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDVipInfoData.m; sourceTree = "<group>"; };
@@ -1038,6 +1048,7 @@
 		6A0A0DE11C330AB200975510 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				6AA3FD7D1CD3126000FC2E40 /* more(更多) */,
 				6A05DD6A1C3367B4007ED83E /* person-info（个人信息） */,
 				6A379EDD1C3A303A000BAEAC /* score-shop（我的积分） */,
 				6A379EE41C3A303A000BAEAC /* income-count（营收统计） */,
@@ -1433,6 +1444,9 @@
 				6A4F2D441C34CA7E006F3814 /* AboutVC.h */,
 				6A4F2D451C34CA7E006F3814 /* AboutVC.m */,
 				6A4F2D461C34CA7E006F3814 /* AboutVC.xib */,
+				6AA3FD861CD3462300FC2E40 /* JDAboutUsViewController.h */,
+				6AA3FD871CD3462300FC2E40 /* JDAboutUsViewController.m */,
+				6AA3FD881CD3462300FC2E40 /* JDAboutUsViewController.xib */,
 			);
 			name = ContectUs;
 			sourceTree = "<group>";
@@ -1593,6 +1607,40 @@
 				6A9073EF1C3307670035F533 /* Info.plist */,
 			);
 			path = "eTaxi-iOSUITests";
+			sourceTree = "<group>";
+		};
+		6AA3FD7D1CD3126000FC2E40 /* more(更多) */ = {
+			isa = PBXGroup;
+			children = (
+				6AA3FD801CD3127B00FC2E40 /* Controller */,
+				6AA3FD7F1CD3127500FC2E40 /* Model */,
+				6AA3FD7E1CD3127000FC2E40 /* View */,
+			);
+			name = "more(更多)";
+			sourceTree = "<group>";
+		};
+		6AA3FD7E1CD3127000FC2E40 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		6AA3FD7F1CD3127500FC2E40 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		6AA3FD801CD3127B00FC2E40 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6AA3FD811CD32C3000FC2E40 /* JDMorethanViewController.h */,
+				6AA3FD821CD32C3000FC2E40 /* JDMorethanViewController.m */,
+				6AA3FD831CD32C3000FC2E40 /* JDMorethanViewController.xib */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		6AA5B4131CB649770072B18D /* Model */ = {
@@ -2149,6 +2197,7 @@
 				6AEAD2ED1C81AFC700FDE52C /* JDDetailLostController.xib in Resources */,
 				6A13BDEF1CC8804000CEA20E /* JDCallCarViewController.xib in Resources */,
 				6A3167121C60E24A0001C970 /* JDIntegrateViewController.xib in Resources */,
+				6AA3FD8A1CD3462300FC2E40 /* JDAboutUsViewController.xib in Resources */,
 				6A44FA9A1C7354D400B6B894 /* 图层-1@3x.png in Resources */,
 				6AB8A7251C7423D5007484DB /* JDMyPointViewController.xib in Resources */,
 				6AC544961C7402B400EB6CEA /* PeccancyDetailViewC.xib in Resources */,
@@ -2176,6 +2225,7 @@
 				6AD46D011C91792800B9C6CD /* JDMessgeCell.xib in Resources */,
 				6AB175581CC9FA1500B1032C /* JDCallCarMessageViewController.xib in Resources */,
 				6AD06FCF1CA5271A00659939 /* JDVipRulesViewController.xib in Resources */,
+				6AA3FD851CD32C3000FC2E40 /* JDMorethanViewController.xib in Resources */,
 				6A3167101C60E1BA0001C970 /* OrderCell.xib in Resources */,
 				6A44FA9D1C7354D400B6B894 /* 图层-4@3x.png in Resources */,
 				6A4F2D641C350EB2006F3814 /* ViewController.xib in Resources */,
@@ -2249,6 +2299,7 @@
 				6AD46CFB1C914D7600B9C6CD /* JDGoodsInfoViewController.m in Sources */,
 				6A69D07F1C59E99C004921E9 /* InviteViewController.m in Sources */,
 				6AE148651CC60F6A00D0BAED /* JDMianViewController.m in Sources */,
+				6AA3FD841CD32C3000FC2E40 /* JDMorethanViewController.m in Sources */,
 				6A1179CC1CC71B2B00047B1F /* JDMainBar.m in Sources */,
 				6A69D0591C59E6FE004921E9 /* JDFindPasswordVC.m in Sources */,
 				6A73CB451C4385A2009DDECE /* NSObject+MJCoding.m in Sources */,
@@ -2376,6 +2427,7 @@
 				6A0C52BE1C328BA6005DCD73 /* AFURLConnectionOperation.m in Sources */,
 				6A8CC6E71CCDCF6B00247431 /* JDCallCarMessageTotalView.m in Sources */,
 				6A0C52C01C328BA6005DCD73 /* AFURLResponseSerialization.m in Sources */,
+				6AA3FD891CD3462300FC2E40 /* JDAboutUsViewController.m in Sources */,
 				6A9073CA1C3307670035F533 /* main.m in Sources */,
 				6ADFFEC51C3B90C400E6ECE9 /* JKCountDownButton.m in Sources */,
 				6AD84FD81C40B4F0002F9DE3 /* MyScrollView.m in Sources */,

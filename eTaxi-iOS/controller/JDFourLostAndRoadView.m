@@ -34,7 +34,6 @@
     if (self=[super initWithFrame:frame]) {
         
         
-        
     }
     return self;
 }
@@ -43,57 +42,85 @@
 {
     _nameArr = nameArr;
     
-    
 }
 
 -(void)setImageNameArr:(NSArray *)imageNameArr
 {
     _imageNameArr = imageNameArr;
     
-    //整体的按钮view
-    CGFloat viewW = (JDScreenSize.width - 2)/3;
-    CGFloat btnH = viewW * 0.8;
-    UIView *mainView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, JDScreenSize.width, btnH*3 + 2)];
-    _mainView = mainView;
-    [self addSubview:mainView];
     
+    // 按钮
     for (int i = 0; i < imageNameArr.count; i ++) {
         
-        JDLostButton *btn = [self createBtnWithIndex:i imageName:imageNameArr[i] title:imageNameArr[i]];
+        JDLostButton *btn = [[JDLostButton alloc] init];
+        
+        btn.tag = i;
+        
         btn.btnAndImageName = imageNameArr[i];
         btn.btnName = _nameArr[i];
+        
+        btn.delegate = self;
+        //防止同时点击两个按钮
+        [btn setExclusiveTouch:YES];
+        
+        [self addSubview:btn];
         
         [self.btnArr addObject:btn];
         
     }
     
+    // 添加白线
+    for (int i = 0; i < 5; i++) {
+        UILabel *line = [[UILabel alloc] init];
+        line.backgroundColor = TextLightColor;
+        [self addSubview:line];
+        line.tag = i;
+    }
+    
 }
 
-/**
- *  创建状态按钮
- *
- *  @param index 第几个
- *  @param image 图片名称
- *  @param title 下方的文字
- */
--(JDLostButton *)createBtnWithIndex:(int)index imageName:(NSString *)image title:(NSString *)title
+-(void)layoutSubviews
 {
+    [super layoutSubviews];
     
     CGFloat btnW = (JDScreenSize.width - 2)/3;
     CGFloat btnH = btnW * 0.8;
-    int colon = index % 3; //列
-    int row = index / 3; //行
     
-    JDLostButton *btn = [[JDLostButton alloc] initWithFrame:CGRectMake(colon * (btnW + 1) , row * (btnH + 1), btnW, btnH)];
-    btn.delegate = self;
-    btn.tag = index;
-    //防止同时点击两个按钮
-    [btn setExclusiveTouch:YES];
-    [self.mainView addSubview:btn];
-   
-    return btn;
+    // 按钮
+    for (UIView *view in self.subviews) {
+        if ([view isKindOfClass:[JDLostButton class]]) {
+            
+            JDLostButton *btn = (JDLostButton *)view;
+            
+            NSInteger index = btn.tag;
+            
+            NSInteger col = index % 3; //列
+            NSInteger row = index / 3; //行
+            
+            btn.frame = CGRectMake(col * (btnW + 1) , row * (btnH + 1), btnW, btnH);
+            
+        }
+    }
+    
+    // 线
+    for (UIView *view in self.subviews) {
+        if ([view isKindOfClass:[UILabel class]]) {
+            
+            UILabel *line = (UILabel *)view;
+            
+            NSInteger i = line.tag;
+            
+            NSInteger row = i%3; // 横着的3条线
+            
+            NSInteger col = i%2; // 竖着的2条线
+            if (i<3) {
+                line.frame = CGRectMake(0, row*btnH, self.bounds.size.width, 0.5);
+            }else{
+                line.frame = CGRectMake(col*btnW+btnW, 0, 0.5, self.bounds.size.height);
+            }
+        }
+    }
 }
-
 
 #pragma mark - lostButton delegate
 -(void)clickBtnDidAnimation:(UIButton *)sender btnName:(NSString *)str

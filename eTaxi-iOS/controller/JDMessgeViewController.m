@@ -24,6 +24,8 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
+    [self addNavigationBar:@"消息"];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated

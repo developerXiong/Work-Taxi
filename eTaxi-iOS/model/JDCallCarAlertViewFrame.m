@@ -24,7 +24,7 @@
     NSString *addressText = callCarData.address;
     NSString *destinationText = callCarData.destination;
     
-    CGFloat tw = 230, th = 0, tx = (JDScreenSize.width-tw)/2, ty = 40;
+    CGFloat tw = 250, th = 0, tx = (JDScreenSize.width-tw)/2, ty = 0;
     
     
     // 联系方式
@@ -72,6 +72,7 @@
     
     // 整体的view
     th = CGRectGetMaxY(_bottomViewFrame);
+    ty = (JDScreenSize.height-64-th)/2-50;
     _totalViewFrame = CGRectMake(tx, ty, tw, th);
     
 }

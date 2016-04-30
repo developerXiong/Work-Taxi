@@ -19,9 +19,6 @@
 
 @property (nonatomic, weak) UIImageView *imageV;
 
-@property (nonatomic, weak) UIImageView *backgroundImage;
-
-
 @end
 
 @implementation JDLostButton
@@ -42,86 +39,29 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     _btn = btn;
-    [btn setFrame:self.bounds];
     [btn setExclusiveTouch:YES];
-    
-    //在边缘移动
     [btn addTarget:self action:@selector(clickMove:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btn];
-    
-    UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:btn.bounds];
-    _backgroundImage = backgroundImage;
-    backgroundImage.tag  = 1020;
-    backgroundImage.userInteractionEnabled = NO;
-    [btn addSubview:backgroundImage];
 
     UILabel *label = [[UILabel alloc] init];
     _label = label;
-    
     label.font = TopTextFont;
-    label.tag = 1021;
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor whiteColor];
     [btn addSubview:label];
 
     
-
     UIImageView *imageV = [[UIImageView alloc] init];
     _imageV = imageV;
     imageV.userInteractionEnabled = NO;
-    
-    imageV.tag = 1022;
     [btn addSubview:imageV];
-}
-
--(void)clickMove:(UIButton *)sender
-{
-    JDLog(@"点击物品类型");
-    if ([_delegate respondsToSelector:@selector(clickBtnWillAnimation:btnName:)]) {
-        [_delegate clickBtnWillAnimation:self btnName:_btnAndImageName];
-    }
-//    [self animationStart:sender durtion:0.6 type:0];
-    [self endAnimation];
-}
-
-#pragma mark - 动画效果
-// 动画结束后调用
--(void)endAnimation
-{
-    
-    CGFloat durtion = 0.5; // 动画时间
-    
-    [UIView animateWithDuration:durtion animations:^{
-        
-        self.transform = CGAffineTransformMakeScale(2, 2);
-        self.alpha --;
-        
-        
-    } completion:^(BOOL finished) {
-        
-        if ([_delegate respondsToSelector:@selector(clickBtnDidAnimation:btnName:)]) {
-            [_delegate clickBtnDidAnimation:self btnName:_btnAndImageName];
-        }
-        
-        self.transform = CGAffineTransformIdentity;
-        self.alpha = 1;
-//        [self animationStart:_btn durtion:0 type:1];
-    }];
-}
-
-
--(void)setEnble:(BOOL)enble
-{
-    if ([_btnAndImageName length]) {
-        _enble = enble;
-        
-        _btn.enabled = enble;
-    }
 }
 
 -(void)layoutSubviews
 {
     [super layoutSubviews];
+    
+    [_btn setFrame:self.bounds];
     
     CGSize imageS = [[UIImage imageNamed:_btnAndImageName] size];
     /**
@@ -140,16 +80,68 @@
     
     CGFloat imageX = (selfW - imageS.width)/2;
     
-    CGFloat toMargin = 5;
+    CGFloat toMargin = 10;
     
     if (JDScreenSize.width==414) {
         
-        toMargin = 10;
+        toMargin = 13;
         
     }
     
     _imageV.frame = CGRectMake(imageX, CGRectGetMinY(_label.frame)-toMargin-imageS.height, imageS.width, imageS.height);
     
+}
+
+
+-(void)clickMove:(UIButton *)sender
+{
+    JDLog(@"点击物品类型");
+    if ([_delegate respondsToSelector:@selector(clickBtnWillAnimation:btnName:)]) {
+        [_delegate clickBtnWillAnimation:self btnName:_btnAndImageName];
+    }
+
+    [self startAnimation];
+}
+
+#pragma mark - 动画效果
+-(void)startAnimation
+{
+    
+    CGFloat durtion = 0.3; // 动画时间
+    
+    // 图片会往上跑一段距离，很奇怪
+//    self.transform = CGAffineTransformMakeTranslation(0, 12);
+    [UIView animateWithDuration:durtion animations:^{
+        
+        _imageV.transform = CGAffineTransformMakeScale(2.0, 2.0);
+        _imageV.alpha --;
+        
+        
+    } completion:^(BOOL finished) {
+        
+        if ([_delegate respondsToSelector:@selector(clickBtnDidAnimation:btnName:)]) {
+            [_delegate clickBtnDidAnimation:self btnName:_btnAndImageName];
+        }
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            _imageV.transform = CGAffineTransformIdentity;
+            _imageV.alpha = 1;
+            
+        });
+        
+
+    }];
+}
+
+
+-(void)setEnble:(BOOL)enble
+{
+    if ([_btnAndImageName length]) {
+        _enble = enble;
+        
+        _btn.enabled = enble;
+    }
 }
 
 -(void)setBtnAndImageName:(NSString *)btnAndImageName

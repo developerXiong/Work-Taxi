@@ -95,7 +95,7 @@
     
     _mengc.frame = self.bounds;
     
-    _repairDetail.frame = CGRectMake(0, 0, 230, 45);
+    _repairDetail.frame = CGRectMake(0, 0, 250, 45);
     
     
 }

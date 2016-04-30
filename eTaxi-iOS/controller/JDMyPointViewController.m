@@ -57,7 +57,7 @@
     self.hud =[[MBProgressHUD alloc] initWithView:self.view];
     [self.tableVi addSubview:self.hud];
     
-    [self addNavigationBar:@"我的积分"];
+    [self addCleaerNavigationBar:@"我的积分"];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -88,6 +88,10 @@
             cell=[[[NSBundle mainBundle]loadNibNamed:@"PeccCell" owner:nil options:nil]objectAtIndex:3];
             cell.selectionStyle=UITableViewCellSelectionStyleNone;
         }
+        
+        cell.marketBtn.layer.masksToBounds = YES;
+        cell.marketBtn.layer.cornerRadius = 5.0;
+        
         if (SCORE)
         {
             //1650积分label的字体设置
@@ -131,6 +135,10 @@
         {
             cell.getBtn.hidden=YES;
         }
+        
+        cell.backView.layer.masksToBounds = YES;
+        cell.backView.layer.cornerRadius = 5.0;
+        
         cell.getBtn.tag=indexPath.row*1;
         [cell.getBtn addTarget:self action:@selector(getBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         //定义一个内容的label
@@ -138,7 +146,7 @@
         contentLabel.frame=CGRectMake(24, 38, 225, [self getHeightWithString:self.arr[indexPath.row]]+20);
         contentLabel.numberOfLines=0;
         contentLabel.font=[UIFont systemFontOfSize:12];
-        contentLabel.textColor=[UIColor lightGrayColor];
+        contentLabel.textColor=[UIColor whiteColor];
         //设置内容label的行间距
         NSString * string =self.arr[indexPath.row];
         NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:string];
@@ -151,18 +159,24 @@
     }
     return cell;
 }
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.backgroundColor = [UIColor clearColor];
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView * view =[[UIView alloc] init];
+    UIView * view =[[UIView alloc] initWithFrame:CGRectMake(0, 0, JDScreenSize.width, 30)];
     view.backgroundColor=[UIColor clearColor];
     if (section==0)
     {
         UILabel * titleLab =[[UILabel alloc] init];
-        titleLab.frame=CGRectMake(JDScreenSize.width/2-40, 5, 80, 20);
+        titleLab.frame=CGRectMake(JDScreenSize.width/2-40, 0, 80, 30);
         titleLab.text=@"积分任务";
         titleLab.textAlignment=NSTextAlignmentCenter;
-        titleLab.font=[UIFont systemFontOfSize:13];
-        titleLab.textColor=[UIColor colorWithRed:107/255.0 green:107/255.0 blue:107/255.0 alpha:1.0];
+        titleLab.font=[UIFont systemFontOfSize:15];
+        titleLab.textColor=[UIColor whiteColor];
         [view addSubview:titleLab];
     }
     return view;
@@ -204,14 +218,14 @@
         {
             JDFourLostViewController * vc =[[JDFourLostViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
-            [vc addNavigationBar:@"失物招领"];
+
         }
             break;
         case 4:
         {
             JDFourRoadViewController * vc =[[JDFourRoadViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
-            [vc addNavigationBar:@"路况申报"];
+
         }
             break;
             

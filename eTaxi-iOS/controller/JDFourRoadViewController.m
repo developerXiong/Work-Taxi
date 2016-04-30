@@ -127,6 +127,8 @@
      */
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.showsHorizontalScrollIndicator = NO;
+    self.tableView.showsVerticalScrollIndicator = NO;
     
     _currentIndex = 0;
     
@@ -134,7 +136,9 @@
     [self getRoadDataWithStatus:0];
     
     [self addStoreView];
-    self.view.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"背景路"]];
+    
+    [self addCleaerNavigationBar:@"路况申报"];
+    
 }
 
 #pragma mark - 定位
@@ -304,7 +308,7 @@
     
     CGFloat offsetY = scrollView.contentOffset.y;
     
-    if (offsetY>=CellHeaderHeight*2+LostAndRoadBtnViewH-20) {
+    if (offsetY>=CellHeaderHeight+LostAndRoadBtnViewH) {
         self.statusViewInSelf.hidden = NO;
     }else{
         self.statusViewInSelf.hidden = YES;
@@ -379,21 +383,18 @@
     if (indexPath.section==0) {
         cell = [[NSBundle mainBundle]loadNibNamed:@"JDRoadCell" owner:nil options:nil][1];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.backgroundColor=[UIColor clearColor];
         //创建物品类型按钮视图
         JDFourLostAndRoadView *fourView = [[JDFourLostAndRoadView alloc] initWithFrame:CGRectMake(0, 0, JDScreenSize.width, LostAndRoadBtnViewH)];
         fourView.delegate = self;
         _fourView = fourView;
         [fourView setNameArr:self.nameArr];
         [fourView setImageNameArr:self.imageArr];
-        NSLog(@"==ssssss==%@",self.imageArr);
         [cell.contentView addSubview:fourView];
         
     }else if (indexPath.section==1){ //第二栏
         
         cell = [[NSBundle mainBundle]loadNibNamed:@"JDRoadCell" owner:nil options:nil][1];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        cell.backgroundColor=[UIColor clearColor];
         // 物品审核状态栏
         JDAuditStatusView *statusView = [[JDAuditStatusView alloc] initWithFrame:CGRectMake(0, 0, JDScreenSize.width, STATUSHEIGHT)];
         statusView.delegate = self;
@@ -406,7 +407,6 @@
         
         cell = [[NSBundle mainBundle]loadNibNamed:@"JDRoadCell" owner:nil options:nil][0];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.backgroundColor=[UIColor clearColor];
         
         if (self.roadRecord.count) {
             
@@ -450,20 +450,24 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.backgroundColor = [UIColor clearColor];
+}
+
+
 //返回顶部视图的样式
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
         
-        NSString *str = @"                                       请选择路况类型";
-//        if (section == 1) {
-//            str = @"     申报记录";
-//        }
+        NSString *str = @"请选择路况类型";
         //顶部空白label
         UILabel *full = [[UILabel alloc] initWithFrame:CGRectMake((JDScreenSize.width-150)/2, 0, 150, CellHeaderHeight)];
         full.textColor = [UIColor whiteColor];
         full.font = TopTextFont;
         full.text = str;
+        full.textAlignment = NSTextAlignmentCenter;
         
         return full;
     }

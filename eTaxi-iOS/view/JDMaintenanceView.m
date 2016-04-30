@@ -107,7 +107,7 @@
     UIButton *repairTime = [UIButton buttonWithType:UIButtonTypeCustom];
     [self addSubview:repairTime];
     _repairTime = repairTime;
-    [repairTime setTitleColor:TextLightColor forState:UIControlStateNormal];
+    [repairTime setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [repairTime addTarget:self action:@selector(clickRepairTime) forControlEvents:UIControlEventTouchUpInside];
     [repairTime setTitle:@"请选择" forState:UIControlStateNormal];
     repairTime.titleLabel.font = TextLabelFont;
@@ -125,7 +125,7 @@
     [self addSubview:repairPoint];
     _repairPoint = repairPoint;
     [repairPoint setTitle:@"请选择" forState:UIControlStateNormal];
-    [repairPoint setTitleColor:TextLightColor forState:UIControlStateNormal];
+    [repairPoint setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [repairPoint addTarget:self action:@selector(clickRepairPoint) forControlEvents:UIControlEventTouchUpInside];
     repairPoint.titleLabel.font = TextLabelFont;
     

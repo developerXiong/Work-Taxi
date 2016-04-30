@@ -10,8 +10,6 @@
 #import "HeadFile.pch"
 #import "UIImageView+WebCache.h"
 
-static UIImage *_urlImage;
-
 @interface JDGoodsInfoViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 /**商品的数量*/
@@ -46,23 +44,18 @@ static UIImage *_urlImage;
 {
     _goodsData = goodsData;
     
-    [self.tableView reloadData];
-    
-    if ([goodsData.goodDetail length]) {
-        
-        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",goodsData.goodDetail]]];
-        UIImage *image = [UIImage imageWithData:imageData];
-        _urlImage = image;
-        
-        self.tableView.rowHeight = [_urlImage size].height;
-    }
-    
     self.exchangeCount.text = [NSString stringWithFormat:@"  商品已被兑换%@件",goodsData.goodCount];
     
     self.needPoint.text = [NSString stringWithFormat:@"%@",goodsData.cost];
     
 }
 
+-(void)setDetailImage:(UIImage *)detailImage
+{
+    _detailImage = detailImage;
+    
+    NSLog(@"%@",detailImage);
+}
 
 //点击立刻兑换按钮调用
 - (IBAction)exchange:(id)sender {
@@ -141,14 +134,25 @@ static UIImage *_urlImage;
     }
     
     if ([_goodsData.goodDetail length]) {
-        CGSize imageS = [_urlImage size];
-        UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, JDScreenSize.width, imageS.height)];
+
+        // 详情图片
+        
+        UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, JDScreenSize.width, [_detailImage size].height)];
         [cell.contentView addSubview:imageV];
-        imageV.image = _urlImage;
+        imageV.image = _detailImage;
+        
+        NSLog(@"%@",_detailImage);
+        
     }
 
     
     return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    return [_detailImage size].height;
 }
 
 

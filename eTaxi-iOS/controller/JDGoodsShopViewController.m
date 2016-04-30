@@ -86,18 +86,34 @@
 #pragma mark - goodsView delegate
 -(void)goodsViewSelectItem:(JDGoodsData *)data
 {
-
-    dispatch_async(dispatch_get_main_queue(), ^{
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+       
+        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",data.goodDetail]]];
         
-        JDGoodsInfoViewController *goodsInfo = [[JDGoodsInfoViewController alloc] init];
-        [self presentViewController:goodsInfo animated:YES completion:nil];
+        UIImage *image = [UIImage imageWithData:imageData];
+//        
+//        JDLog(@"%@",data.goodDetail);
+//        
+//        JDLog(@"%@",image);
         
-        goodsInfo.goodsData = data;
-        
-        goodsInfo.delegate = self;
-
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            JDGoodsInfoViewController *goodsInfo = [[JDGoodsInfoViewController alloc] init];
+            
+            goodsInfo.detailImage = image;
+            
+            
+            goodsInfo.goodsData = data;
+            
+            goodsInfo.delegate = self;
+            
+            [self presentViewController:goodsInfo animated:YES completion:nil];
+            
+        });
         
     });
+
     
 }
 

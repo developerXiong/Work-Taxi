@@ -69,6 +69,7 @@
         
     }
     
+    // 线
     for (int i = 0; i < 6; i++) {
         UILabel *line = [[UILabel alloc] init];
         line.backgroundColor = TextLightColor;

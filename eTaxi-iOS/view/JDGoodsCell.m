@@ -89,14 +89,18 @@
     
     CGSize imageS = [Image size];
     // 积分前面的图片
-    CGFloat sx = nx, sy = CGRectGetMaxY(_name.frame)+10, sw = imageS.width, sh = imageS.height;
+    CGFloat sx = nx, sy = CGRectGetMaxY(_name.frame)+15, sw = imageS.width, sh = imageS.height;
     _scoreImageView.frame = CGRectMake(sx, sy, sw, sh);
     
     // 积分 15
-    _score.frame = CGRectMake(CGRectGetMaxX(_scoreImageView.frame)+5, sy, 76, 18);
+    CGFloat scw = 76;
+    if ([UIScreen mainScreen].bounds.size.width==320) {
+        scw = 60;
+    }
+    _score.frame = CGRectMake(CGRectGetMaxX(_scoreImageView.frame)+5, sy-5, scw, 18);
     
     // 已兑换 12
-    _exchangeCount.frame = CGRectMake(CGRectGetMaxX(_score.frame)+12, sy+3, 84, 15);
+    _exchangeCount.frame = CGRectMake(CGRectGetMaxX(_score.frame), sy-2, 84, 15);
     
 }
 

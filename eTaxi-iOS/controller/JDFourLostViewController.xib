@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JDFourLostViewController">
             <connections>
-                <outlet property="tableView" destination="ETh-5T-o4H" id="w7w-JS-ojf"/>
+                <outlet property="tableView" destination="Wb1-DM-c72" id="giG-KG-Wew"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,23 +16,33 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="ETh-5T-o4H">
-                    <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lost_背景" translatesAutoresizingMaskIntoConstraints="NO" id="aaV-cu-vKO">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                </imageView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Wb1-DM-c72">
+                    <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <connections>
-                        <outlet property="dataSource" destination="-1" id="WFK-q4-Gq8"/>
-                        <outlet property="delegate" destination="-1" id="rZg-Ay-ScX"/>
+                        <outlet property="dataSource" destination="-1" id="9JX-sB-koH"/>
+                        <outlet property="delegate" destination="-1" id="GGh-Sb-raO"/>
                     </connections>
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="ETh-5T-o4H" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="44" id="r2K-TT-BNq"/>
-                <constraint firstAttribute="trailing" secondItem="ETh-5T-o4H" secondAttribute="trailing" id="v6P-Nt-9Ck"/>
-                <constraint firstAttribute="bottom" secondItem="ETh-5T-o4H" secondAttribute="bottom" id="xIX-mq-MWu"/>
-                <constraint firstItem="ETh-5T-o4H" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ybq-mK-jv6"/>
+                <constraint firstAttribute="trailing" secondItem="aaV-cu-vKO" secondAttribute="trailing" id="AxO-BM-BS8"/>
+                <constraint firstAttribute="bottom" secondItem="aaV-cu-vKO" secondAttribute="bottom" id="FbJ-I8-KiU"/>
+                <constraint firstItem="Wb1-DM-c72" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="Fx5-Ug-9xL"/>
+                <constraint firstItem="aaV-cu-vKO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="IGN-Xo-0sC"/>
+                <constraint firstAttribute="trailing" secondItem="Wb1-DM-c72" secondAttribute="trailing" id="Kfm-LF-zKz"/>
+                <constraint firstItem="aaV-cu-vKO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="MAH-WG-Njm"/>
+                <constraint firstAttribute="bottom" secondItem="Wb1-DM-c72" secondAttribute="bottom" id="h2s-ri-99o"/>
+                <constraint firstItem="Wb1-DM-c72" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="z7f-7i-64A"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
+    <resources>
+        <image name="lost_背景" width="320" height="568"/>
+    </resources>
 </document>

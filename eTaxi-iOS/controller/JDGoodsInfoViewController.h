@@ -72,4 +72,6 @@
  */
 @property (nonatomic, assign) id<JDGoodsInfoDelegate>delegate;
 
+@property (nonatomic, strong) UIImage *detailImage;
+
 @end

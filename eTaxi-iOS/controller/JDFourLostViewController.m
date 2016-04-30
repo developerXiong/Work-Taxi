@@ -136,21 +136,23 @@
     [self addStoreView];
     
     [self getDataWithStatus:0];
-    self.view.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"背景"]];
+    
+    [self addCleaerNavigationBar:@"失物招领"];
+    
 }
 
 -(void)setUptableView
 {
+    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     //自动布局，自动根据cell的内容计算cell的高度，对应的有MVVM 代码版
     self.tableView.estimatedRowHeight = 150; //需要设置预估的高度，否则无效
     //    self.tableView.rowHeight = UITableViewAutomaticDimension;
     
-    UIImageView *imageV = [[UIImageView alloc] initWithFrame:self.tableView.bounds];
-    imageV.image = [UIImage imageNamed:@"lost_背景"];
-    
-    self.tableView.backgroundView = imageV;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.showsHorizontalScrollIndicator = NO;
+    self.tableView.showsVerticalScrollIndicator = NO;
     
 }
 
@@ -281,7 +283,7 @@
     
     CGFloat offsetY = scrollView.contentOffset.y;
 
-    if (offsetY>=CellHeaderHeight*2+LostAndRoadBtnViewH-20) {
+    if (offsetY>=CellHeaderHeight+LostAndRoadBtnViewH) {
         self.statusViewInSelf.hidden = NO;
     }else{
         self.statusViewInSelf.hidden = YES;
@@ -459,7 +461,7 @@
 {
     if (section == 0) {
         
-        NSString *str = @"     请选择物品类型";
+        NSString *str = @"请选择物品类型";
         //顶部空白label
         UILabel *full = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, JDScreenSize.width-20, CellHeaderHeight)];
         full.textColor = [UIColor whiteColor];

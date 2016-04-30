@@ -17,6 +17,8 @@
 #import "JDRepairNetTool.h"
 #import "RepairData.h"
 
+#import "MyOrderViewController.h"
+
 @interface JDMaintenanceViewController ()<JDMaintenanceViewDelegate,JDRepairDelegate>
 
 @property (nonatomic, weak) JDMaintenanceView *mainView;
@@ -149,7 +151,8 @@
     
     [JDRepairNetTool sendRepairInfoWithPro:repairPro repairId:_repairID timeStr:_timeStr InVc:self Success:^{
        
-        
+        MyOrderViewController *orderVc = [[MyOrderViewController alloc] init];
+        [self.navigationController pushViewController:orderVc animated:YES];
         
     } failure:^(NSError *error) {
         

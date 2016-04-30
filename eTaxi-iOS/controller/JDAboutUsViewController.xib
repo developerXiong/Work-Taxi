@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JDAboutUsViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_aboutus" translatesAutoresizingMaskIntoConstraints="NO" id="U5n-TJ-ggd">
+                    <rect key="frame" x="137" y="100" width="100" height="108"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="108" id="0CP-yE-anL"/>
+                        <constraint firstAttribute="width" constant="100" id="14H-fe-1ZU"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="E+TAXI 1.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jdc-C9-g3c">
+                    <rect key="frame" x="151" y="223" width="72" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.38431372549019605" green="0.38431372549019605" blue="0.38431372549019605" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright©2016-2021E+TAXI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3x-2C-Myp">
+                    <rect key="frame" x="97" y="621" width="180" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Right Reserved" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="okS-0O-F3R">
+                    <rect key="frame" x="132" y="641" width="111" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="文字" translatesAutoresizingMaskIntoConstraints="NO" id="lKd-MA-OXR">
+                    <rect key="frame" x="62" y="266" width="251" height="108"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="108" id="K9h-BO-uRE"/>
+                        <constraint firstAttribute="width" constant="251" id="e73-Db-0nF"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="lKd-MA-OXR" firstAttribute="top" secondItem="Jdc-C9-g3c" secondAttribute="bottom" constant="25" id="JFz-Vl-yNT"/>
+                <constraint firstAttribute="bottom" secondItem="okS-0O-F3R" secondAttribute="bottom" constant="10" id="OtV-1p-jV8"/>
+                <constraint firstItem="Jdc-C9-g3c" firstAttribute="top" secondItem="U5n-TJ-ggd" secondAttribute="bottom" constant="15" id="WXg-F9-ZWu"/>
+                <constraint firstItem="okS-0O-F3R" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="YbR-TZ-qbu"/>
+                <constraint firstItem="Jdc-C9-g3c" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="g89-R4-gWY"/>
+                <constraint firstItem="lKd-MA-OXR" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="tDP-V8-XNb"/>
+                <constraint firstItem="U5n-TJ-ggd" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="tyo-dE-Ll3"/>
+                <constraint firstItem="j3x-2C-Myp" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="w57-AQ-XSD"/>
+                <constraint firstItem="U5n-TJ-ggd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="100" id="xl1-Aa-sWz"/>
+                <constraint firstAttribute="bottom" secondItem="j3x-2C-Myp" secondAttribute="bottom" constant="30" id="zuv-wa-dvf"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="logo_aboutus" width="100" height="108"/>
+        <image name="文字" width="251" height="108"/>
+    </resources>
+</document>

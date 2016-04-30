@@ -46,6 +46,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self addNavigationBar:@"我的预约"];
     self.view.backgroundColor=[UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1.0];
     self.imageG.hidden=YES;
     self.tipsLab.hidden=YES;

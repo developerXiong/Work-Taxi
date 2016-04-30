@@ -30,6 +30,8 @@
 //我的积分 cell1
 @property (weak, nonatomic) IBOutlet UILabel * myPoint;
 @property (weak, nonatomic) IBOutlet UIButton * marketBtn;
+@property (weak, nonatomic) IBOutlet UIView *backView;
+
 
 //收入明细
 @property (weak, nonatomic) IBOutlet UILabel * itemLabel;

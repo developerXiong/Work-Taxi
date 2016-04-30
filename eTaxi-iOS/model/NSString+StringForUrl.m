@@ -24,7 +24,7 @@
     
     //114.55.57.237
     
-    NSString *urlStr = [NSString stringWithFormat:@"http://com-jeader-tad.6655.la:10915/tad/client/%@",apiName];
+    NSString *urlStr = [NSString stringWithFormat:@"http://114.55.57.237/tad/client/%@",apiName];
     
     return urlStr;
 }

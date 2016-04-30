@@ -34,6 +34,10 @@
 
 #import "JDMaintenanceViewController.h"
 
+#import "JDMorethanViewController.h"
+
+#import "JDAboutUsViewController.h"
+
 @interface JDMianViewController ()<JDMainButtonDelegate,LeftViewDelegate,JDMainBarDelegate>
 
 @property (nonatomic, strong) JDMainView *mainView;
@@ -123,7 +127,6 @@
         case 2: // 路况申报
         {
             JDFourRoadViewController *roadVC = [[JDFourRoadViewController alloc] init];
-            [roadVC addNavigationBar:@"路况申报"];
             [self.navigationController pushViewController:roadVC animated:NO];
         }
             break;
@@ -137,7 +140,6 @@
         case 4: // 失物招领
         {
             JDFourLostViewController *losVC = [[JDFourLostViewController alloc] init];
-            [losVC addNavigationBar:@"失物招领"];
             [self.navigationController pushViewController:losVC animated:NO];
         }
             break;
@@ -150,8 +152,9 @@
             break;
         case 6: // 更多
         {
-            JDMoreViewController *moreVC = [[JDMoreViewController alloc] init];
-            [moreVC addNavigationBar:@"更多"];
+//            JDMoreViewController *moreVC = [[JDMoreViewController alloc] init];
+            JDMorethanViewController *moreVC = [[JDMorethanViewController alloc] init];
+            
             [self.navigationController pushViewController:moreVC animated:NO];
         }
             break;
@@ -238,12 +241,6 @@
             [self presentViewController:[t showAlertControllerWithTitle:@"温馨提示" WithMessages:@"正在开发中,敬请期待..." WithCancelTitle:@"确定"] animated:YES completion:nil];
         }
             break;
-//        case 5:
-//        {
-//            MyTool * t =[MyTool new];
-//            [self presentViewController:[t showAlertControllerWithTitle:@"温馨提示" WithMessages:@"正在开发中,敬请期待..." WithCancelTitle:@"确定"] animated:YES completion:nil];
-//        }
-//            break;
         case 5:
         {
             InviteViewController * vc =[[InviteViewController alloc]init];
@@ -260,8 +257,11 @@
             break;
         case 7:
         {
-            MyTool * t =[MyTool new];
-            [self presentViewController:[t showAlertControllerWithTitle:@"温馨提示" WithMessages:@"正在开发中,敬请期待..." WithCancelTitle:@"确定"] animated:YES completion:nil];
+            
+            JDAboutUsViewController *abVc = [[JDAboutUsViewController alloc] init];
+            
+            [self.navigationController pushViewController:abVc animated:YES];
+            
         }
             break;
         default:

@@ -22,16 +22,17 @@ static UILabel *titleView;
 -(void)addNavigationBar:(NSString *)title
 {
 
-    [self addNavigationBar:COLORWITHRGB(0, 91, 201, 1) title:title];
+    [self addNavigationBar:COLORWITHRGB(0, 91, 201, 1) image:nil title:title];
     
 }
 
 -(void)addCleaerNavigationBar:(NSString *)title
 {
-    [self addNavigationBar:[[UIColor whiteColor] colorWithAlphaComponent:0] title:title];
+    
+    [self addNavigationBar:[UIColor clearColor] image:nil title:title];
 }
 
--(void)addNavigationBar:(UIColor *)color title:(NSString *)title
+-(void)addNavigationBar:(UIColor *)color image:(UIImage *)image title:(NSString *)title
 {
     /**
      *  添加整体的navigationBar
@@ -39,7 +40,14 @@ static UILabel *titleView;
     UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, JDScreenS.width, 64)];
     _imageV = imageV;
     imageV.userInteractionEnabled = YES;
-    imageV.backgroundColor = color;
+    if (color) {
+        
+        imageV.backgroundColor = color;
+    }
+    if (image) {
+        
+        imageV.image = image;
+    }
     [self.view addSubview:imageV];
     
     CGSize imageS = [[UIImage imageNamed:@"返回"] size];
@@ -52,9 +60,9 @@ static UILabel *titleView;
     [btn addTarget:self action:@selector(dismissViewC) forControlEvents:UIControlEventTouchUpInside];
     [imageV addSubview:btn];
     
-    UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(5, (44-imageS.height)/2, imageS.width, imageS.height)];
-    image.image = [UIImage imageNamed:@"返回"];
-    [btn addSubview:image];
+    UIImageView *image1 = [[UIImageView alloc] initWithFrame:CGRectMake(5, (44-imageS.height)/2, imageS.width, imageS.height)];
+    image1.image = [UIImage imageNamed:@"返回"];
+    [btn addSubview:image1];
     
     /**
      *  添加控制器的主题

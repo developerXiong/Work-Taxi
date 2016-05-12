@@ -4,7 +4,7 @@
 //
 //  Created by jeader on 16/4/21.
 //  Copyright © 2016年 jeader. All rights reserved.
-//
+//  召车接单
 
 #import "JDCallCarViewController.h"
 
@@ -90,21 +90,11 @@
     // 设置导航栏
     [self setUpNavgationBar];
     
-//    if (TARGET_IPHONE_SIMULATOR) { // 模拟器
-//        
-//        
-//        
-//    }else if(TARGET_OS_IPHONE){ // 真机
-//        
-//        JDSoundPlayer *player = [JDSoundPlayer soundPlayerInstance];
-//        [player play:@"您的订单已被取消！"];
-//        
-//    }
-    
     _indexPath = [[NSIndexPath alloc] init];
     
     // 设置当前已接单
     [self setUpCurrentOrder];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -160,6 +150,10 @@
 
         
     } failure:^(NSError *error) {
+        
+        if (error) {
+            [self.tableView.mj_header endRefreshing];
+        }
         
     }];
     
@@ -310,8 +304,8 @@
                 
                 // 显示接单失败的界面
                 JDOrderFailureView *orderView = [[JDOrderFailureView alloc] init];
-                [orderView showInView:self.view];
                 orderView.delegate = self;
+                [orderView showInView:self.view];
                 
             }
             

@@ -13,7 +13,7 @@
 @protocol JDGoodsViewDelegate <NSObject>
 
 @optional
--(void)goodsViewSelectItem:(JDGoodsData *)data;
+-(void)goodsViewSelectItem:(NSInteger)index;
 
 @end
 

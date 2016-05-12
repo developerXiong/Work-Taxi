@@ -18,6 +18,9 @@
 #import "PersonalVC.h"
 #import "GetData.h"
 
+#define UnSelectImage [UIImage imageNamed:@"wzcx_未选中1"] // 未选中的状态图片
+#define SelectImage [UIImage imageNamed:@"wzcx_选中1"] // 选中的状态图片
+
 #define GrayColor COLORWITHRGB(90, 91, 92, 1)
 #define RedPColor COLORWITHRGB(250, 40, 51, 1)
 #define BlueColor COLORWITHRGB(21, 163, 255, 1)
@@ -72,6 +75,13 @@
     self.idArr =[[NSMutableArray alloc] initWithCapacity:0];
 }
 
+-(void)showMBWithTitle:(NSString *)title
+{
+    [GetData addMBProgressWithView:self.view style:1];
+    [GetData showMBWithTitle:title];
+    [GetData hiddenMB];
+}
+
 #pragma mark- 下拉数据刷新
 - (void)setupRefresh
 {
@@ -79,6 +89,14 @@
     [GetData addMBProgressWithView:self.view style:0];
     [GetData showMBWithTitle:@"正在刷新数据..."];
     [GetData hiddenMB];
+    if (!PLATE) {
+        [self showMBWithTitle:@"个人信息不全"];
+        return;
+    }
+    if (!ENGINE) {
+        [self showMBWithTitle:@"个人信息不全"];
+        return;
+    }
     [data getPeccWithPhoneNo:PHONENO WithPassword:PASSWORD WithPlateNo:PLATE WithEngineNo:ENGINE WithCompletion:^(NSString *returnCode, NSString *msg, NSMutableDictionary *dic) {
         if ([returnCode intValue]==0)
         {
@@ -89,9 +107,7 @@
             if (array.count==0)
             {
                 self._tableVi.separatorStyle=UITableViewCellSeparatorStyleNone;
-                [GetData addMBProgressWithView:self.view style:1];
-                [GetData showMBWithTitle:@"没有违章记录"];
-                [GetData hiddenMB];
+                [self showMBWithTitle:@"没有违章记录"];
             }
             else
             {
@@ -141,6 +157,7 @@
     MyTool * p =array[indexPath.row];
     static NSString * cellID =@"cell3";
     PeccCell * cell =[tableView dequeueReusableCellWithIdentifier:cellID];
+
     if (!cell)
     {
         cell=[[[NSBundle mainBundle]loadNibNamed:@"PeccCell" owner:nil options:nil]objectAtIndex:2];
@@ -150,33 +167,40 @@
             cell.backgroundColor=[UIColor clearColor];
         }
     }
+    
     [cell.stateBtn addTarget:self action:@selector(changeState:) forControlEvents:UIControlEventTouchUpInside];
     cell.stateBtn.tag=indexPath.row;
-//    [cell.stateBtn setImage:[UIImage imageNamed:@"违章列表多选框"] forState:UIControlStateNormal];
+    
+    //区分已经处理的和没有处理的
+    if ([p.pecc_result isEqualToString:@"未处理"]) {
+        
+        [cell.stateBtn setTitle:@"未处理" forState:UIControlStateNormal];
+        [cell.stateBtn setTitleColor:RedPColor forState:UIControlStateNormal];
+        cell.stateBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        cell.stateBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 20, 0);
+        cell.stateBtn.enabled = YES;
+        cell.statuImage.image = UnSelectImage;
+        
+        
+    }else{ // 处理中
+        
+        [cell.stateBtn setTitle:@"处理中" forState:UIControlStateNormal];
+        [cell.stateBtn setTitleColor:BlueColor forState:UIControlStateNormal];
+        cell.stateBtn.enabled = NO;
+        
+    }
+    
+    // 区分已选中的和未选中的
     for (NSNumber * number in self.peccArr)
     {
         if (indexPath.row==[number integerValue])
         {
-            [cell.stateBtn setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateNormal];
+//            [cell.stateBtn setImage:SelectImage forState:UIControlStateNormal];
+            cell.statuImage.image = SelectImage;
         }
         
-    } 
-    //区分已经处理的和没有处理的
-    if ([p.pecc_result isEqualToString:@"未处理"]) {
-        
-        [cell.stateBtn setImage:[UIImage imageNamed:@"未选中"] forState:UIControlStateNormal];
-        [cell.stateBtn setTitle:@"未处理" forState:UIControlStateNormal];
-        [cell.stateBtn setBackgroundColor:RedPColor];
-        cell.stateBtn.enabled = YES;
-        
-    }else{ // 处理中
-        
-        [cell.stateBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-        [cell.stateBtn setTitle:@"处理中" forState:UIControlStateNormal];
-        [cell.stateBtn setBackgroundColor:BlueColor];
-        cell.stateBtn.enabled = NO;
-        
     }
+    
 //    if ([p.pecc_result isEqualToString:@"已处理"])
 //    {
 ////        cell.dealStatus.text=@"已处理";
@@ -212,16 +236,16 @@
     //扣分的项目颜色变化 无扣分和扣xx分
     if ([p.pecc_point intValue]==0)
     {
+        cell.statuImage.hidden = NO;
         cell.scoreLabel.text=@"无扣分";
     }
     else
     {
+        cell.statuImage.hidden = YES;
         cell.scoreLabel.text = @"有扣分";
-        
-        [cell.stateBtn setBackgroundColor:GrayColor];
         [cell.stateBtn setTitle:@"已扣分" forState:UIControlStateNormal];
+        [cell.stateBtn setTitleColor:GrayColor forState:UIControlStateNormal];
         cell.stateBtn.enabled = NO;
-        [cell.stateBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
     }
     //罚款
     NSString * fineStr =[NSString stringWithFormat:@"%@元",p.pecc_money];
@@ -262,7 +286,8 @@
     {
         NSNumber * number =[NSNumber numberWithInteger:indexPath.row];
         [self.peccArr removeObject:number];
-        [cell.stateBtn setImage:[UIImage imageNamed:@"未选中"] forState:UIControlStateNormal];
+//        [cell.stateBtn setImage:UnSelectImage forState:UIControlStateNormal];
+        cell.statuImage.image = UnSelectImage;
         MyTool * data =[array objectAtIndex:[number integerValue]];
         NSInteger count =[self.moneyStr integerValue];
         count=count-[data.pecc_money integerValue];
@@ -276,7 +301,8 @@
     {
         NSNumber * number =[NSNumber numberWithInteger:indexPath.row];
         [self.peccArr addObject:number];
-        [cell.stateBtn setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateNormal];
+//        [cell.stateBtn setImage:SelectImage forState:UIControlStateNormal];
+        cell.statuImage.image = SelectImage;
         MyTool * data =[array objectAtIndex:[number integerValue]];
         NSInteger count =0;
         if ([data.pecc_point intValue] != 0)

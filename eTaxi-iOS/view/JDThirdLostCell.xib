@@ -101,6 +101,7 @@
             <connections>
                 <outlet property="addDetail" destination="VY7-5A-SFm" id="Yqv-6d-LEr"/>
                 <outlet property="addImage" destination="oTp-lG-oGi" id="JwR-X4-WSC"/>
+                <outlet property="boLinebo" destination="dvI-r0-K76" id="1AC-io-gq2"/>
                 <outlet property="detailInfo" destination="ca4-Q7-Hcz" id="1LZ-Lu-CZe"/>
                 <outlet property="goodsType" destination="38i-hF-qA3" id="apd-gS-KsM"/>
                 <outlet property="imageV" destination="J68-1N-4gG" id="1to-Sp-zec"/>

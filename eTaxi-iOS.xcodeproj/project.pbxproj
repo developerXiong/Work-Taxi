@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		6A01B7931C57643100EE179F /* JDRepairViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A01B7911C57643100EE179F /* JDRepairViewController.m */; };
 		6A01B7941C57643100EE179F /* JDRepairViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A01B7921C57643100EE179F /* JDRepairViewController.xib */; };
-		6A01B7981C57644100EE179F /* JDCarRepairViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A01B7961C57644100EE179F /* JDCarRepairViewController.m */; };
-		6A01B7991C57644100EE179F /* JDCarRepairViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A01B7971C57644100EE179F /* JDCarRepairViewController.xib */; };
 		6A01B7AA1C57656900EE179F /* JDMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A01B7A91C57656900EE179F /* JDMoreViewController.m */; };
 		6A0353091C72019F00AF6CF6 /* JDMessgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A0353081C72019F00AF6CF6 /* JDMessgeViewController.m */; };
 		6A0353341C7202D100AF6CF6 /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6A03530D1C7202D100AF6CF6 /* UMSocialLocalizable.strings */; };
@@ -279,7 +277,6 @@
 		6AEC11A71CCB2325009365C6 /* JDCallCarListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEC11A61CCB2325009365C6 /* JDCallCarListViewModel.m */; };
 		6AEC11AB1CCB23BF009365C6 /* JDCallCarListDataTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEC11AA1CCB23BF009365C6 /* JDCallCarListDataTool.m */; };
 		6AEC11AE1CCB3826009365C6 /* JDCallCarAlertViewFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEC11AD1CCB3826009365C6 /* JDCallCarAlertViewFrame.m */; };
-		6AED13B61CCF3DD100E030BE /* JDCarRepairView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AED13B11CCF3DD100E030BE /* JDCarRepairView.m */; };
 		6AED13B71CCF3DD100E030BE /* JDDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AED13B31CCF3DD100E030BE /* JDDatePickerView.m */; };
 		6AED13BC1CCF3E0C00E030BE /* JDThirdLostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AED13BA1CCF3E0C00E030BE /* JDThirdLostCell.m */; };
 		6AED13BD1CCF3E0C00E030BE /* JDThirdLostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AED13BB1CCF3E0C00E030BE /* JDThirdLostCell.xib */; };
@@ -326,9 +323,6 @@
 		6A01B7901C57643100EE179F /* JDRepairViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JDRepairViewController.h; path = "eTaxi-iOS/controller/JDRepairViewController.h"; sourceTree = SOURCE_ROOT; };
 		6A01B7911C57643100EE179F /* JDRepairViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JDRepairViewController.m; path = "eTaxi-iOS/controller/JDRepairViewController.m"; sourceTree = SOURCE_ROOT; };
 		6A01B7921C57643100EE179F /* JDRepairViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = JDRepairViewController.xib; path = "eTaxi-iOS/controller/JDRepairViewController.xib"; sourceTree = SOURCE_ROOT; };
-		6A01B7951C57644100EE179F /* JDCarRepairViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JDCarRepairViewController.h; path = "eTaxi-iOS/controller/JDCarRepairViewController.h"; sourceTree = SOURCE_ROOT; };
-		6A01B7961C57644100EE179F /* JDCarRepairViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JDCarRepairViewController.m; path = "eTaxi-iOS/controller/JDCarRepairViewController.m"; sourceTree = SOURCE_ROOT; };
-		6A01B7971C57644100EE179F /* JDCarRepairViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = JDCarRepairViewController.xib; path = "eTaxi-iOS/controller/JDCarRepairViewController.xib"; sourceTree = SOURCE_ROOT; };
 		6A01B7A81C57656900EE179F /* JDMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDMoreViewController.h; sourceTree = "<group>"; };
 		6A01B7A91C57656900EE179F /* JDMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDMoreViewController.m; sourceTree = "<group>"; };
 		6A0353071C72019F00AF6CF6 /* JDMessgeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JDMessgeViewController.h; path = "eTaxi-iOS/controller/JDMessgeViewController.h"; sourceTree = SOURCE_ROOT; };
@@ -808,8 +802,6 @@
 		6AEC11AA1CCB23BF009365C6 /* JDCallCarListDataTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JDCallCarListDataTool.m; path = "eTaxi-iOS/model/JDCallCarListDataTool.m"; sourceTree = SOURCE_ROOT; };
 		6AEC11AC1CCB3826009365C6 /* JDCallCarAlertViewFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JDCallCarAlertViewFrame.h; path = "eTaxi-iOS/model/JDCallCarAlertViewFrame.h"; sourceTree = SOURCE_ROOT; };
 		6AEC11AD1CCB3826009365C6 /* JDCallCarAlertViewFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JDCallCarAlertViewFrame.m; path = "eTaxi-iOS/model/JDCallCarAlertViewFrame.m"; sourceTree = SOURCE_ROOT; };
-		6AED13B01CCF3DD100E030BE /* JDCarRepairView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JDCarRepairView.h; path = "eTaxi-iOS/view/JDCarRepairView.h"; sourceTree = SOURCE_ROOT; };
-		6AED13B11CCF3DD100E030BE /* JDCarRepairView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JDCarRepairView.m; path = "eTaxi-iOS/view/JDCarRepairView.m"; sourceTree = SOURCE_ROOT; };
 		6AED13B21CCF3DD100E030BE /* JDDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JDDatePickerView.h; path = "eTaxi-iOS/view/JDDatePickerView.h"; sourceTree = SOURCE_ROOT; };
 		6AED13B31CCF3DD100E030BE /* JDDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JDDatePickerView.m; path = "eTaxi-iOS/view/JDDatePickerView.m"; sourceTree = SOURCE_ROOT; };
 		6AED13B91CCF3E0C00E030BE /* JDThirdLostCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JDThirdLostCell.h; path = "eTaxi-iOS/view/JDThirdLostCell.h"; sourceTree = SOURCE_ROOT; };
@@ -1993,8 +1985,6 @@
 				6AFC4C0A1CD0834800F42750 /* JDMaintenanceButton.m */,
 				6AFC4C061CD06D1B00F42750 /* JDMaintenanceTimeView.h */,
 				6AFC4C071CD06D1B00F42750 /* JDMaintenanceTimeView.m */,
-				6AED13B01CCF3DD100E030BE /* JDCarRepairView.h */,
-				6AED13B11CCF3DD100E030BE /* JDCarRepairView.m */,
 				6AED13B21CCF3DD100E030BE /* JDDatePickerView.h */,
 				6AED13B31CCF3DD100E030BE /* JDDatePickerView.m */,
 				6AC6873B1CD1DF2E00488E92 /* JDRepairPointCell.h */,
@@ -2007,9 +1997,6 @@
 		6AED13AE1CCF3D6200E030BE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				6A01B7951C57644100EE179F /* JDCarRepairViewController.h */,
-				6A01B7961C57644100EE179F /* JDCarRepairViewController.m */,
-				6A01B7971C57644100EE179F /* JDCarRepairViewController.xib */,
 				6AED13C91CCF49E500E030BE /* JDMaintenanceViewController.h */,
 				6AED13CA1CCF49E500E030BE /* JDMaintenanceViewController.m */,
 				6A01B7901C57643100EE179F /* JDRepairViewController.h */,
@@ -2203,7 +2190,6 @@
 				6AC544961C7402B400EB6CEA /* PeccancyDetailViewC.xib in Resources */,
 				6A0A0E121C330AB200975510 /* xiuche1.jpg in Resources */,
 				6A69D08A1C59EA6E004921E9 /* JDChangePhoneNoVC.xib in Resources */,
-				6A01B7991C57644100EE179F /* JDCarRepairViewController.xib in Resources */,
 				6AC6873F1CD1DF2E00488E92 /* JDRepairPointCell.xib in Resources */,
 				6ADD59741C464D8E00346232 /* .gitignore in Resources */,
 				6A79CAFA1C5771F3006511D3 /* select_selected.png in Resources */,
@@ -2306,7 +2292,6 @@
 				6AB175671CCA213900B1032C /* JDOrderListCell.m in Sources */,
 				6A8C83E41C3CC1B0000804A1 /* MJRefreshAutoNormalFooter.m in Sources */,
 				6ADE472F1CB7E2CD003C9633 /* JDToCarmeView.m in Sources */,
-				6A01B7981C57644100EE179F /* JDCarRepairViewController.m in Sources */,
 				6AED13E41CCF5ACA00E030BE /* JDGoodsShopViewController.m in Sources */,
 				6AE148681CC60F8600D0BAED /* JDMainView.m in Sources */,
 				6ADE47121CB744DE003C9633 /* JDMainDataTool.m in Sources */,
@@ -2336,7 +2321,6 @@
 				6AED13BC1CCF3E0C00E030BE /* JDThirdLostCell.m in Sources */,
 				6A0C52B91C328BA6005DCD73 /* AFHTTPRequestOperation.m in Sources */,
 				6AE84A6F1C3F644A001D4984 /* SDWebImageDownloaderOperation.m in Sources */,
-				6AED13B61CCF3DD100E030BE /* JDCarRepairView.m in Sources */,
 				6A69D0891C59EA6E004921E9 /* JDChangePhoneNoVC.m in Sources */,
 				6AC3BA031C855A8A001D17CF /* MyPointViewController.m in Sources */,
 				6A69D0771C59E911004921E9 /* SetView.m in Sources */,

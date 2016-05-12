@@ -69,16 +69,17 @@
 }
 + (NSMutableArray*)getAnalysisWithSmallArr:(NSMutableArray *)arr
 {
-    NSLog(@"%@",arr);
+//    NSLog(@"%@",arr);
     NSMutableArray * peccArr1 =[NSMutableArray array]; // 放未处理的数据
     NSMutableArray * peccArr2 =[NSMutableArray array]; // 处理中
     NSMutableArray * peccArr3 =[NSMutableArray array]; // 扣分
     NSMutableArray * peccArr =[NSMutableArray array]; // 整体的数组
     
     
-    
     for (NSDictionary * smallDic in arr)
     {
+//        NSLog(@"%@",smallDic[@"result"]);
+        
         if ([smallDic[@"result"] isEqualToString:@"未处理"]) {
             if ([smallDic[@"fen"] intValue]==0) {
                 

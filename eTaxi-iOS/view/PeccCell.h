@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *fineLabel;
 @property (weak, nonatomic) IBOutlet UIButton *stateBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *statuImage;
+
 
 //使用记录
 @property (weak, nonatomic) IBOutlet UIImageView *goodsImg;
@@ -30,14 +32,11 @@
 //我的积分 cell1
 @property (weak, nonatomic) IBOutlet UILabel * myPoint;
 @property (weak, nonatomic) IBOutlet UIButton * marketBtn;
-@property (weak, nonatomic) IBOutlet UIView *backView;
-
+@property (weak, nonatomic) IBOutlet UIImageView *backImage;
 
 //收入明细
 @property (weak, nonatomic) IBOutlet UILabel * itemLabel;
 @property (weak, nonatomic) IBOutlet UILabel * contentLabel;
-@property (weak, nonatomic) IBOutlet UIButton * getBtn;
-
 
 //处理界面
 @property (weak, nonatomic) IBOutlet UILabel * pointLab;

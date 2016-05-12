@@ -50,10 +50,10 @@
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [JDGoodsHttpTool getGoodsInfoInVC:self Success:^(NSMutableArray *modelArr) {
             
-            JDLog(@"modelArr=====%@",modelArr);
-            
             dispatch_async(dispatch_get_main_queue(), ^{
-               _goodsView.modelArr = modelArr; 
+                
+                _goodsView.modelArr = modelArr;
+                
             });
             
         } failure:^(NSError *error) {
@@ -84,27 +84,24 @@
 }
 
 #pragma mark - goodsView delegate
--(void)goodsViewSelectItem:(JDGoodsData *)data
+-(void)goodsViewSelectItem:(NSInteger)index
 {
     
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-       
-        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",data.goodDetail]]];
-        
-        UIImage *image = [UIImage imageWithData:imageData];
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//       
 //        
-//        JDLog(@"%@",data.goodDetail);
+//        JDGoodsData *goodsData = _goodsView.modelArr[index];
 //        
-//        JDLog(@"%@",image);
-        
+//        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:goodsData.goodDetail]]];
+//        CGFloat imageH = [image size].height;
+    
         dispatch_async(dispatch_get_main_queue(), ^{
             
             JDGoodsInfoViewController *goodsInfo = [[JDGoodsInfoViewController alloc] init];
             
-            goodsInfo.detailImage = image;
+            goodsInfo.index = index;
             
-            
-            goodsInfo.goodsData = data;
+//            goodsInfo.cellHeight = imageH;
             
             goodsInfo.delegate = self;
             
@@ -112,8 +109,8 @@
             
         });
         
-    });
-
+//    });
+    
     
 }
 

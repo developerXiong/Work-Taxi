@@ -4,7 +4,7 @@
 //
 //  Created by jeader on 16/4/22.
 //  Copyright © 2016年 jeader. All rights reserved.
-//
+//  参数模型
 
 #import <Foundation/Foundation.h>
 

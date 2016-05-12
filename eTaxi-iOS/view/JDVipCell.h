@@ -9,11 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface JDVipCell : UITableViewCell
-/**
- *  顶部的label
- */
-@property (weak, nonatomic) IBOutlet UILabel *topLabel;
-
-@property (weak, nonatomic) IBOutlet UIView *boView;
+@property (weak, nonatomic) IBOutlet UIView *backView;
 
 @end

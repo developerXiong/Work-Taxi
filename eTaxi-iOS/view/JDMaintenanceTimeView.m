@@ -38,14 +38,13 @@
 
 @implementation JDMaintenanceTimeView
 
-
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         
         CGFloat proCX = 0;
-        CGFloat proCY = JDScreenSize.height-64;
+        CGFloat proCY = JDScreenSize.height;
         CGFloat proCW = JDScreenSize.width;
         CGFloat proCH = TimeViewH;
         self.frame = CGRectMake(proCX, proCY, proCW, proCH);
@@ -76,7 +75,7 @@
     [canBtn setTitle:@"取消" forState:UIControlStateNormal];
     [canBtn setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
     canBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft; //文字向左对齐
-    canBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0); //距离左边的间距
+    canBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0); //距离左边的间距
     [canBtn addTarget:self action:@selector(clickTimeCancel) forControlEvents:UIControlEventTouchUpInside];
     [btnView addSubview:canBtn];
     _canBtn = canBtn;
@@ -84,9 +83,9 @@
     //确定按钮
     UIButton *sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [sureBtn setTitle:@"确定" forState:UIControlStateNormal];
-    [sureBtn setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
+    [sureBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     sureBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight; //文字向左对齐
-    sureBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 20); //距离左边的间距
+    sureBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 30); //距离左边的间距
     [sureBtn addTarget:self action:@selector(clickTimeSure) forControlEvents:UIControlEventTouchUpInside];
     [btnView addSubview:sureBtn];
     _sureBtn = sureBtn;

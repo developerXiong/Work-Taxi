@@ -13,7 +13,7 @@
 #import "MyData.h"
 #import "MBProgressHUD.h"
 #import "HeadFile.pch"
-#import "JDCarRepairViewController.h"
+#import "JDMaintenanceViewController.h"
 #import "GetData.h"
 #import "PersonalVC.h"
 
@@ -77,11 +77,13 @@
             if (self.dataArr.count != 0)
             {
                 NSLog(@"dic is %@",dict);
+                self.tableVi.hidden = NO;
                 [self.tableVi reloadData];
                 [self.tableVi.mj_header endRefreshing];
             }
             else
             {
+                self.tableVi.hidden = YES;
                 self.imageG.hidden=NO;
                 self.tipsLab.hidden=NO;
                 [self.tableVi.mj_header endRefreshing];
@@ -147,7 +149,7 @@
         cell.deleteImg.hidden=NO;
         cell.deleteImg.image=[UIImage imageNamed:@"取消预约"];
         cell.cancelBtn.tag=indexPath.row;
-        cell.orderStatus.image = [UIImage imageNamed:@"预约中_预约"];
+//        cell.orderStatus.image = [UIImage imageNamed:@"预约中_预约"];
         [cell.cancelBtn setTitle:@"取消预约" forState:UIControlStateNormal];
         [cell.cancelBtn addTarget:self action:@selector(cancelBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
@@ -171,7 +173,7 @@
         [cell1.cancelBtn setTitle:@"删   除" forState:UIControlStateNormal];
         [cell1.cancelBtn addTarget:self action:@selector(removeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         cell1.deleteImg.image=[UIImage imageNamed:@"删除"];
-        cell1.orderStatus.image = [UIImage imageNamed:@"已完成"];
+//        cell1.orderStatus.image = [UIImage imageNamed:@"已完成"];
         return cell1;
     }
     //已经取消的记录
@@ -193,7 +195,7 @@
         [cell2.cancelBtn setTitle:@"删   除" forState:UIControlStateNormal];
         [cell2.cancelBtn addTarget:self action:@selector(deleteBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         cell2.deleteImg.image=[UIImage imageNamed:@"删除"];
-        cell2.orderStatus.image = [UIImage imageNamed:@"已取消"];
+//        cell2.orderStatus.image = [UIImage imageNamed:@"已取消"];
         
         return cell2;
     }
@@ -219,6 +221,7 @@
         [data getCancelOrderWithOptionID:data.addressId withType:@"3" withCompletionBlock:^(NSString *returnCode, NSString *msg) {
             if ([returnCode intValue]==0)
             {
+            
                 self.tableVi.mj_header=[MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(setupRefresh)];
                 [self.tableVi.mj_header beginRefreshing];
                 [GetData addAlertViewInView:self title:@"温馨提示" message:@"取消成功" count:0 doWhat:^{
@@ -321,9 +324,9 @@
 }
 - (IBAction)addNew:(id)sender
 {
-    JDCarRepairViewController * vc =[[JDCarRepairViewController alloc] init];
+    JDMaintenanceViewController * vc =[[JDMaintenanceViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
-    [vc addNavigationBar:@"预约维修"];
+
 }
 //三个按钮的点击事件
 - (IBAction)btn1Click:(id)sender

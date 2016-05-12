@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="我的积分_背景" translatesAutoresizingMaskIntoConstraints="NO" id="22p-Gt-9wp">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="score背景" translatesAutoresizingMaskIntoConstraints="NO" id="22p-Gt-9wp">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                 </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="30" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0ad-dt-eWR">
@@ -43,6 +43,6 @@
         </view>
     </objects>
     <resources>
-        <image name="我的积分_背景" width="320" height="568"/>
+        <image name="score背景" width="320" height="568"/>
     </resources>
 </document>

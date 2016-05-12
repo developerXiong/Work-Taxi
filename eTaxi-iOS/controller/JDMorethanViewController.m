@@ -43,7 +43,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self addCleaerNavigationBar:@"更多"];
+    [self addNavigationBar:@"更多"];
     
     if (JDScreenSize.width == 320) {
         self.leftBtn.constant = 35;

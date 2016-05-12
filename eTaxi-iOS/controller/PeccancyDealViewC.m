@@ -173,6 +173,7 @@
         if (self.getArr.count==0)
         {
             NSString * str =[NSString stringWithFormat:@"%@",self.IDStr];
+            NSLog(@"aaaaaaaaaa%@",self.IDStr);
             [violations appendString:str];
         }
         else

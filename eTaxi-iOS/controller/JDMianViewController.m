@@ -14,7 +14,6 @@
 #import "JDMainButton.h"
 #import "JDMainBar.h"
 #import "JDIndependentBtn.h"
-#import "JDCarRepairViewController.h"
 #import "JDMyPointViewController.h"
 #import "JDFourRoadViewController.h"
 #import "JDFourLostViewController.h"

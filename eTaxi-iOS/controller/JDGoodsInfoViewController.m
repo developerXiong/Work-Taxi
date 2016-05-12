@@ -9,11 +9,22 @@
 #import "JDGoodsInfoViewController.h"
 #import "HeadFile.pch"
 #import "UIImageView+WebCache.h"
+#import "UIImage+AFNetworking.h"
+
+#import "JDGoodsData.h"
+#import "JDGoodsHttpTool.h"
+
+#import "UIView+UIView_CYChangeFrame.h"
 
 @interface JDGoodsInfoViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 /**商品的数量*/
 @property (nonatomic, assign) int gCount;
+
+/**
+ *   商品详情图片
+ */
+@property (nonatomic, strong) UIImageView *detailImageV;
 
 @end
 
@@ -26,7 +37,7 @@
     if (_gCount == 1) {
         
         self.minus.enabled = NO;
-        
+        [self getData];
     }
     
 }
@@ -35,26 +46,54 @@
     [super viewDidLoad];
     
     _gCount = 1;
-    
+
     //取消tableview的分割线
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-}
-
--(void)setGoodsData:(JDGoodsData *)goodsData
-{
-    _goodsData = goodsData;
     
-    self.exchangeCount.text = [NSString stringWithFormat:@"  商品已被兑换%@件",goodsData.goodCount];
-    
-    self.needPoint.text = [NSString stringWithFormat:@"%@",goodsData.cost];
+    self.tableView.rowHeight = 500;
     
 }
 
--(void)setDetailImage:(UIImage *)detailImage
+// 请求数据
+-(void)getData
 {
-    _detailImage = detailImage;
     
-    NSLog(@"%@",detailImage);
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+       
+        [JDGoodsHttpTool getGoodsInfoInVC:self Success:^(NSMutableArray *modelArr) {
+            
+            JDGoodsData *goodsData = modelArr[_index];
+            _goodsData = goodsData;
+            
+            NSURL *url = [NSURL URLWithString:goodsData.goodDetail];
+            NSData *data = [NSData dataWithContentsOfURL:url];
+            UIImage *image = [UIImage imageWithData:data];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                self.needPoint.text = goodsData.cost;
+                self.exchangeCount.text = [NSString stringWithFormat:@"商品已被兑换%d件",[goodsData.goodCount intValue]];
+                
+                _detailImageV.image = image;
+                _detailImageV.height = [image size].height;
+                self.tableView.rowHeight = [image size].height;
+                _detailImageV.contentMode = UIViewContentModeScaleToFill;
+                
+                
+            });
+            
+        } failure:^(NSError *error) {
+            
+        }];
+        
+    });
+    
+    
+//    self.needPoint.text = _goodsData.cost;
+//    self.exchangeCount.text = [NSString stringWithFormat:@"商品已被兑换%d件",[_goodsData.goodCount intValue]];
+//    
+//    _detailImageV.contentMode = UIViewContentModeScaleToFill;
+    
 }
 
 //点击立刻兑换按钮调用
@@ -96,9 +135,7 @@
 
 //点击减少数量按钮
 - (IBAction)minus:(id)sender {
-    
 
-    
     UIButton *btn = (UIButton *)sender;
     
     if (_gCount == 2) {
@@ -123,36 +160,19 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    static NSString *ID = @"myCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
     if (!cell) {
-        
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
     }
     
-    if ([_goodsData.goodDetail length]) {
-
-        // 详情图片
-        
-        UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, JDScreenSize.width, [_detailImage size].height)];
-        [cell.contentView addSubview:imageV];
-        imageV.image = _detailImage;
-        
-        NSLog(@"%@",_detailImage);
-        
-    }
-
+    // 详情图片
+    UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, JDScreenSize.width, 756)];
+    _detailImageV = imageV;
+    [cell.contentView addSubview:imageV];
     
     return cell;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    return [_detailImage size].height;
 }
 
 

@@ -33,14 +33,13 @@
 @property (nonatomic, strong) NSMutableArray *btnArr;
 
 /**
- *  存放类型名称的数组
- */
-@property (nonatomic, strong) NSArray *nameArr;
-
-/**
  *  存放类型图片的数组
  */
-@property (nonatomic, strong) NSArray *imageNameArr;
+@property (nonatomic, strong) NSMutableArray *imageNameArr;
+/**
+ *  存放高亮图片的数组
+ */
+@property (nonatomic, strong) NSMutableArray *imageHighlightArr;
 
 /**
  *  整个顶部的视图

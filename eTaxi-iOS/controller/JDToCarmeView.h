@@ -17,6 +17,6 @@
 /**
  *  压缩图片
  */
-+ ( UIImage *)imageWithImageSimple:( UIImage *)image scaledToSize:( CGSize )newSize;
++ (UIImage *)imageWithImageSimple:(UIImage *)image;
 
 @end

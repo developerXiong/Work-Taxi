@@ -43,11 +43,6 @@
  *  取消按钮
  */
 @property (weak, nonatomic) IBOutlet UIButton *cancel;
-
-/**
- *  接受数据的字典
- */
-@property (nonatomic, strong)NSDictionary *dataDict;
 /**
  *  减少数量
  */
@@ -64,14 +59,18 @@
  *  已被兑换的数量
  */
 @property (weak, nonatomic) IBOutlet UILabel *exchangeCount;
-
-@property (nonatomic, strong) JDGoodsData *goodsData;
-
 /**
  *  代理
  */
 @property (nonatomic, assign) id<JDGoodsInfoDelegate>delegate;
 
-@property (nonatomic, strong) UIImage *detailImage;
+ /**
+ *  点击了第几个item
+ */
+@property (nonatomic, assign) NSInteger index;
+//
+@property (nonatomic, strong) JDGoodsData *goodsData;
+//
+//@property (nonatomic, assign) CGFloat cellHeight;
 
 @end

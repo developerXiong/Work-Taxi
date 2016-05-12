@@ -27,14 +27,22 @@
 
 @interface JDLostButton : UIView
 
+// 背景图片
 @property (nonatomic, copy) NSString *btnAndImageName;
 
+// 按钮的名称
 @property (nonatomic, copy) NSString *btnName;
+/**
+ *  高亮图片
+ */
+@property (nonatomic, copy) NSString *highlightImage;
 
 @property (nonatomic, weak) id<JDLostButtonDelegate>delegate;
 
 @property (nonatomic, assign) BOOL enble;
 
 @property (nonatomic, weak) UIButton *btn;
+
+@property (nonatomic, weak) UIImageView *imageV;
 
 @end

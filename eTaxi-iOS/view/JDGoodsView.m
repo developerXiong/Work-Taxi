@@ -92,9 +92,9 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    JDLog(@"%ld",(long)indexPath.row);
+
     if ([_delegate respondsToSelector:@selector(goodsViewSelectItem:)]) {
-        [_delegate goodsViewSelectItem:_modelArr[indexPath.row]];
+        [_delegate goodsViewSelectItem:indexPath.row];
     }
     
 }

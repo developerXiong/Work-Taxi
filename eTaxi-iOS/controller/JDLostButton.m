@@ -9,6 +9,8 @@
 #import "JDLostButton.h"
 #import "HeadFile.pch"
 
+#import "UIView+UIView_CYChangeFrame.h"
+
 #define selfW self.bounds.size.width
 #define selfH self.bounds.size.height
 #define TopTextFont [UIFont systemFontOfSize:13] //顶部label的文字大小
@@ -16,8 +18,6 @@
 @interface JDLostButton ()
 
 @property (nonatomic, weak) UILabel *label;
-
-@property (nonatomic, weak) UIImageView *imageV;
 
 @end
 
@@ -55,6 +55,7 @@
     _imageV = imageV;
     imageV.userInteractionEnabled = NO;
     [btn addSubview:imageV];
+    
 }
 
 -(void)layoutSubviews
@@ -64,32 +65,18 @@
     [_btn setFrame:self.bounds];
     
     CGSize imageS = [[UIImage imageNamed:_btnAndImageName] size];
-    /**
-     *  字和图片到下边框的距离
-     */
-    CGFloat toBoMagrin = 13;
-    if (JDScreenSize.width == 320) {
-        toBoMagrin = 3;
+    
+    _imageV.frame = CGRectMake(0, 0, imageS.width, imageS.height);
+    _imageV.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+    
+    // 图片整体居中
+    CGFloat margin = (self.bounds.size.width-imageS.width)/2/2;
+    if (self.tag==0||self.tag==3||self.tag==6) {
+        _imageV.x += margin;
     }
-    
-    if (JDScreenSize.width == 375) {
-        toBoMagrin = 10;
+    if (self.tag==2||self.tag==5||self.tag==8) {
+        _imageV.x -= margin;
     }
-    
-    _label.frame = CGRectMake((self.bounds.size.width-100)/2, selfH-toBoMagrin-15, 100, 15);
-    
-    CGFloat imageX = (selfW - imageS.width)/2;
-    
-    CGFloat toMargin = 10;
-    
-    if (JDScreenSize.width==414) {
-        
-        toMargin = 13;
-        
-    }
-    
-    _imageV.frame = CGRectMake(imageX, CGRectGetMinY(_label.frame)-toMargin-imageS.height, imageS.width, imageS.height);
-    
 }
 
 
@@ -100,7 +87,34 @@
         [_delegate clickBtnWillAnimation:self btnName:_btnAndImageName];
     }
 
-    [self startAnimation];
+//    [self startAnimation];
+    
+    if (_highlightImage) {
+        _imageV.image = [UIImage imageNamed:_highlightImage];
+    }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self delay];
+        
+    });
+    
+    
+}
+
+-(void)delay
+{
+    if ([_delegate respondsToSelector:@selector(clickBtnDidAnimation:btnName:)]) {
+        [_delegate clickBtnDidAnimation:self btnName:_btnAndImageName];
+    }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        if (_btnAndImageName) {
+            _imageV.image = [UIImage imageNamed:_btnAndImageName];
+        }
+        
+    });
 }
 
 #pragma mark - 动画效果
@@ -109,8 +123,6 @@
     
     CGFloat durtion = 0.3; // 动画时间
     
-    // 图片会往上跑一段距离，很奇怪
-//    self.transform = CGAffineTransformMakeTranslation(0, 12);
     [UIView animateWithDuration:durtion animations:^{
         
         _imageV.transform = CGAffineTransformMakeScale(2.0, 2.0);
@@ -146,10 +158,9 @@
 
 -(void)setBtnAndImageName:(NSString *)btnAndImageName
 {
-    if ([btnAndImageName length]) {
+    if ([btnAndImageName length]) { // 如果有值，则设置按钮图片， 没有值就将按钮隐藏
         
         _btnAndImageName = btnAndImageName;
-        
         
         _imageV.image = [UIImage imageNamed:btnAndImageName];
         
@@ -160,12 +171,10 @@
     
 }
 
--(void)setBtnName:(NSString *)btnName
+-(void)setHighlightImage:(NSString *)highlightImage
 {
-    _btnName = btnName;
-    
-    _label.text = btnName;
-    
+    _highlightImage = highlightImage;
+    JDLog(@"%@",highlightImage);
 }
 
 @end

@@ -44,7 +44,11 @@
 /**
  *  物品类型图片名字数组
  */
-@property (nonatomic, strong) NSArray *imageNameArr;
+@property (nonatomic, strong) NSMutableArray *imageNameArr;
+/**
+ *  物品类型高亮图片名字数组
+ */
+@property (nonatomic, strong) NSMutableArray *imageHighlightArr;
 /**
  *  物品类型名字数组
  */
@@ -84,22 +88,47 @@
 
 @implementation JDFourLostViewController
 
--(NSArray *)imageNameArr
+-(NSMutableArray *)imageNameArr
 {
     if (_imageNameArr == nil) {
 
-        // 图片的数组
-        _imageNameArr = @[@"lost_钱包",@"lost_手提包",@"lost_文件",@"lost_钥匙",@"lost_衣服",@"lost_电子物品",@"lost_手机",@"lost_耳机",@"lost_问号"];
+        // 正常图片的数组
+        _imageNameArr = [NSMutableArray array];
+        
+        for (int i=0; i<9; i++) {
+            
+            NSString *imageNameStr = [NSString stringWithFormat:@"lost1_%d",i];
+            [_imageNameArr addObject:imageNameStr];
+            
+        }
         
     }
     return _imageNameArr;
+}
+
+-(NSMutableArray *)imageHighlightArr
+{
+    if (_imageHighlightArr == nil) {
+        
+        // 正常图片的数组
+        _imageHighlightArr = [NSMutableArray array];
+        
+        for (int i=0; i<9; i++) {
+            
+            NSString *imageNameStr = [NSString stringWithFormat:@"lost_highlight_1_%d",i];
+            [_imageHighlightArr addObject:imageNameStr];
+            
+        }
+        
+    }
+    return _imageHighlightArr;
 }
 
 -(NSArray *)nameArr
 {
     if (_nameArr == nil) {
         
-        // 图片的数组
+        // 名字的数组
         _nameArr = @[@"钱包",@"手提包",@"文件",@"钥匙",@"衣服",@"电子物品",@"手机",@"耳机",@"其他"];
         
     }
@@ -137,7 +166,7 @@
     
     [self getDataWithStatus:0];
     
-    [self addCleaerNavigationBar:@"失物招领"];
+    [self addNavigationBar:@"失物招领"];
     
 }
 
@@ -213,7 +242,7 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
     
-    _image = [JDToCarmeView imageWithImageSimple:image scaledToSize:CGSizeMake(568, 375)];
+    _image = [JDToCarmeView imageWithImageSimple:image];
     
     /**
      *  上传信息
@@ -290,6 +319,13 @@
     }
 }
 
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    for (JDLostButton *btn in _fourView.btnArr) {
+        btn.enble = YES;
+    }
+}
+
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     for (JDLostButton *btn in _fourView.btnArr) {
@@ -362,7 +398,8 @@
         JDFourLostAndRoadView *fourView = [[JDFourLostAndRoadView alloc] initWithFrame:CGRectMake(0, 0, JDScreenSize.width, LostAndRoadBtnViewH)];
         fourView.delegate = self;
         _fourView = fourView;
-        [fourView setNameArr:self.nameArr];
+//        [fourView setNameArr:self.nameArr];
+        [fourView setImageHighlightArr:self.imageHighlightArr];
         [fourView setImageNameArr:self.imageNameArr];
         
         [cell.contentView addSubview:fourView];

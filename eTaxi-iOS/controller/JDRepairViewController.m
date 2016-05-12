@@ -102,6 +102,10 @@
     
     cell.repairPhone.text = repair.tel;
     
+    // 确定按钮
+    cell.repairSureBtn.layer.borderColor = [[UIColor redColor] CGColor];
+    cell.repairSureBtn.layer.borderWidth = 1;
+    
     [cell.repairSureBtn addTarget:self action:@selector(clickStarBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     
@@ -115,9 +119,9 @@
     
     UIButton *btn = (UIButton *)sender;
     
-    [btn setTitleColor:ViewBackgroundColor forState:UIControlStateNormal];
+    [btn setTitleColor:BLUECOLOR forState:UIControlStateNormal];
     
-//    btn.layer.borderColor = [BLUECOLOR CGColor];
+    btn.layer.borderColor = [BLUECOLOR CGColor];
     
     dispatch_time_t popTime1 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0*NSEC_PER_SEC));
     
@@ -146,7 +150,7 @@
 //返回cell的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 188;
+    return 168;
 }
 
 @end

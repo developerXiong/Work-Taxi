@@ -25,7 +25,7 @@
 //            picker.delegate = self;//设置代理
             picker.editing = NO;//是否为可编辑状态
             picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;//选择获取图片的途径
-            [Vc presentViewController:picker animated:NO completion:^{
+            [Vc presentViewController:picker animated:YES completion:^{
                 
             }];
         }
@@ -101,7 +101,7 @@
             label2.textAlignment = NSTextAlignmentCenter;
             label2.font = [UIFont systemFontOfSize:15];
             
-            [Vc presentViewController:picker animated:NO completion:nil];
+            [Vc presentViewController:picker animated:YES completion:nil];
             
         }else{
             
@@ -123,9 +123,17 @@
  *
  *  @return 压缩好的图片
  */
-+ ( UIImage *)imageWithImageSimple:( UIImage *)image scaledToSize:( CGSize )newSize
++ (UIImage *)imageWithImageSimple:(UIImage *)image
 
 {
+    // 原图片的大小
+    CGSize oldSize = [image size];
+    
+    // 原图片的高宽比例
+    CGFloat scale = oldSize.height/oldSize.width;
+    
+    // 新图片的大小
+    CGSize newSize = CGSizeMake(JDScreenSize.width, JDScreenSize.width*scale);
     
     // Create a graphics image context
     

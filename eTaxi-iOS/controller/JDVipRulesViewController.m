@@ -10,6 +10,9 @@
 #import "HeadFile.pch"
 #import "JDVipCell.h"
 
+
+#define ScaleHW 120/339 // 图片的高宽比例
+
 @interface JDVipRulesViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -36,7 +39,7 @@
 #pragma mark - tableView delegate&datasource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 2;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -45,30 +48,19 @@
     cell = [[NSBundle mainBundle]loadNibNamed:@"JDVipCell" owner:nil options:nil][0];
     cell.selectionStyle = 0;
     
-    NSArray *titleArr = @[@"什么是会员？",@"如何提升会员等级？",@"会员等级有什么区别？"];
+    NSArray *imageArr = @[@"Q1",@"Q2"];
     
-    NSArray *textArr = @[@"为了和客户建立的长期回馈体系，从您使用易加的士的这一刻开始，您就拥有了专属个人账户、尊贵的会员特权，我们竭尽全力，让您享受更优质的服务。",@"推荐下载易品APP，并完成注册。按推荐人数提升相应的会员等级。",@"会员拥有3个等级，分别为普通会员、白金会员、钻石会员。每个等级对应拥有相应的会员特权。"];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 15, JDScreenSize.width-40, 88-30)];
-    label.textColor = BLACKCOLOR;
-    label.font = [UIFont systemFontOfSize:16];
-    label.numberOfLines = 0;
-    [cell.boView addSubview:label];
-    label.text = textArr[indexPath.row];
-    
-    /**
-     *  线
-     */
-    
-    cell.topLabel.text = titleArr[indexPath.row];
-    
+    CGFloat w = JDScreenSize.width-20;
+    UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, w, w*ScaleHW)];
+    [cell.backView addSubview:imageV];
+    imageV.image = [UIImage imageNamed:imageArr[indexPath.row]];
     
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 140;
+    return (JDScreenSize.width-20)*ScaleHW+20;
 }
 
 @end

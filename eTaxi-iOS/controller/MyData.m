@@ -444,9 +444,11 @@
     NSMutableDictionary *inDic = [NSMutableDictionary dictionary];
     inDic[@"phoneNo"] = phone;
     inDic[@"password"] = password;
-    inDic[@"licenseNo"] = plate;
-    inDic[@"engineNo"] = engineNo;
+    inDic[@"licenseNo"] = @"苏AJ08G9";
+    inDic[@"engineNo"] = @"005362";
     inDic[@"loginTime"] = LOGINTIME;
+    
+    JDLog(@"%@",LOGINTIME);
     
     AFHTTPRequestOperationManager * manager =[AFHTTPRequestOperationManager manager];
     manager.responseSerializer=[AFJSONResponseSerializer serializer];
@@ -458,8 +460,6 @@
         NSString * statusStr =[responseObject objectForKey:@"returnCode"];
         NSString * msg =[responseObject objectForKey:@"msg"];
         
-//        NSLog(@"%@",responseObject);
-        
         int status =[statusStr intValue];
         if (status==0)
         {
@@ -468,7 +468,7 @@
             //声明一个数组去接数据中返回的数组
             NSMutableArray * arr =[[NSMutableArray alloc]initWithCapacity:0];
             
-            data.pecc_status=[responseObject objectForKey:@"status"];
+            data.pecc_status=[responseObject objectForKey:@"result"];
             data.pecc_totalPoint=[responseObject objectForKey:@"totalScore"];
             data.pecc_totalMoney=[responseObject objectForKey:@"totalMoney"];
             data.pecc_count=[responseObject objectForKey:@"count"];
@@ -733,6 +733,9 @@
         NSString * msg =[responseObject objectForKey:@"msg"];
         NSString * leftScore =[responseObject objectForKey:@"leftScore"];
         NSUserDefaults * us =[NSUserDefaults standardUserDefaults];
+        
+        JDLog(@"%@",msg);
+        
         if (leftScore != nil)
         {
             [us setValue:leftScore forKey:@"leftScore"];

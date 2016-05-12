@@ -10,6 +10,8 @@
 
 #import "HeadFile.pch"
 
+#import "UIView+UIView_CYChangeFrame.h"
+
 @interface JDMaintenanceButton ()
 
 @property (nonatomic, weak) UIButton *btn;
@@ -54,11 +56,11 @@
     _imageV = imageV;
     
     
-    UILabel *label = [[UILabel alloc] init];
-    label.textColor = [UIColor whiteColor];
-    label.font = [UIFont systemFontOfSize:15];
-    [btn addSubview:label];
-    _titleLabel = label;
+//    UILabel *label = [[UILabel alloc] init];
+//    label.textColor = [UIColor whiteColor];
+//    label.font = [UIFont systemFontOfSize:15];
+//    [btn addSubview:label];
+//    _titleLabel = label;
     
 }
 
@@ -101,12 +103,21 @@
     _btn.frame = self.bounds;
     
     CGSize imageS = [_image size];
-    CGFloat btnW = self.bounds.size.width, btnH = self.bounds.size.height, toBoMargin=10;
+    CGFloat btnW = self.bounds.size.width, btnH = self.bounds.size.height;
     _imageV.frame = CGRectMake((btnW - imageS.width)/2, (btnH-imageS.height)/5, imageS.width, imageS.height);
-    _imageV.center = CGPointMake(btnW/2, btnH/2-toBoMargin);
+    _imageV.center = CGPointMake(btnW/2, btnH/2);
     
-    CGFloat labelW = [self getStringWidthWithOriginalString:_title WithStringFontOfSize:15];
-    _titleLabel.frame = CGRectMake((btnW-labelW)/2, CGRectGetMaxY(_imageV.frame)+8, labelW, 20);
+    // 图片整体居中
+    CGFloat margin = (self.bounds.size.width-imageS.width)/2/2;
+    if (self.tag_btn==0||self.tag_btn==3||self.tag_btn==6) {
+        _imageV.x += margin;
+    }
+    if (self.tag_btn==2||self.tag_btn==5||self.tag_btn==8) {
+        _imageV.x -= margin;
+    }
+    
+//    CGFloat labelW = [self getStringWidthWithOriginalString:_title WithStringFontOfSize:15];
+//    _titleLabel.frame = CGRectMake((btnW-labelW)/2, CGRectGetMaxY(_imageV.frame)+8, labelW, 20);
     
 }
 

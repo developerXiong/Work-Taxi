@@ -19,6 +19,8 @@
 
 #import "JDVipAnimationView.h"
 
+#import "UIImage+GIF.h"
+
 @interface JDVIPViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
@@ -28,13 +30,9 @@
  */
 @property (weak, nonatomic) IBOutlet UIImageView *topMainView;
 /**
- *  进度条底框
- */
-@property (weak, nonatomic) IBOutlet UILabel *vipName;
-/**
  *  会员名字
  */
-@property (weak, nonatomic) IBOutlet UIImageView *proessBack;
+@property (weak, nonatomic) IBOutlet UILabel *vipName;
 /**
  *  会员等级
  */
@@ -44,21 +42,13 @@
  */
 @property (weak, nonatomic) IBOutlet UILabel *currentScroe;
 /**
- *  推荐的人数
- */
-@property (weak, nonatomic) IBOutlet UILabel *recommendCount;
-/**
  *  已推荐人数
  */
 @property (weak, nonatomic) IBOutlet UILabel *reRecommendCount;
 /**
- *  人数定位
+ *  会员等级对应的图标
  */
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *peopleSure;
-/**
- *  进度条
- */
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *processWidth;
+@property (weak, nonatomic) IBOutlet UIImageView *levelImage;
 
 @end
 
@@ -75,8 +65,7 @@
     
     self.view.backgroundColor = ViewBackgroundColor;
     
-    [self setUpSubviews];
-    
+    [self setUpSubviews]; 
     
 }
 - (IBAction)clickBack:(id)sender {
@@ -99,34 +88,27 @@
             _vipName.text = @"未审核";
         }
         
-        //设置vipLevel
-        _vipLevel.text = vipData.grade;
-        
         //设置信用积分数
         _currentScroe.text = vipData.creditScore;
         
-        //已推荐人数
-        int different = [JDGetVipinfoTools calculationWith:[vipData.referrals intValue]];
-        if (different) {
-            _reRecommendCount.text = [NSString stringWithFormat:@"已推荐%@位好友，再推荐%d位乘客可升级为%@",vipData.referrals,different,[JDGetVipinfoTools backVipLevelWithRecommenCount:vipData.referrals]];
+        //设置会员等级
+        int referrals = [vipData.referrals intValue]; // 已推荐人数
+        if (referrals<15) {
+            _vipLevel.text = @"普通会员";
+            _levelImage.image = [UIImage imageNamed:@"普通会员1"];
+            _topMainView.image = [UIImage imageNamed:@"普通会员高亮"];
+        }else if (referrals>=15&&referrals<30){
+            _vipLevel.text = @"白金会员";
+            _levelImage.image = [UIImage imageNamed:@"白金会员1"];
+            _topMainView.image = [UIImage imageNamed:@"白金会员高亮"];
         }else{
-            _reRecommendCount.text = @"您当前已经是最高等级会员";
+            _vipLevel.text = @"钻石会员";
+            _levelImage.image = [UIImage imageNamed:@"钻石会员1"];
+            _topMainView.image = [UIImage imageNamed:@"钻石会员高亮"];
         }
         
-        
         //人数
-        _recommendCount.text = [NSString stringWithFormat:@"%@人",vipData.referrals];
-        
-        //会员等级进度条
-        CGFloat totalWidth = _proessBack.bounds.size.width; //进度条的总长度
-        
-        CGFloat oneWidth = totalWidth/30; // 推荐一个人的长度
-        
-        _processWidth.constant = oneWidth*[vipData.referrals intValue]; //
-        
-        //人数定位的位置
-        _peopleSure.constant = 20 + _processWidth.constant;
-        
+        _reRecommendCount.text = [NSString stringWithFormat:@"%@",vipData.referrals];
         
         
     } failure:^(NSError *error) {
@@ -137,7 +119,7 @@
     /**
       *  tableview
       */
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_topMainView.frame), JDScreenSize.width, 100) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, JDScreenSize.height*476/667, JDScreenSize.width, 100) style:UITableViewStylePlain];
     [self.view addSubview:_tableView];
     _tableView.delegate = self;
     _tableView.dataSource = self;

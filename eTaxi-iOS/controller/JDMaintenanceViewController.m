@@ -4,7 +4,7 @@
 //
 //  Created by jeader on 16/4/26.
 //  Copyright © 2016年 jeader. All rights reserved.
-//
+//  维修预约主界面
 
 #import "JDMaintenanceViewController.h"
 
@@ -18,6 +18,10 @@
 #import "RepairData.h"
 
 #import "MyOrderViewController.h"
+
+
+#define BackGroundImage [UIImage imageNamed:@"yywxbeijing"]
+#define BackImageScale [BackGroundImage size].height/[BackGroundImage size].width //背景图片的高宽比例
 
 @interface JDMaintenanceViewController ()<JDMaintenanceViewDelegate,JDRepairDelegate>
 
@@ -54,7 +58,7 @@
     // 添加整体的视图
     [self addAllChildViews];
     
-    [self addCleaerNavigationBar:@"预约维修"];
+    [self addNavigationBar:@"预约维修"];
     
 }
 
@@ -63,15 +67,23 @@
 {
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.view addSubview:backgroundImageView];
-    backgroundImageView.image = [UIImage imageNamed:@"背景_预约维修"];
+    backgroundImageView.image = BackGroundImage;
     
     JDMaintenanceView *mainView = [[JDMaintenanceView alloc] init];
     [self.view addSubview:mainView];
     _mainView = mainView;
     mainView.delegate_main = self;
-    if (JDScreenSize.width==320&&JDScreenSize.height==480) {
-        mainView.contentSize = CGSizeMake(JDScreenSize.width, JDScreenSize.height);
-    }
+    mainView.contentSize = CGSizeMake(JDScreenSize.width, 30+10*4+LostAndRoadBtnViewH+55*3);
+    
+    // 添加时间选择框
+    [mainView showChooseTimeViewInView:self.view ClickSure:^(NSString *timeStr) {
+        
+        _timeStr = timeStr;
+        
+    } cancel:^{
+        
+    }];
+    
 }
 
 #pragma mark - maintenance view delegate
@@ -112,7 +124,6 @@
 -(void)maintenanceClickRepairCommit
 {
     JDLog(@"点击立刻上传");
-    
     
     /**
      *  维修项目string

@@ -26,15 +26,13 @@
     
     [GetData getDataWithUrl:[NSString urlWithApiName:@"getVipInfo.json"] params:params success:^(id response) {
        
+        JDLog(@"%@",response);
+        
         NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];
         int returnCode = [response[@"returnCode"] intValue];
         if (returnCode==0) {
             NSDictionary *dict = response;
             JDVipInfoData *vipData = [JDVipInfoData vipInfoWithDict:dict];
-            
-//            dataDict[@"referrals"] = vipData.referrals;
-//            dataDict[@"grade"] = vipData.grade;
-//            dataDict[@"creditScore"] = vipData.creditScore;
             
             [dataDict setObject:vipData forKey:@"vipInfo"];
             

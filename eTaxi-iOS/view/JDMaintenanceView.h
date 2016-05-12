@@ -23,14 +23,14 @@
  *  点击立刻上传按钮按钮
  */
 -(void)maintenanceClickRepairCommit;
-/**
- *  点击时间框上的确定按钮
- */
--(void)maintenanceClickTimeViewSure:(NSString *)timeStr;
-/**
- *  点击时间框上的取消按钮
- */
--(void)maintenanceClickTimeViewCancel;
+///**
+// *  点击时间框上的确定按钮
+// */
+//-(void)maintenanceClickTimeViewSure:(NSString *)timeStr;
+///**
+// *  点击时间框上的取消按钮
+// */
+//-(void)maintenanceClickTimeViewCancel;
 
 -(void)maintenanceClickRepairPro:(UIButton *)sender;
 
@@ -56,5 +56,12 @@
  *  隐藏时间框和蒙层
  */
 -(void)hiddenTimeAndMengc;
+/**
+ *  添加时间选择框
+ *
+ *  @param sure   点击确定按钮的回调
+ *  @param cancel 点击取消按钮的回调
+ */
+-(void)showChooseTimeViewInView:(UIView *)view ClickSure:(void(^)(NSString *timeStr))sure cancel:(void(^)())cancel;
 
 @end

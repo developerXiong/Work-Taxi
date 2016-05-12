@@ -9,6 +9,9 @@
 #import "JDAuditStatusView.h"
 #import "HeadFile.pch"
 
+#define UnSelectColor [[UIColor whiteColor] colorWithAlphaComponent:0.6] // 按钮未选中状态的颜色
+#define SelectColor [UIColor whiteColor] // 按钮选中状态的颜色
+
 @interface JDAuditStatusView ()
 
 /**
@@ -38,7 +41,7 @@ static NSMutableArray *_btnArr;
         
         _btnArr = [NSMutableArray array];
         
-        self.backgroundColor = ViewBackgroundColor;
+        self.backgroundColor = [UIColor clearColor];
         
     }
     return self;
@@ -67,25 +70,16 @@ static NSMutableArray *_btnArr;
         [button setTitle:statusBtnArr[i] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(clickLostStatus:) forControlEvents:UIControlEventTouchUpInside];
         [button setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
-        [button setBackgroundColor:[UIColor lightGrayColor]];
-        [button setBackgroundImage:[UIImage imageNamed:@"灰色框"] forState:UIControlStateNormal];
-        [button setBackgroundImage:[UIImage imageNamed:@"白色底图"] forState:UIControlStateHighlighted];
+        [button setBackgroundColor:UnSelectColor];
         button.titleLabel.font = [UIFont systemFontOfSize:13];
         button.tag = i;
         [self addSubview:button];
         [_btnArr addObject:button];
         if (i==_currentIndex) {
             [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [button setBackgroundImage:[UIImage imageNamed:@"白色底图"] forState:UIControlStateNormal];
+            [button setBackgroundColor:SelectColor];
         }
 
-        
-//        UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(w, 0, 1, selfH)];
-//        line.backgroundColor = ViewBackgroundColor;
-//        [button addSubview:line];
-//        if (i==count-1) {
-//            line.hidden = YES;
-//        }
     }
     
     UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, selfH-0.5, JDScreenSize.width, 0.5)];
@@ -117,11 +111,11 @@ static NSMutableArray *_btnArr;
         if (btn.tag!=tag) {
             
             [btn setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
-            [btn setBackgroundImage:[UIImage imageNamed:@"灰色框"] forState:UIControlStateNormal];
+            [btn setBackgroundColor:UnSelectColor];
         }else{
             
             [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [btn setBackgroundImage:[UIImage imageNamed:@"白色底图"] forState:UIControlStateNormal];
+            [btn setBackgroundColor:SelectColor];
             
         }
     }

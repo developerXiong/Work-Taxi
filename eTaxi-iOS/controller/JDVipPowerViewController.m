@@ -10,6 +10,9 @@
 #import "HeadFile.pch"
 #import "JDVipCell.h"
 
+#define ScaleHW 100/339 // 图片的高宽比例
+#define ImageArr @[@"普通会员",@"白金会员",@"钻石会员"]
+
 @interface JDVipPowerViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -45,13 +48,12 @@
     cell = [[NSBundle mainBundle]loadNibNamed:@"JDVipCell" owner:nil options:nil][0];
     cell.selectionStyle = 0;
     
-    NSArray *titleArr = @[@"普通会员",@"白金会员",@"钻石会员"];
     
     
-    /**
-     *  线
-     */
-    cell.topLabel.text = titleArr[indexPath.row];
+    CGFloat w = JDScreenSize.width-20;
+    UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, w, w*[self scaleWithIndex:indexPath.row])];
+    [cell.backView addSubview:imageV];
+    imageV.image = [UIImage imageNamed:ImageArr[indexPath.row]];
     
     
     return cell;
@@ -59,7 +61,17 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 140;
+    return (JDScreenSize.width-20)*[self scaleWithIndex:indexPath.row]+20;
+}
+
+-(CGFloat)scaleWithIndex:(NSInteger)row
+{
+    NSArray *imageArr = ImageArr;
+    
+    UIImage *image = [UIImage imageNamed:imageArr[row]];
+    CGSize size = [image size];
+    CGFloat scaleHW = size.height/size.width;
+    return scaleHW;
 }
 
 

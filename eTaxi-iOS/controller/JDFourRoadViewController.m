@@ -38,7 +38,14 @@
  *  物品类型名字数组
  */
 @property (nonatomic, strong) NSArray *nameArr;
-@property (nonatomic, strong) NSArray * imageArr;
+/**
+ *  物品类型正常图片数组
+ */
+@property (nonatomic, strong) NSMutableArray * imageArr;
+/**
+ *  物品类型高亮图片数组
+ */
+@property (nonatomic, strong) NSMutableArray * imageHighlightArr;
 
 /**
  *  路况信息的数组
@@ -105,13 +112,41 @@
     }
     return _nameArr;
 }
--(NSArray *)imageArr
+-(NSMutableArray *)imageArr
 {
     if (_imageArr == nil) {
-        _imageArr = @[@"road_拥堵",@"road_故障",@"road_车祸",@"road_积水",@"road_警察",@"road_施工",@"road_封路",@"road_其他",@""];
+        _imageArr = [NSMutableArray array];
+        for (int i = 0; i < 9; i++) {
+            
+            NSString *imageStr = [NSString stringWithFormat:@"road1_%d",i];
+            if (i==8) {
+                imageStr = @"";
+            }
+            [_imageArr addObject:imageStr];
+            
+        }
     }
     return _imageArr;
 }
+
+-(NSMutableArray *)imageHighlightArr
+{
+    if (_imageHighlightArr == nil) {
+        _imageHighlightArr = [NSMutableArray array];
+        for (int i = 0; i < 9; i++) {
+            
+            NSString *imageStr = [NSString stringWithFormat:@"road_highlight_1_%d",i];
+            if (i==8) {
+                imageStr = @"";
+            }
+            [_imageHighlightArr addObject:imageStr];
+            
+        }
+    }
+    return _imageHighlightArr;
+}
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -137,7 +172,7 @@
     
     [self addStoreView];
     
-    [self addCleaerNavigationBar:@"路况申报"];
+    [self addNavigationBar:@"路况申报"];
     
 }
 
@@ -261,7 +296,8 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
     
-    _image = [JDToCarmeView imageWithImageSimple:image scaledToSize:CGSizeMake(568, 375)];
+    // 将图片等比缩放
+    _image = [JDToCarmeView imageWithImageSimple:image];
     
     /**
      *  上传信息
@@ -312,6 +348,13 @@
         self.statusViewInSelf.hidden = NO;
     }else{
         self.statusViewInSelf.hidden = YES;
+    }
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    for (JDLostButton *btn in _fourView.btnArr) {
+        btn.enble = YES;
     }
 }
 
@@ -387,7 +430,8 @@
         JDFourLostAndRoadView *fourView = [[JDFourLostAndRoadView alloc] initWithFrame:CGRectMake(0, 0, JDScreenSize.width, LostAndRoadBtnViewH)];
         fourView.delegate = self;
         _fourView = fourView;
-        [fourView setNameArr:self.nameArr];
+        // 先设置高亮状态的图片，后设置正常状态的图片，不然高亮状态的图片会没有值
+        [fourView setImageHighlightArr:self.imageHighlightArr];
         [fourView setImageNameArr:self.imageArr];
         [cell.contentView addSubview:fourView];
         

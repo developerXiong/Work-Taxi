@@ -11,6 +11,8 @@
 #import "HeadFile.pch"
 #import "JDLostButton.h"
 
+#import "UIView+UIView_CYChangeFrame.h"
+
 #define TopTextFont [UIFont systemFontOfSize:13] //顶部label的文字大小
 
 @interface JDFourLostAndRoadView ()<JDLostButtonDelegate>
@@ -38,16 +40,15 @@
     return self;
 }
 
--(void)setNameArr:(NSArray *)nameArr
+-(void)setImageHighlightArr:(NSMutableArray *)imageHighlightArr
 {
-    _nameArr = nameArr;
+    _imageHighlightArr = imageHighlightArr;
     
 }
 
--(void)setImageNameArr:(NSArray *)imageNameArr
+-(void)setImageNameArr:(NSMutableArray *)imageNameArr
 {
     _imageNameArr = imageNameArr;
-    
     
     // 按钮
     for (int i = 0; i < imageNameArr.count; i ++) {
@@ -55,9 +56,12 @@
         JDLostButton *btn = [[JDLostButton alloc] init];
         
         btn.tag = i;
-        
+        // 正常图片
         btn.btnAndImageName = imageNameArr[i];
-        btn.btnName = _nameArr[i];
+        // 高亮图片
+        btn.highlightImage = _imageHighlightArr[i];
+        
+        JDLog(@"%@",_imageHighlightArr);
         
         btn.delegate = self;
         //防止同时点击两个按钮
@@ -70,12 +74,12 @@
     }
     
     // 添加白线
-    for (int i = 0; i < 5; i++) {
-        UILabel *line = [[UILabel alloc] init];
-        line.backgroundColor = TextLightColor;
-        [self addSubview:line];
-        line.tag = i;
-    }
+//    for (int i = 0; i < 5; i++) {
+//        UILabel *line = [[UILabel alloc] init];
+//        line.backgroundColor = TextLightColor;
+//        [self addSubview:line];
+//        line.tag = i;
+//    }
     
 }
 
@@ -84,7 +88,7 @@
     [super layoutSubviews];
     
     CGFloat btnW = (JDScreenSize.width - 2)/3;
-    CGFloat btnH = btnW * 0.8;
+    CGFloat btnH = btnW * 0.9;
     
     // 按钮
     for (UIView *view in self.subviews) {
@@ -103,29 +107,29 @@
     }
     
     // 线
-    for (UIView *view in self.subviews) {
-        if ([view isKindOfClass:[UILabel class]]) {
-            
-            UILabel *line = (UILabel *)view;
-            
-            NSInteger i = line.tag;
-            
-            NSInteger row = i%3; // 横着的3条线
-            
-            NSInteger col = i%2; // 竖着的2条线
-            if (i<3) {
-                line.frame = CGRectMake(0, row*btnH, self.bounds.size.width, 0.5);
-            }else{
-                line.frame = CGRectMake(col*btnW+btnW, 0, 0.5, self.bounds.size.height);
-            }
-        }
-    }
+//    for (UIView *view in self.subviews) {
+//        if ([view isKindOfClass:[UILabel class]]) {
+//            
+//            UILabel *line = (UILabel *)view;
+//            
+//            NSInteger i = line.tag;
+//            
+//            NSInteger row = i%3; // 横着的3条线
+//            
+//            NSInteger col = i%2; // 竖着的2条线
+//            if (i<3) {
+//                line.frame = CGRectMake(0, row*btnH, self.bounds.size.width, 0.5);
+//            }else{
+//                line.frame = CGRectMake(col*btnW+btnW, 0, 0.5, self.bounds.size.height);
+//            }
+//        }
+//    }
 }
 
 #pragma mark - lostButton delegate
 -(void)clickBtnDidAnimation:(UIButton *)sender btnName:(NSString *)str
 {
-    JDLog(@"four 点击 did animation %@",_nameArr);
+//    JDLog(@"four 点击 did animation %@",_nameArr);
     if ([_delegate respondsToSelector:@selector(clickBtnDidAnimation:btnName:)]) {
         [_delegate clickBtnDidAnimation:sender btnName:str];
     }
@@ -134,7 +138,7 @@
 -(void)clickBtnWillAnimation:(UIView *)sender btnName:(NSString *)str
 {
 //    JDLostButton *btnView = (JDLostButton *)sender;
-    JDLog(@"four 点击 will animation %@",_nameArr);
+//    JDLog(@"four 点击 will animation %@",_nameArr);
     if ([_delegate respondsToSelector:@selector(clickBtnWillAnimation:btnName:)]) {
         [_delegate clickBtnWillAnimation:sender btnName:str];
     }

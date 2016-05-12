@@ -18,15 +18,13 @@
     //com-jeader-tad.6655.la:20959 123:com-jeader-tad.6655.la:10610 250:com-jeader-tad.6655.la:10397
     //http://com-jeader-tad.6655.la:80/tad/
     
-    //192.168.1.128:8080
-    
-    //com-jeader-tad.6655.la:10915
-    
-    //114.55.57.237
+    // 192.168.1.128:8080
+    // com-jeader-tad.6655.la:10915
+    // 114.55.57.237
     
     NSString *urlStr = [NSString stringWithFormat:@"http://114.55.57.237/tad/client/%@",apiName];
     
-    return urlStr;
+    return urlStr; 
 }
 
 @end

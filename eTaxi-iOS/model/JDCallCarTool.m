@@ -80,6 +80,9 @@
     } failure:^(NSError *error) {
         
         JDLog(@"%@",error);
+        if (error) {
+            failure(error);
+        }
         
     }];
     

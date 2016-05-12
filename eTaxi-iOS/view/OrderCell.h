@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *stateLab;
 @property (weak, nonatomic) IBOutlet UIButton * cancelBtn;
 @property (weak, nonatomic) IBOutlet UIImageView * deleteImg;
-@property (weak, nonatomic) IBOutlet UIImageView *orderStatus;
+//@property (weak, nonatomic) IBOutlet UIImageView *orderStatus;
 @property (weak, nonatomic) IBOutlet UIImageView *repairImage;
 
 

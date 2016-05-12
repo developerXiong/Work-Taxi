@@ -25,10 +25,52 @@
 
 @property (nonatomic, strong) NSArray * arr;
 @property (nonatomic, strong) MBProgressHUD * hud;
+/**
+ *  图片名称array
+ */
+@property (nonatomic, strong) NSMutableArray *imageArr;
+/**
+ *  存放cell高度的数组
+ */
+@property (nonatomic, strong) NSMutableArray *heightArr;
 
 @end
 
 @implementation JDMyPointViewController
+
+-(NSMutableArray *)imageArr
+{
+    if (_imageArr==nil) {
+        _imageArr = [NSMutableArray array];
+        for (int i = 0; i < 5; i++) {
+            NSString *imageStr = [NSString stringWithFormat:@"score0_%d",i];
+            [_imageArr addObject:imageStr];
+        }
+    }
+    return _imageArr;
+}
+
+-(NSMutableArray *)heightArr
+{
+    if (_heightArr==nil) {
+        _heightArr = [NSMutableArray array];
+        
+        for (int i = 0; i < 5; i++) {
+            
+            NSString *imageStr = self.imageArr[i];
+            
+            CGSize imageS = [[UIImage imageNamed:imageStr] size];
+            
+            CGFloat height = (JDScreenSize.width-20)*imageS.height/imageS.width;
+            
+            NSString *heightStr = [NSString stringWithFormat:@"%f",height];
+            
+            [_heightArr addObject:heightStr];
+        }
+        
+    }
+    return _heightArr;
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -53,11 +95,13 @@
     [super viewDidLoad];
     self.tableVi.backgroundColor=[UIColor clearColor];
     self.tableVi.separatorStyle=UITableViewCellSeparatorStyleNone;
-    self.arr=[NSArray arrayWithObjects:@"登陆E+TAXI",@"推荐乘客扫描车载PAD,安装并完成注册\n每推荐1位乘客安装客户端可获取100积分,\n每日推荐满5位再获300积分.",@"推荐副驾安装并完成注册\n每推荐1位乘客安装客户端可获取100积分,\n每日推荐满5位再获300积分.",@"通过E+TAXI失物认领功能提交乘客物品.",@"通过E+TAXI路况申报功能申报路况并核实.", nil];
+    self.tableVi.estimatedRowHeight = 100;
+//    self.arr=[NSArray arrayWithObjects:@"登陆E+TAXI",@"推荐乘客扫描车载PAD,安装并完成注册\n每推荐1位乘客安装客户端可获取100积分,\n每日推荐满5位再获300积分.",@"推荐副驾安装并完成注册\n每推荐1位乘客安装客户端可获取100积分,\n每日推荐满5位再获300积分.",@"通过E+TAXI失物认领功能提交乘客物品.",@"通过E+TAXI路况申报功能申报路况并核实.", nil];
     self.hud =[[MBProgressHUD alloc] initWithView:self.view];
     [self.tableVi addSubview:self.hud];
     
-    [self addCleaerNavigationBar:@"我的积分"];
+    [self addNavigationBar:@"我的积分"];
+    
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -76,7 +120,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray * arrr1 =[NSArray arrayWithObjects:@"每日登陆送积分",@"推荐乘客",@"推荐副驾",@"提交失物", @"申报路况送积分",nil];
+//    NSArray * arrr1 =[NSArray arrayWithObjects:@"每日登陆送积分",@"推荐乘客",@"推荐副驾",@"提交失物", @"申报路况送积分",nil];
     static NSString * cellID1 =@"cell4";
     static NSString * cellID2 =@"cell5";
     PeccCell * cell =nil;
@@ -130,34 +174,45 @@
             cell.selectionStyle=UITableViewCellSelectionStyleNone;
         }
         //设置标题内容
-        cell.itemLabel.text=arrr1[indexPath.row];
-        if (indexPath.row==0||indexPath.row==1)
-        {
-            cell.getBtn.hidden=YES;
-        }
         
-        cell.backView.layer.masksToBounds = YES;
-        cell.backView.layer.cornerRadius = 5.0;
+        NSArray *imageArr = self.imageArr;
+        cell.backImage.image = [UIImage imageNamed:imageArr[indexPath.row]];
         
-        cell.getBtn.tag=indexPath.row*1;
-        [cell.getBtn addTarget:self action:@selector(getBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        //定义一个内容的label
-        UILabel * contentLabel =[[UILabel alloc] init];
-        contentLabel.frame=CGRectMake(24, 38, 225, [self getHeightWithString:self.arr[indexPath.row]]+20);
-        contentLabel.numberOfLines=0;
-        contentLabel.font=[UIFont systemFontOfSize:12];
-        contentLabel.textColor=[UIColor whiteColor];
-        //设置内容label的行间距
-        NSString * string =self.arr[indexPath.row];
-        NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:string];
-        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        [paragraphStyle setLineSpacing:4];
-        [att addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [string length])];
-        contentLabel.attributedText = att;
-        
-        [cell addSubview:contentLabel];
+//        //定义一个内容的label
+//        UILabel * contentLabel =[[UILabel alloc] init];
+//        contentLabel.frame=CGRectMake(24, 38, 225, [self getHeightWithString:self.arr[indexPath.row]]+20);
+//        contentLabel.numberOfLines=0;
+//        contentLabel.font=[UIFont systemFontOfSize:12];
+//        contentLabel.textColor=[UIColor whiteColor];
+//        //设置内容label的行间距
+//        NSString * string =self.arr[indexPath.row];
+//        NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:string];
+//        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+//        [paragraphStyle setLineSpacing:4];
+//        [att addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [string length])];
+//        contentLabel.attributedText = att;
+//        
+//        [cell addSubview:contentLabel];
     }
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //领取奖励按钮点击事件
+    if (indexPath.section==1) {
+        if (indexPath.row==2) {
+            InviteViewController * vc =[[InviteViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            [vc addNavigationBar:@"邀请副驾"];
+        }else if(indexPath.row==3){
+            JDFourLostViewController * vc =[[JDFourLostViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else if(indexPath.row==4){
+            JDFourRoadViewController * vc =[[JDFourRoadViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -189,8 +244,9 @@
     }
     else
     {
-        CGFloat height =[self getHeightWithString:self.arr[indexPath.row]]+70;
-            return height;
+        CGFloat height = [[NSString stringWithFormat:@"%@",self.heightArr[indexPath.row]] floatValue];
+        
+        return height;
     }
     
 }
@@ -201,38 +257,7 @@
     [self.navigationController pushViewController:vc animated:YES];
     
 }
-//领取奖励按钮点击事件
-- (void)getBtnClick:(UIButton *)btn
-{
-    switch (btn.tag)
-    {
-        case 2:
-        {
-            InviteViewController * vc =[[InviteViewController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-            [vc addNavigationBar:@"邀请副驾"];
-            
-        }
-            break;
-        case 3:
-        {
-            JDFourLostViewController * vc =[[JDFourLostViewController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
 
-        }
-            break;
-        case 4:
-        {
-            JDFourRoadViewController * vc =[[JDFourRoadViewController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-
-        }
-            break;
-            
-        default:
-            break;
-    }
-}
 - (CGFloat)getHeightWithString:(NSString *)str
 {
     CGRect rect = [str boundingRectWithSize:CGSizeMake(225, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} context:nil];

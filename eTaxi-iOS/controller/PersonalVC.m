@@ -338,6 +338,7 @@
     UIAlertAction *otherAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         MyData * da =[[MyData alloc] init];
+//        if (!self.kmTF) return;
         [da goLoginWithloginWithPhoneNo:PHONENO WithPsw:PASSWORD withPostType:@"4" withManual:nil withMiles:self.kmTF withCompletion:^(NSString *returnCode, NSString *msg, NSString *checkFlg) {
             if ([returnCode intValue]==0)
             {

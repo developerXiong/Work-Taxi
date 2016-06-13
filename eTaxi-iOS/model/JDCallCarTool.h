@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface JDCallCarTool : NSObject
 
@@ -18,7 +19,7 @@
  *  @param success 请求成功的回调
  *  @param failure 请求失败的回调
  */
-+(void)getCallCarInfoWithType:(NSString *)type Num:(NSString *)number Success:(void(^)(NSMutableArray *modelArr,int status))success failure:(void(^)(NSError *error))failure;
++(void)getCallCarInfoWithType:(NSString *)type inVC:(UIViewController *)Vc Num:(NSString *)number Success:(void(^)(NSMutableArray *modelArr,int status))success failure:(void(^)(NSError *error))failure;
 
 /**
  *  获取我的订单列表/消息列表
@@ -27,6 +28,6 @@
  *  @param success 请求成功的回调
  *  @param failure 请求失败的回调
  */
-+(void)getCallCarListWithType:(NSString *)type Success:(void(^)(NSMutableArray *modelArr,int orderCount))success failure:(void(^)(NSError *error))failure;
++(void)getCallCarListWithType:(NSString *)type inVC:(UIViewController *)Vc Success:(void(^)(NSMutableArray *modelArr,int orderCount))success failure:(void(^)(NSError *error))failure;
 
 @end

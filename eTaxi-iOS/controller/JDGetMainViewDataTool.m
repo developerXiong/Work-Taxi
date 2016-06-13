@@ -25,7 +25,7 @@
     params[@"plateNo"] = PLATE;
     params[@"engineNo"] = ENGINE;
     
-//    JDLog(@"%@----%@---%@----%@-----%@",PLATE,ENGINE,PHONENO,PASSWORD,LOGINTIME);
+    JDLog(@"plate%@----engine%@---phoneNo%@----password%@-----logintime%@",PLATE,ENGINE,PHONENO,PASSWORD,LOGINTIME);
     
     JDLog(@"plateNo===%@====%@",PLATE,ENGINE);
     
@@ -73,6 +73,49 @@
         failure(error);
         
         JDLog(@"%@",error);
+    }];
+    
+}
+
+// 自动登录
++(void)autoLoginWithViewController:(UIViewController *)VC Success:(void (^)())success failure:(void (^)(NSError *))failure
+{
+    NSString * str =[NSString urlWithApiName:@"loginAndRegister.json"];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"type"] = @"0";
+    params[@"phoneNo"] = PHONENO;
+    params[@"app"] = @"1";
+    params[@"manual"] = @"0";
+    params[@"clientId"] = ClientId;
+    params[@"loginTime"] = LOGINTIME;
+    
+    [GetData getDataWithUrl:str params:params success:^(id response) {
+       
+//        JDLog(@"%@",response);
+        int returnCode = [response[@"returnCode"] intValue];
+        
+        if (returnCode==0) {
+            
+            if (success) {
+                success();
+            }
+            
+        }else if(returnCode==2){
+            
+            [GetData addAlertViewInView:VC title:@"温馨提示" message:[NSString stringWithFormat:@"%@",response[@"msg"]] count:0 doWhat:^{
+                
+                /**
+                 *  执行强制退出
+                 */
+                PersonalVC *p = [[PersonalVC alloc] init];
+                [p removeFileAndInfo];
+                
+            }];
+            
+        }
+        
+    } failure:^(NSError *error) {
+        
     }];
     
 }

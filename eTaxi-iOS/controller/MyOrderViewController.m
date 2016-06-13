@@ -333,16 +333,31 @@
 {
     
     [self theLittleViewAnimationWithButtonCenter:self.btn1.center withButtonTag:1];
+    // 显示没有预约界面
+    if (self.dataArr.count==0) {
+        self.imageG.hidden = NO;
+        self.tipsLab.hidden = NO;
+    }
 }
 
 - (IBAction)btn2Click:(id)sender
 {
     [self theLittleViewAnimationWithButtonCenter:self.btn2.center withButtonTag:2];
+    // 显示没有预约界面
+    if (self.completeArr.count==0) {
+        self.imageG.hidden = NO;
+        self.tipsLab.hidden = NO;
+    }
 }
 
 - (IBAction)btn3Click:(id)sender
 {
     [self theLittleViewAnimationWithButtonCenter:self.btn3.center withButtonTag:3];
+    // 显示没有预约界面
+    if (self.cancelArr.count==0) {
+        self.imageG.hidden = NO;
+        self.tipsLab.hidden = NO;
+    }
 }
 //button底层动画方法
 - (void)theLittleViewAnimationWithButtonCenter:(CGPoint)center withButtonTag:(NSInteger)tag

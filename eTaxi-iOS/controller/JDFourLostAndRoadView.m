@@ -127,7 +127,7 @@
 }
 
 #pragma mark - lostButton delegate
--(void)clickBtnDidAnimation:(UIButton *)sender btnName:(NSString *)str
+-(void)clickBtnDidAnimation:(UIView *)sender btnName:(NSString *)str
 {
 //    JDLog(@"four 点击 did animation %@",_nameArr);
     if ([_delegate respondsToSelector:@selector(clickBtnDidAnimation:btnName:)]) {

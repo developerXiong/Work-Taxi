@@ -13,27 +13,27 @@
 /**
  *  未完成预约数
  */
-@property (nonatomic, copy) NSString * reservationNumber;
+@property (nonatomic, copy) NSString *reservationNumber;
 /**
  *  违章数
  */
-@property (nonatomic, copy) NSString * count;
+@property (nonatomic, copy) NSString *count;
 /**
  *  总营收
  */
-@property (nonatomic, copy) NSString * totalInCome;
+@property (nonatomic, copy) NSString *totalInCome;
 /**
  *  总罚款数
  */
-@property (nonatomic, copy) NSString * totalMoney;
+@property (nonatomic, copy) NSString *totalMoney;
 /**
  *  总扣分
  */
-@property (nonatomic, copy) NSString * totalPoint;
+@property (nonatomic, copy) NSString *totalPoint;
 /**
  *  剩余总积分
  */
-@property (nonatomic, copy) NSString * totalScore;
+@property (nonatomic, copy) NSString *totalScore;
 
 +(instancetype)mainDataWithDict:(NSDictionary *)dict;
 

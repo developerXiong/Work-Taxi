@@ -92,19 +92,23 @@
         _currentScroe.text = vipData.creditScore;
         
         //设置会员等级
-        int referrals = [vipData.referrals intValue]; // 已推荐人数
-        if (referrals<15) {
-            _vipLevel.text = @"普通会员";
+        NSString *grade = vipData.grade;
+        _vipLevel.text = grade;
+        if ([grade isEqualToString:@"普通会员"]) {
+
             _levelImage.image = [UIImage imageNamed:@"普通会员1"];
             _topMainView.image = [UIImage imageNamed:@"普通会员高亮"];
-        }else if (referrals>=15&&referrals<30){
-            _vipLevel.text = @"白金会员";
+        }else if ([grade isEqualToString:@"白金会员"]){
+
             _levelImage.image = [UIImage imageNamed:@"白金会员1"];
             _topMainView.image = [UIImage imageNamed:@"白金会员高亮"];
-        }else{
-            _vipLevel.text = @"钻石会员";
+        }else if ([grade isEqualToString:@"钻石会员"]){
+
             _levelImage.image = [UIImage imageNamed:@"钻石会员1"];
             _topMainView.image = [UIImage imageNamed:@"钻石会员高亮"];
+        }else {
+            _levelImage.image = [UIImage imageNamed:@"普通会员1"];
+            _topMainView.image = [UIImage imageNamed:@"普通会员高亮"];
         }
         
         //人数

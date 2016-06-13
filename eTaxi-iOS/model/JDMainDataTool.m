@@ -23,7 +23,6 @@
 +(JDMainViewData *)mainData
 {
     JDMainViewData *mainData = [NSKeyedUnarchiver unarchiveObjectWithFile:FilePath];
-    
     return mainData;
 }
 

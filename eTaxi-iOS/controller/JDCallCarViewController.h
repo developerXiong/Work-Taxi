@@ -10,4 +10,13 @@
 
 @interface JDCallCarViewController : UIViewController
 
+/**
+ *  是否在当前界面
+ */
+-(BOOL)isInCurrentViewController;
+/**
+ *  刷新界面
+ */
+-(void)refresh;
+
 @end

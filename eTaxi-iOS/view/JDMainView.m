@@ -9,7 +9,6 @@
 #import "JDMainView.h"
 #import "JDMainBar.h"
 #import "JDMainBtnView.h"
-#import "HeadFile.pch"
 
 #define BarHeight 64 // 导航栏的高度
 

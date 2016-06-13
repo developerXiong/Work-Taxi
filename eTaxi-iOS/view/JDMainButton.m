@@ -7,7 +7,6 @@
 //
 
 #import "JDMainButton.h"
-#import "HeadFile.pch"
 #import "JDIndependentBtn.h"
 
 #define Swidth self.bounds.size.width

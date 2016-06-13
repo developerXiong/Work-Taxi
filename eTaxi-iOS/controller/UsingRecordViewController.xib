@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -10,23 +10,24 @@
                 <outlet property="img" destination="MHq-rq-e2U" id="Ytx-hA-Xai"/>
                 <outlet property="itemLab" destination="bte-g7-5pB" id="urB-dw-hda"/>
                 <outlet property="tableVi" destination="DG7-fp-e0R" id="tdv-Ic-eIg"/>
+                <outlet property="topView" destination="bwx-bT-1xE" id="h3P-qG-kGo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="喇叭" translatesAutoresizingMaskIntoConstraints="NO" id="MHq-rq-e2U">
-                    <rect key="frame" x="250" y="250" width="100" height="100"/>
+                    <rect key="frame" x="138" y="284" width="100" height="100"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="100" id="MfI-nQ-ezc"/>
                         <constraint firstAttribute="height" constant="100" id="wbe-cA-AL9"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您还没有使用过积分" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bte-g7-5pB">
-                    <rect key="frame" x="200" y="360" width="200" height="41"/>
+                    <rect key="frame" x="88" y="393" width="200" height="41"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="200" id="ejB-f0-Qjy"/>
                         <constraint firstAttribute="height" constant="41" id="xzw-rg-0i3"/>
@@ -36,26 +37,37 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DG7-fp-e0R">
-                    <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                    <rect key="frame" x="0.0" y="124" width="375" height="543"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="kWF-oQ-JP9"/>
                         <outlet property="delegate" destination="-1" id="qgu-aa-2rW"/>
                     </connections>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bwx-bT-1xE">
+                    <rect key="frame" x="0.0" y="64" width="375" height="60"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="go7-Xg-aEB"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="MHq-rq-e2U" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="2lF-tw-RKn"/>
-                <constraint firstAttribute="trailing" secondItem="DG7-fp-e0R" secondAttribute="trailing" id="EJy-xh-rqM"/>
-                <constraint firstItem="DG7-fp-e0R" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="Jdr-xK-dDj"/>
-                <constraint firstItem="DG7-fp-e0R" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="LC2-Ki-3gY"/>
+                <constraint firstItem="DG7-fp-e0R" firstAttribute="top" secondItem="bwx-bT-1xE" secondAttribute="bottom" id="DMp-Nk-lsU"/>
                 <constraint firstItem="MHq-rq-e2U" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="LHZ-I8-4SR"/>
+                <constraint firstItem="bwx-bT-1xE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="MqM-fe-0oe"/>
+                <constraint firstAttribute="bottom" secondItem="DG7-fp-e0R" secondAttribute="bottom" id="QGq-Xf-Osv"/>
                 <constraint firstItem="bte-g7-5pB" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="80" id="Qpk-Q5-Ea8"/>
+                <constraint firstAttribute="trailing" secondItem="DG7-fp-e0R" secondAttribute="trailing" id="Sxi-8r-Ggb"/>
                 <constraint firstItem="bte-g7-5pB" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="dAs-gT-jvG"/>
-                <constraint firstAttribute="bottom" secondItem="DG7-fp-e0R" secondAttribute="bottom" id="fNq-zU-aOy"/>
+                <constraint firstItem="bwx-bT-1xE" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="hyn-Y5-yE1"/>
+                <constraint firstAttribute="trailing" secondItem="bwx-bT-1xE" secondAttribute="trailing" id="pFG-ek-V9C"/>
+                <constraint firstItem="DG7-fp-e0R" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="z0r-tV-YxW"/>
             </constraints>
-            <point key="canvasLocation" x="263" y="388"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <point key="canvasLocation" x="262.5" y="387.5"/>
         </view>
     </objects>
     <resources>

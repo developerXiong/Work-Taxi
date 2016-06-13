@@ -43,14 +43,17 @@
 -(void)setUpAllChildViews
 {
     // 顶部的label
-    UILabel *topLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, JDScreenSize.width, 30)];
+    UILabel *topLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, JDScreenSize.width-15, 30)];
     [self addSubview:topLabel];
     _topLabel = topLabel;
     topLabel.text = @"热门兑换";
     topLabel.font = [UIFont systemFontOfSize:16];
-    topLabel.textColor = [UIColor whiteColor];
-    topLabel.backgroundColor = COLORWITHRGB(255, 56, 56, 1);
-    topLabel.textAlignment = NSTextAlignmentCenter;
+    topLabel.textColor = COLORWITHRGB(255, 56, 56, 1);
+    
+    // 线
+    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, 28, JDScreenSize.width, 2)];
+    [self addSubview:line];
+    line.backgroundColor = ViewBackgroundColor;
     
     // collectionView
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];

@@ -21,6 +21,9 @@
 
 #import "JDGoodsShopViewController.h"
 
+#import "JDGoodsHttpTool.h"
+#import "JDGoodsData.h"
+
 @interface JDMyPointViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) NSArray * arr;
@@ -103,6 +106,7 @@
     [self addNavigationBar:@"我的积分"];
     
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 2;

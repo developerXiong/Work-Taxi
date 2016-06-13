@@ -24,6 +24,11 @@
  */
 @property (nonatomic, assign) CGRect orderStatuFrame;
 
+/**
+ *  查看详情
+ */
+@property (nonatomic, assign) CGRect lookDetailFrame;
+
 
 /********  前面的字  *******/
 /**
@@ -66,6 +71,9 @@
  */
 @property (nonatomic, assign) CGRect lineFrame;
 
+/**
+ *  整体视图下的cellHeight
+ */
 @property (nonatomic, assign) CGFloat cellHeight;
 
 @end

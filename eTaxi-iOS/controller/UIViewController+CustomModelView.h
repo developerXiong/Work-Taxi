@@ -40,4 +40,9 @@
 
 -(void)dismissToMainVC;
 
+/**
+ *  点击返回按钮回到根界面
+ */
+-(void)popToRootViewCntroller;
+
 @end

@@ -16,10 +16,12 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
+#import "JDPeccancyData.h"
+
 #pragma mark- 自定义一个大头针
 @interface JDPoint : NSObject<MKAnnotation>
 
-@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+@property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 
 //标题
 @property (nonatomic, copy) NSString *title;
@@ -57,7 +59,7 @@
 @property (nonatomic, strong) NSMutableArray * endArr;
 @property (nonatomic, assign) CLLocationCoordinate2D locc;
 
-
+@property (nonatomic, weak) JDPoint * point;
 
 @end
 
@@ -87,6 +89,11 @@
     NSString * address =[NSString stringWithFormat:@"江苏南京%@",self.myAddress];
     if (address.length==0) return;
     
+//    [self.gercoder geocodeAddressDictionary:<#(nonnull NSDictionary *)#> completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+//        
+//    }];
+    
+    
     //2.开始地理编码
     //说明：调用下面的方法开始编码，不管编码是成功还是失败都会调用block中的方法
     [self.geocoder geocodeAddressString:address completionHandler:^(NSArray *placemarks, NSError *error)
@@ -109,9 +116,11 @@
              CLPlacemark *firstPlacemark=[placemarks firstObject];
              //详细地址名称
              self.locc=firstPlacemark.location.coordinate;
-             
+
          }
      }];
+    
+    
     [self.detailTable reloadData];
 }
 - (void)viewDidLoad
@@ -121,6 +130,11 @@
     UIView * vi =[[UIView alloc] init];
     vi.backgroundColor=[UIColor clearColor];
     self.detailTable.tableFooterView=vi;
+    
+    // 添加大头针
+    JDPoint * point =[[JDPoint alloc] init];
+    _point = point;
+    [self.mapView addAnnotation:point];
     
     [self mapAndTabelView];
 }
@@ -139,7 +153,7 @@
 -(void)setUpLocation
 {
     self.locationmanager = [[CLLocationManager alloc] init];
-    
+
     self.locationmanager.delegate = self;
 }
 //请求权限
@@ -169,8 +183,11 @@
     //放大地图到自身的经纬度位置。值越大 显示的范围越大
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(self.locc, 700, 700);
     [self.mapView setRegion:region animated:NO];
-    JDPoint * point =[[JDPoint alloc] initWithCoordinate:self.locc andTitle:self.myAddress];
-    [self.mapView addAnnotation:point];
+    
+    
+    _point.coordinate = self.locc;
+    _point.title = self.myAddress;
+    
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -179,7 +196,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray * array =[NSArray arrayWithObjects:@"违章内容",@"违章时间",@"罚款金额",@"扣分情况",@"违章地点",@"当前状态",@"", nil];
-    MyTool * p =[self.array objectAtIndex:[self.codeStr integerValue]];
+    JDPeccancyData * p =[self.array objectAtIndex:[self.codeStr integerValue]];
 //    static NSString * cellID1 =@"cell1";
     PeccCell * cell =[tableView cellForRowAtIndexPath:indexPath];
     if (!cell)
@@ -201,7 +218,7 @@
     {
         case 0:
         {
-            NSString * str =[NSString stringWithFormat:@"%@",p.pecc_info];
+            NSString * str =[NSString stringWithFormat:@"%@",p.info];
             
             cell.whoLab.text=str;
             cell.whoLab.textAlignment=NSTextAlignmentLeft;
@@ -210,28 +227,28 @@
             break;
         case 1:
         {
-            NSString * str =[NSString stringWithFormat:@"%@",p.pecc_date];
+            NSString * str =[NSString stringWithFormat:@"%@",p.occur_date];
             cell.whoLab.text=str;
             cell.whoLab.textColor=[UIColor colorWithRed:110/255.0 green:110/255.0 blue:110/255.0 alpha:1.0];
         }
             break;
         case 2:
         {
-            NSString * str =[NSString stringWithFormat:@"%@",p.pecc_money];
+            NSString * str =[NSString stringWithFormat:@"%@",p.money];
             cell.whoLab.text=str;
             cell.whoLab.textColor=[UIColor colorWithRed:110/255.0 green:110/255.0 blue:110/255.0 alpha:1.0];
         }
             break;
         case 3:
         {
-            NSString * str =[NSString stringWithFormat:@"%@",p.pecc_point];
+            NSString * str =[NSString stringWithFormat:@"%@",p.fen];
             cell.whoLab.text=str;
             cell.whoLab.textColor=[UIColor colorWithRed:110/255.0 green:110/255.0 blue:110/255.0 alpha:1.0];
         }
             break;
         case 4:
         {
-            NSString * str =[NSString stringWithFormat:@"%@",p.pecc_address];
+            NSString * str =[NSString stringWithFormat:@"%@",p.occur_area];
             cell.whoLab.text=str;
             cell.whoLab.textColor=[UIColor colorWithRed:110/255.0 green:110/255.0 blue:110/255.0 alpha:1.0];
         }
@@ -240,21 +257,21 @@
         {
             
             //区分已经处理的和没有处理的
-            if ([p.pecc_result isEqualToString:@"已处理"])
+            if ([p.result isEqualToString:@"已处理"])
             {
                 cell.whoLab.text=@"已处理";
                 cell.whoLab.textColor=[UIColor colorWithRed:0/255.0 green:157/255.0 blue:149/255.0 alpha:1.0];
                 //已经处理过的时候label扣分颜色不用变化
-                NSString * pointStr =[NSString stringWithFormat:@"扣%@分",p.pecc_point];
+                NSString * pointStr =[NSString stringWithFormat:@"扣%@分",p.fen];
                 cell.whoLab.text=pointStr;
                 
             }
-            else if ([p.pecc_result isEqualToString:@"未处理"])
+            else if ([p.result isEqualToString:@"未处理"])
             {
                 cell.whoLab.text=@"未处理";
                 cell.whoLab.textColor=[UIColor colorWithRed:209/255.0 green:10/255.0 blue:21/255.0 alpha:1.0];
             }
-            else if ([p.pecc_result isEqualToString:@"已受理"])
+            else if ([p.result isEqualToString:@"已受理"])
             {
                 cell.whoLab.text=@"已受理";
                 cell.whoLab.textColor=[UIColor colorWithRed:13/255.0 green:103/255.0 blue:223/255.0 alpha:1.0];
@@ -278,8 +295,8 @@
 {
     if (indexPath.row==0)
     {
-        MyData * p =[self.array objectAtIndex:[self.codeStr integerValue]];
-        return [self stringHeightWithString:p.pecc_info]+30;
+        JDPeccancyData * p =[self.array objectAtIndex:[self.codeStr integerValue]];
+        return [self stringHeightWithString:p.info]+30;
     }
     else
     {
@@ -318,15 +335,15 @@
 //用积分处理违章的按钮点击事件
 - (IBAction)dealBtnClick:(id)sender
 {
-    MyTool * p =[self.array objectAtIndex:[self.codeStr integerValue]];
+    JDPeccancyData * p =[self.array objectAtIndex:[self.codeStr integerValue]];
     //区分已经处理的和没有处理的
-    if ([p.pecc_result isEqualToString:@"已处理"])
+    if ([p.result isEqualToString:@"已处理"])
     {
         [GetData addAlertViewInView:self title:@"温馨提示" message:@"该记录已经在处理中!" count:0 doWhat:^{
             
         }];
     }
-    else if ([p.pecc_result isEqualToString:@"未处理"])
+    else if ([p.result isEqualToString:@"未处理"])
     {
         if ([self.moneyStr intValue]==0)
         {
@@ -336,12 +353,12 @@
         else
         {
             PeccancyDealViewC * vc =[[PeccancyDealViewC alloc] initWithDataArr:nil withMoneyStr:self.moneyStr withCode:self.codeStr];
-            vc.IDStr=p.pecc_id;
+            vc.IDStr=p.id;
             [self.navigationController pushViewController:vc animated:YES];
             [vc addNavigationBar:@"积分处理"];
         }
     }
-    else if ([p.pecc_result isEqualToString:@"已受理"])
+    else if ([p.result isEqualToString:@"已受理"])
     {
         [GetData addAlertViewInView:self title:@"温馨提示" message:@"该记录我们已经受理!" count:0 doWhat:^{
             

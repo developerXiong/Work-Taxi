@@ -34,9 +34,13 @@
 
 #import "JDCallCarListDataTool.h"
 
+#import "JDNoMessageView.h"
 
-#define NowUseImage [UIImage imageNamed:@"现在上车"]
-#define FuturaImage [UIImage imageNamed:@"预约用车"]
+#import "CYFloatingBallView.h"
+
+
+#define NowUseImage [UIImage imageNamed:@"现在上车1"]
+#define FuturaImage [UIImage imageNamed:@"预约用车1"]
 
 @interface JDCallCarViewController ()<UITableViewDelegate,UITableViewDataSource,JDCallCarAlertViewDelaget,JDOrderFailureDelegate>
 
@@ -69,6 +73,8 @@
 
 @end
 
+static NSInteger _isCurrentVcIndex;
+
 @implementation JDCallCarViewController
 
 
@@ -81,8 +87,12 @@
     return _modelArr;
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // 接收通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:@"callCarReloadData" object:nil];
     
     // 设置tableview
     [self setUpTableView];
@@ -95,19 +105,60 @@
     // 设置当前已接单
     [self setUpCurrentOrder];
     
+    JDLog(@"%s---%p",__func__,self.tableView);
+    
+//    NSTimer *timer = [NSTimer timerWithTimeInterval:0.5 target:self selector:@selector(addObserver) userInfo:nil repeats:YES];
+//    [timer fire];
+//    [self performSelector:@selector(addObserver) onThread:[NSThread mainThread] withObject:nil waitUntilDone:NO modes:nil];
+}
+
+-(void)dealloc
+{
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    // 根据_isCurrentVcIndex判断是否在当前界面
+    _isCurrentVcIndex = 1;
+    
     [super viewWillAppear:animated];
     
+    // 刷新数据
     [self refresh];
+    
+    // 刷新悬浮窗数据
+    [[CYFloatingBallView shareInstance] setUpNumber];
+    
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    // 根据_isCurrentVcIndex判断是否在当前界面
+    _isCurrentVcIndex --;
+    
+}
+
+#pragma mark public method
+-(BOOL)isInCurrentViewController
+{
+    if (_isCurrentVcIndex==1) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+// 刷新
 -(void)refresh
 {
+    
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getData)];
     [self.tableView.mj_header beginRefreshing];
+//    [self getData];
+    JDLog(@"%s---%p",__func__,self.tableView);
 }
 
 #pragma mark - 设置当前已接单
@@ -129,11 +180,21 @@
 #pragma mark - 请求数据
 -(void)getData
 {
+    // 浮动窗口数字改变
+    [[CYFloatingBallView shareInstance] setUpNumber];
+    
+    // 移除没有消息s时的界面
+    for (UIView *view in self.tableView.subviews) {
+        if ([view isKindOfClass:[JDNoMessageView class]]) {
+            
+            [view removeFromSuperview];
+        }
+    }
     
     [self setUpOrderCount];
     
     // 请求单子列表
-    [JDCallCarTool getCallCarInfoWithType:@"0" Num:nil Success:^(NSMutableArray *modelArr, int status) {
+    [JDCallCarTool getCallCarInfoWithType:@"0" inVC:self Num:nil Success:^(NSMutableArray *modelArr, int status) {
             
         [self.tableView.mj_header endRefreshing];
         
@@ -143,9 +204,13 @@
         
         // 没有召车信息
         if (modelArr.count==0) {
-            [GetData addMBProgressWithView:self.view style:1];
-            [GetData showMBWithTitle:@"当前没有召车信息！"];
-            [GetData hiddenMB];
+//            [GetData addMBProgressWithView:self.view style:1];
+//            [GetData showMBWithTitle:@"当前没有召车信息！"];
+//            [GetData hiddenMB];
+            // 添加没有召车信息的界面
+            JDNoMessageView *noMessView = [[JDNoMessageView alloc] initWithFrame:CGRectMake(0, 0, JDScreenSize.width, self.tableView.bounds.size.height*2/3)];
+            noMessView.message = @"当前没有召车信息";
+            [self.tableView addSubview:noMessView];
         }
 
         
@@ -164,7 +229,7 @@
     // 请求我的订单数量
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         
-        [JDCallCarTool getCallCarListWithType:@"2" Success:^(NSMutableArray *modelArr, int orderCount) {
+        [JDCallCarTool getCallCarListWithType:@"2" inVC:self Success:^(NSMutableArray *modelArr, int orderCount) {
             
             self.myOrderCount = modelArr.count;
             
@@ -194,7 +259,9 @@
 #pragma mark - 设置导航条
 -(void)setUpNavgationBar
 {
+    [self addNavigationBar:@"预约召车"];
     [self addRightBtnWithImage:@"电召_消息" action:@selector(clickRightItem)];
+    [self popToRootViewCntroller];
 }
 
 -(void)clickRightItem
@@ -282,7 +349,7 @@
         [GetData showMBWithTitle:@"正在接单......"];
         [GetData hiddenMB];
         
-        [JDCallCarTool getCallCarInfoWithType:@"1" Num:data.number Success:^(NSMutableArray *modelArr, int status) {
+        [JDCallCarTool getCallCarInfoWithType:@"1" inVC:self Num:data.number Success:^(NSMutableArray *modelArr, int status) {
             
             if (status==0) { // 接单成功
                 
@@ -296,6 +363,10 @@
                     [self.modelArr removeObjectAtIndex:self.indexPath.row];
                     [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:self.indexPath] withRowAnimation:UITableViewRowAnimationNone];
                     [self setUpOrderCount];
+                    
+//                    JDCallCarListViewController *list = [[JDCallCarListViewController alloc] init];
+//                    [list addNavigationBar:@"接单列表"];
+//                    [self.navigationController pushViewController:list animated:YES];
                 });
                 
                 
@@ -310,6 +381,10 @@
             }
             
         } failure:^(NSError *error) {
+            
+            [GetData addAlertViewInView:self title:@"温馨提示！" message:@"服务器错误！请稍后重试！" count:0 doWhat:^{
+                
+            }];
             
         }];
     

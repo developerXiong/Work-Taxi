@@ -20,4 +20,13 @@
 @property (strong, nonatomic) IBOutlet UIButton * deleteBtn2;
 
 
+/**
+ *  获取密文
+ *
+ *  password : 密码
+ *  publicKey: 公钥
+ *  return : 对密码加密后的密文
+ */
+//+(NSString *)securityTextWithPass:(NSString *)password publicKey:(NSString *)publicKey;
+
 @end

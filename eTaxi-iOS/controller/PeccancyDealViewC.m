@@ -16,7 +16,9 @@
 #import "GetData.h"
 #import "MyData.h"
 #import "PersonalVC.h"
-#import "PeccancyViewC.h"
+//#import "PeccancyViewC.h"
+
+#import "JDPeccancyViewController.h"
 
 @interface PeccancyDealViewC ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -44,6 +46,8 @@
 {
     [super viewDidLoad];
     self.tableVi.scrollEnabled=NO;
+    
+    [self addNavigationBar:@"积分处理"];
    
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

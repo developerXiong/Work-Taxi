@@ -11,13 +11,26 @@
 #import "HeadFile.pch"
 #import "JDMessgeCell.h"
 
+#import "JDPushDataTool.h"
+#import "JDPushData.h"
+
 @interface JDMessgeViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong)UITableView *tableView;
 
+@property (nonatomic, strong) NSMutableArray *dataArr;
+
 @end
 
 @implementation JDMessgeViewController
+
+-(NSMutableArray *)dataArr
+{
+    if (!_dataArr) {
+        _dataArr = [NSMutableArray array];
+    }
+    return _dataArr;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,6 +44,14 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    JDLog(@"%@",[[JDPushDataTool new] query]);
+    
+    for (NSDictionary *dict in [[JDPushDataTool new] query]) {
+        JDPushData *data = [JDPushData pushDataWithDictionary:dict];
+        [self.dataArr addObject:data];
+        [self.tableView reloadData];
+    }
     
     if (self.dataArr.count) {
         
@@ -61,7 +82,7 @@
      *   没有消息的时候的图标
      */
     UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, imageS.width, imageS.height)];
-    imageV.center = CGPointMake(JDScreenSize.width/2, JDScreenSize.height/3);
+    imageV.center = CGPointMake(JDScreenSize.width/2, JDScreenSize.height*2/5);
     [self.view addSubview:imageV];
     imageV.image = [UIImage imageNamed:@"喇叭"];
     
@@ -102,8 +123,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    NSMutableArray *dataArr = self.dataArr;
-    NSDictionary *dict = dataArr[indexPath.section];
+    JDPushData *data = self.dataArr[indexPath.section];
     
     static NSString *ID = @"messCell";
     JDMessgeCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
@@ -114,9 +134,9 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    cell.title.text = dict[@"title"];
-    cell.time.text = dict[@"currentTime"];
-    cell.describe.text = dict[@"content"];
+    cell.title.text = data.title;
+    cell.time.text = data.currentTime;
+    cell.describe.text = data.content;
     
     
     return cell;

@@ -129,6 +129,23 @@
         }
             break;
             
+            case 2:
+        {
+            if (!cell) {
+                cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+                cell.selectionStyle=UITableViewCellSelectionStyleNone;
+                //添加控件开关
+                UISwitch * swi2 =[[UISwitch alloc]initWithFrame:CGRectMake(JDScreenSize.width-60, 10, 51, 31)];
+                swi2.onTintColor=[UIColor colorWithRed:72/255.0 green:123/255.0  blue:184/255.0  alpha:1.0];
+                swi2.on=[[NSUserDefaults standardUserDefaults]boolForKey:@"zcState"];
+                swi2.tag=333;
+                [swi2 addTarget:self action:@selector(callcarSwi:) forControlEvents:UIControlEventTouchUpInside];
+                [cell.contentView addSubview:swi2];
+            }
+            cell.textLabel.text=@"通知开关";
+            cell.textLabel.textColor=[UIColor colorWithRed:64/255.0 green:64/255.0 blue:64/255.0 alpha:1.0];
+        }
+            
         default:
             break;
     }
@@ -359,6 +376,58 @@
      }];
 }
 
+// 召车通知开关
+-(void)callcarSwi:(UISwitch *)callCarS
+{
+    //找控件
+    UISwitch * incomeS =(UISwitch *)[self.tableVi viewWithTag:333];
+    MyData * data =[MyData new];
+    if (incomeS.isOn)
+    {
+        self.statusIn= @"开";
+    }
+    else
+    {
+        self.statusIn =@"关";
+    }
+    if (callCarS.isOn)
+    {
+        self.statusBr= @"开";
+    }
+    else
+    {
+        self.statusBr =@"关";
+    }
+    NSUserDefaults * us =[NSUserDefaults standardUserDefaults];
+    [us setBool:callCarS.isOn forKey:@"zcState"];
+    [us synchronize];
+    [data getSetWithIncomeSwitch:self.statusIn WithBreakRulesSwitch:self.statusBr WithIncomeTime:self.label.text WithCompletion:^(NSString *str,NSString * msg)
+     {
+         if ([str intValue]==0)
+         {
+             
+         }
+         else if ([str intValue]==1)
+         {
+             [GetData addAlertViewInView:self title:@"温馨提示" message:msg count:0 doWhat:^{
+                 
+             }];
+         }
+         else if ([str intValue]==2)
+         {
+             [GetData addAlertViewInView:self title:@"温馨提示" message:msg count:0 doWhat:^{
+                 PersonalVC * vc =[[PersonalVC alloc] init];
+                 [vc removeFileAndInfo];
+             }];
+         }
+         else
+         {
+             [GetData addAlertViewInView:self title:@"温馨提示" message:@"网络连接失败请重试尝试" count:0 doWhat:^{
+                 
+             }];
+         }
+     }];
+}
 
 
 

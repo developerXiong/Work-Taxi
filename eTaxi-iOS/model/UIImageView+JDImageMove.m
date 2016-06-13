@@ -12,6 +12,8 @@
 
 #import "UIView+MJExtension.h"
 
+#import "CYFloatingBallView.h"
+
 
 @implementation UIImageView (JDImageMove)
 
@@ -38,7 +40,12 @@
 
 -(void)startWobbleInView:(UIView *)view
 {
-    UIWindow *keywindow = [UIApplication sharedApplication].keyWindow;
+    
+    NSArray *windows = [[UIApplication sharedApplication] windows];
+    
+    UIWindow *keywindow = (UIWindow *)windows[0];
+    
+    JDLog(@"---->%@====%p",keywindow,keywindow);
     
     CGRect rect = [self convertRect:self.bounds toView:keywindow];
     
@@ -63,13 +70,13 @@
         
     } completion:^(BOOL finished) {
         
-        
         window.hidden = YES;
-        
+        [window resignKeyWindow];
+        [imageV removeFromSuperview];
         
     }];
 
-    
+    JDLog(@"%p---%p",window,imageV);
 }
 
 @end

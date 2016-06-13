@@ -95,7 +95,7 @@
  *  @param psw   登陆时使用的密码
  *  @param block 返回代码的block
  */
--(void)goLoginWithloginWithPhoneNo:(NSString *)phone WithPsw:(NSString *)psw withPostType:(NSString *)type withManual:(NSString *)manual withMiles:(NSString *)miles withCompletion:(void(^)(NSString * returnCode,NSString * msg,NSString * checkFlg))block;
+-(void)goLoginWithloginWithPhoneNo:(NSString *)phone WithPsw:(NSString *)psw withPostType:(NSString *)type withManual:(NSString *)manual withMiles:(NSString *)miles withCompletion:(void(^)(NSString * returnCode,NSString * msg,NSString * checkFlg,NSInteger role))block;
 
 /**
  *  获取验证码接口

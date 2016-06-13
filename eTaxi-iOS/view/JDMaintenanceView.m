@@ -18,15 +18,16 @@
 #define TopLabelH 30  // 顶部的label的高度
 #define TextLabelFont [UIFont systemFontOfSize:14] // 维修预约的label的字体大小
 #define ToBoImage [UIImage imageNamed:@"排列顺序下"] // 向下的图标
-#define TextBtnFont [UIFont systemFontOfSize:13] // 维修预约的Btn的字体大小
+#define TextBtnFont [UIFont systemFontOfSize:14] // 维修预约的Btn的字体大小
+#define TextColor [UIColor blackColor] // 维修预约按钮的字体颜色
 
 #define CommitImage [UIImage imageNamed:@"tijiaoyuyue"] // 提交按钮的图片
-#define TimeImage [UIImage imageNamed:@"yuyueshijian"] // 预约时间图片
-#define AddressImage [UIImage imageNamed:@"yuyuedidian"] // 预约地点图片
+#define TimeImage [UIImage imageNamed:@"yuyueshijian1"] // 预约时间图片
+#define AddressImage [UIImage imageNamed:@"yuyuedidian1"] // 预约地点图片
 
 #define CommitHighlightImage [UIImage imageNamed:@"tijiaoyuyuegaoliang"] // 提交按钮高亮图片
-#define TimeHighlightImage [UIImage imageNamed:@"yuyueshijiangaoliang"] // 预约时间高亮图片
-#define AddressHighlightImage [UIImage imageNamed:@"yuyuedidiangaoliang"] // 预约地点高亮图片
+#define TimeHighlightImage [UIImage imageNamed:@"yuyueshijiangaoliang1"] // 预约时间高亮图片
+#define AddressHighlightImage [UIImage imageNamed:@"yuyuedidiangaoliang1"] // 预约地点高亮图片
 
 @interface JDMaintenanceView ()
 
@@ -110,10 +111,10 @@
     [self addSubview:repairTime];
     _repairTime = repairTime;
     [repairTime addTarget:self action:@selector(clickRepairTime) forControlEvents:UIControlEventTouchUpInside];
-    [repairTime setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [repairTime setTitleColor:TextColor forState:UIControlStateNormal];
     repairTime.titleLabel.font = TextBtnFont; // 设置选择时间之后的按钮上的字体
     repairTime.titleLabel.textAlignment = NSTextAlignmentCenter;
-    repairTime.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 5, 0);
+    repairTime.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 5, 0);
     [repairTime setBackgroundImage:TimeImage forState:UIControlStateNormal];// 设置按钮的正常背景图片
     [repairTime setBackgroundImage:TimeHighlightImage forState:UIControlStateHighlighted]; //设置按钮的高亮背景图片
     
@@ -122,9 +123,9 @@
     [self addSubview:repairPoint];
     _repairPoint = repairPoint;
     [repairPoint addTarget:self action:@selector(clickRepairPoint) forControlEvents:UIControlEventTouchUpInside];
-    [repairPoint setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [repairPoint setTitleColor:TextColor forState:UIControlStateNormal];
     repairPoint.titleLabel.font = TextBtnFont;
-    repairPoint.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 5, 0);
+    repairPoint.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 5, 0);
     [repairPoint setBackgroundImage:AddressImage forState:UIControlStateNormal]; //设置正常的背景图片
     [repairPoint setBackgroundImage:AddressHighlightImage forState:UIControlStateHighlighted];// 设置高亮的背景图片
     

@@ -7,7 +7,6 @@
 //
 
 #import "JDMainBar.h"
-#import "HeadFile.pch"
 
 #define Swidth self.bounds.size.width
 #define Sheight self.bounds.size.height

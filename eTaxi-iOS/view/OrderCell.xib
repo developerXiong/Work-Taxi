@@ -342,7 +342,7 @@
                             <constraint firstAttribute="height" constant="20" id="Whr-7Q-9fl"/>
                             <constraint firstAttribute="width" constant="70" id="tvq-R2-SqM"/>
                         </constraints>
-                        <state key="normal" title="兑换记录">
+                        <state key="normal" title="使用记录">
                             <color key="titleColor" red="0.25098039215686274" green="0.25098039215686274" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                     </button>

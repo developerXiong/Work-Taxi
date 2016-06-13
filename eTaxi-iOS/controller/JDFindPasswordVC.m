@@ -14,11 +14,11 @@
 #import "JKCountDownButton.h"
 #import "GetData.h"
 
+#import "JDGetPublickKey.h"
+
 @interface JDFindPasswordVC ()<UITableViewDataSource,UITableViewDelegate>
 
-@property (strong, nonatomic) NSString * str;
-
-
+@property (strong, nonatomic) NSString *str;
 
 @end
 
@@ -388,33 +388,44 @@
             {
                 //验证码比对成功 又没有过期  发送请求
                 MyData * data =[[MyData alloc]init];
-                [data getFindNewPasswordWithPhoneNo:phoneNoTF.text WithNewPassword:nPasswordTF.text WithCompletion:^(NSString * returnCode,NSString * msg) {
-                    if ([returnCode intValue]==0)
-                    {
-                        //把密码写入到本地 以便于以后发送请求的时候 宏定义数值的准确性
-                        NSUserDefaults * us =[NSUserDefaults standardUserDefaults];
-                        [us setObject:nPasswordTF.text forKey:@"password"];
-                        [us synchronize];
-                        
-                        confirmTF.text=@"";
-                        nPasswordTF.text=@"";
-                        
-                        [GetData addAlertViewInView:self title:@"温馨提示" message:@"密码更改成功!" count:0 doWhat:^{
-                            [self.navigationController popViewControllerAnimated:YES];
-                        }];
-                    }
-                    else if ([returnCode intValue]==1)
-                    {
-                        [self presentViewController:[tool showAlertControllerWithTitle:@"错误" WithMessages:msg WithCancelTitle:@"确定"] animated:YES completion:nil];
-                    }
-                    else
-                    {
-                        [GetData addMBProgressWithView:self.view style:1];
-                        [GetData showMBWithTitle:@"网络不太好,请重试一下吧"];
-                        [GetData hiddenMB];
-                        
-                    }
+                
+                // 请求密文密码
+//                NSString *newPass = [[JDGetPublickKey shareInstance] securityTextWithPass:nPasswordTF.text];
+                
+                [JDGetPublickKey securityTextWithPass:nPasswordTF.text success:^(NSString *security) {
+                    
+                    [data getFindNewPasswordWithPhoneNo:phoneNoTF.text WithNewPassword:security WithCompletion:^(NSString * returnCode,NSString * msg) {
+                        if ([returnCode intValue]==0)
+                        {
+                            //把密码写入到本地 以便于以后发送请求的时候 宏定义数值的准确性
+                            NSUserDefaults * us =[NSUserDefaults standardUserDefaults];
+                            [us setObject:nPasswordTF.text forKey:@"password"];
+                            [us synchronize];
+                            
+                            confirmTF.text=@"";
+                            nPasswordTF.text=@"";
+                            
+                            [GetData addAlertViewInView:self title:@"温馨提示" message:@"密码更改成功!" count:0 doWhat:^{
+                                [self.navigationController popViewControllerAnimated:YES];
+                            }];
+                        }
+                        else if ([returnCode intValue]==1)
+                        {
+                            [self presentViewController:[tool showAlertControllerWithTitle:@"错误" WithMessages:msg WithCancelTitle:@"确定"] animated:YES completion:nil];
+                        }
+                        else
+                        {
+                            [GetData addMBProgressWithView:self.view style:1];
+                            [GetData showMBWithTitle:@"网络不太好,请重试一下吧"];
+                            [GetData hiddenMB];
+                            
+                        }
+                    }];
+                } failure:^(NSError *error) {
+                    
                 }];
+                
+                
         }
                 [confirmBtn stop];
             

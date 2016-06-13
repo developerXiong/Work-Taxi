@@ -24,7 +24,7 @@
 /**
  *   商品详情图片
  */
-@property (nonatomic, strong) UIImageView *detailImageV;
+//@property (nonatomic, strong) UIImageView *detailImageV;
 
 @end
 
@@ -39,7 +39,7 @@
         self.minus.enabled = NO;
         [self getData];
     }
-    
+    JDLog(@"%@",_detailImageV.image);
 }
 
 - (void)viewDidLoad {
@@ -50,8 +50,9 @@
     //取消tableview的分割线
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    self.tableView.rowHeight = 500;
+    self.tableView.rowHeight = _detailImageV.frame.size.height;
     
+    JDLog(@"%@",_detailImageV.image);
 }
 
 // 请求数据
@@ -65,19 +66,19 @@
             JDGoodsData *goodsData = modelArr[_index];
             _goodsData = goodsData;
             
-            NSURL *url = [NSURL URLWithString:goodsData.goodDetail];
-            NSData *data = [NSData dataWithContentsOfURL:url];
-            UIImage *image = [UIImage imageWithData:data];
+//            NSURL *url = [NSURL URLWithString:goodsData.goodDetail];
+//            NSData *data = [NSData dataWithContentsOfURL:url];
+//            UIImage *image = [UIImage imageWithData:data];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                
                 self.needPoint.text = goodsData.cost;
                 self.exchangeCount.text = [NSString stringWithFormat:@"商品已被兑换%d件",[goodsData.goodCount intValue]];
                 
-                _detailImageV.image = image;
-                _detailImageV.height = [image size].height;
-                self.tableView.rowHeight = [image size].height;
-                _detailImageV.contentMode = UIViewContentModeScaleToFill;
+//                _detailImageV.image = image;
+//                _detailImageV.height = [image size].height;
+//                self.tableView.rowHeight = [image size].height;
+//                _detailImageV.contentMode = UIViewContentModeScaleToFill;
                 
                 
             });
@@ -103,9 +104,9 @@
         
     }];
     
-    if ([_delegate respondsToSelector:@selector(clickExchangeBtn:goodsID:)]) {
+    if ([_delegate respondsToSelector:@selector(clickExchangeBtn:goodsID:totalCosts:)]) {
         
-        [_delegate clickExchangeBtn:_gCount goodsID:_goodsData.id];
+        [_delegate clickExchangeBtn:_gCount goodsID:_goodsData.id totalCosts:_gCount*[_goodsData.cost integerValue]];
         
     }
     
@@ -168,12 +169,11 @@
     }
     
     // 详情图片
-    UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, JDScreenSize.width, 756)];
-    _detailImageV = imageV;
-    [cell.contentView addSubview:imageV];
+//    UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, JDScreenSize.width, 756)];
+//    _detailImageV = imageV;
+    [cell.contentView addSubview:_detailImageV];
     
     return cell;
 }
-
 
 @end

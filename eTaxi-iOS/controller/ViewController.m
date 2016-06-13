@@ -16,6 +16,9 @@
 #import "PersonalVC.h"
 #import "JDMianViewController.h"
 
+#import "CYFloatingBallView.h"
+
+#import "JDCallCarTool.h"
 
 @interface ViewController ()
 
@@ -35,6 +38,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // 悬浮窗口
+//    [[CYFloatingBallView shareInstance] show];
     
     BOOL isLogin =[MyTool isLogin];
 

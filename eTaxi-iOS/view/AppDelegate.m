@@ -24,6 +24,12 @@
 
 #import "MyData.h"
 
+#import "JDPushData.h"
+#import "JDPushDataTool.h"
+
+#import "JDShareInstance.h"
+#import "JDCallCarViewController.h"
+
 
 NSString *const NotificationCategoryIdent = @"ACTIONABLE";
 NSString *const NotificationActionOneIdent = @"FIRST_ACTIOIN";
@@ -34,19 +40,11 @@ NSString *const NotificationActionTwoIdent = @"SECOND_ACTION";
     PlayerView * avView;
 }
 
-@property (nonatomic, strong)NSMutableArray *pushArr;
 
 @end
 
 @implementation AppDelegate
 
--(NSMutableArray *)pushArr
-{
-    if (!_pushArr) {
-        _pushArr = [NSMutableArray array];
-    }
-    return _pushArr;
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
@@ -77,6 +75,8 @@ NSString *const NotificationActionTwoIdent = @"SECOND_ACTION";
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = [[UIViewController alloc]init];
     [self.window makeKeyAndVisible];
+    
+    JDLog(@"---->%@====%p",self.window,self.window);
     
     // 程序加载的时候开始请求个人信息，防止其他界面请求不到而影响程序运行
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -184,7 +184,7 @@ NSString *const NotificationActionTwoIdent = @"SECOND_ACTION";
 /** APP已经接收到“远程”通知(推送) - (App运行在后台/App运行在前台) */
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-//    NSLog(@"输出输出cccccc");
+    JDLog(@"输出输出cccccc%@",userInfo);
 //    NSString *record = [NSString stringWithFormat:@"字典模式ssssss[APN]%@, %@", [NSDate date], userInfo];
 //    NSLog(@"字典模式模式模式%@",record);
 }
@@ -192,12 +192,12 @@ NSString *const NotificationActionTwoIdent = @"SECOND_ACTION";
 {
     completionHandler(UIBackgroundFetchResultNewData);
 }
-//如果APNS 注册失败
+// 如果APNS 注册失败
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
     [GeTuiSdk registerDeviceToken:@""];
 }
-//远程通知
+// 远程通知
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler
 {
 //    NSLog(@"远程推送成功之后返回的结果有%@,,,,%@,,,,",identifier,userInfo);
@@ -209,7 +209,7 @@ NSString *const NotificationActionTwoIdent = @"SECOND_ACTION";
     [GeTuiSdk resume];
     completionHandler(UIBackgroundFetchResultNewData);
 }
-//个推启动成功返回clientID
+// 个推启动成功返回clientID
 - (void)GeTuiSdkDidRegisterClient:(NSString *)clientId
 {
     if (clientId.length>0)
@@ -231,6 +231,7 @@ NSString *const NotificationActionTwoIdent = @"SECOND_ACTION";
 //    NSLog(@"个推遇到错误 :%@",[error localizedDescription]);
 }
 
+// 推送的内容
 - (void)GeTuiSdkDidReceivePayload:(NSString *)payloadId andTaskId:(NSString *)taskId andMessageId:(NSString *)aMsgId andOffLine:(BOOL)offLine fromApplication:(NSString *)appId
 {
     
@@ -249,53 +250,94 @@ NSString *const NotificationActionTwoIdent = @"SECOND_ACTION";
     //data类型转为JSON数据
     NSJSONSerialization *json = [NSJSONSerialization JSONObjectWithData:payload options:0 error:nil];
     NSDictionary *dict = (NSDictionary *)json;
-//    NSLog(@"--->%@",dict);
-
+    JDLog(@"--->%@",dict);
     
     NSMutableDictionary *pushDict = [NSMutableDictionary dictionary];
     pushDict[@"title"] = dict[@"title"];
     pushDict[@"content"] = dict[@"content"];
     pushDict[@"currentTime"] = currentTime;
     pushDict[@"flag"] = @"0";
+    pushDict[@"methodName"] = dict[@"methodName"];
     
+    NSString *methodName = [NSString stringWithFormat:@"%@",dict[@"methodName"]];
+    
+    // 语音开关是否打开
+    BOOL videoSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:[[JDShareInstance shareInstance] settingKeys][kCallcarIndexPath.section][kCallcarIndexPath.row]];
     /**
      *  如果传过来的通知是有用的就显示到消息栏，如果没用，只做推送，不展示
      */
-    if ([[NSString stringWithFormat:@"%@",dict[@"methodName"]] isEqualToString:@"use"]) {
+    if ([methodName isEqualToString:@"use"]) {
         
-//        for (NSDictionary *dict in PUSHDATA) {
-//            
-//            if (dict) {
-//                
-//                [self.pushArr addObject:dict];
-//                
-//            }
-//            
-//        }
+        JDPushDataTool *tool = [[JDPushDataTool alloc] init];
+        [tool createTable];
+        [tool insertValuesForKeysWithDictionary:pushDict];
         
-        [self.pushArr insertObject:pushDict atIndex:0];
-        
-    }else if([[NSString stringWithFormat:@"%@",dict[@"methodName"]] isEqualToString:@"order"]){ // 接单通知
+    }else if([methodName isEqualToString:@"order"]){ // 接单通知（取消订单，完成订单）
         
             if (TARGET_IPHONE_SIMULATOR) { // 模拟器
             }else if(TARGET_OS_IPHONE){ // 真机
         
-                JDSoundPlayer *player = [JDSoundPlayer soundPlayerInstance];
-                [player play:[NSString stringWithFormat:@"%@",dict[@"content"]]];
+                if (videoSwitch) { // 召车语音开关打开
+                    
+                    JDSoundPlayer *player = [JDSoundPlayer soundPlayerInstance];
+                    [player play:[NSString stringWithFormat:@"%@",dict[@"content"]]];
+                }
                 
             }
         
+        JDLog(@"====>%@",dict);
+       
+    }else if([methodName isEqualToString:@"call"]){ // 有召车信息
+        
+        // 悬浮窗口的动画
+        // 设置悬浮窗口上显示的数字
+        //        [[CYFloatingBallView shareInstance] show];
+        [[CYFloatingBallView shareInstance] startAnimation];
+        [[CYFloatingBallView shareInstance] setUpNumber];
+        
+        // 在召车界面
+        if ([[JDCallCarViewController alloc] isInCurrentViewController]) {
+            // 自动刷新界
+            // 发送一个通知
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"callCarReloadData" object:nil];
+            
+        }
+        
+        if (TARGET_IPHONE_SIMULATOR) { // 模拟器
+        }else if(TARGET_OS_IPHONE){ // 真机
+            
+            if (videoSwitch) { // 召车语音开关打开
+                JDSoundPlayer *player = [JDSoundPlayer soundPlayerInstance];
+                [player play:[NSString stringWithFormat:@"%@",dict[@"content"]]];
+                
+                JDLog(@"---->%@",dict[@"currentTime"]);
+            }
+            
+        }
+        JDLog(@"有新的订单消息!");
     }
     
-    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-    [user setObject:self.pushArr forKey:@"pushArr"];
-    [user synchronize];
     
 //    NSString * msg =[NSString stringWithFormat:@"payloadId=%@,taskId=%@,messageId:%@,payloadMsg:%@%@",payloadId,taskId,aMsgId,payloadMsg,offLine ? @"<离线消息>":@""];
     
 //    NSLog(@"个推收到的payload是%@",msg);
     
 }
+/**
+ *  SDK设置关闭推送模式回调
+ *
+ *  @param isModeOff 关闭模式，YES.服务器关闭推送功能 NO.服务器开启推送功能
+ *  @param error     错误回调，返回设置时的错误信息
+ */
+//- (void)GeTuiSdkDidSetPushMode:(BOOL)isModeOff error:(NSError *)error
+//{
+//    NSArray *keys = [[JDShareInstance shareInstance] settingKeys];
+//    
+//    BOOL off = [[NSUserDefaults standardUserDefaults] boolForKey:keys[0][0]];
+//    BOOL off1 = [[NSUserDefaults standardUserDefaults] boolForKey:keys[0][0]];
+//    BOOL off2 = [[NSUserDefaults standardUserDefaults] boolForKey:keys[0][0]];
+//    
+//}
 
 //让项目禁止横屏
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(nullable UIWindow *)window
@@ -310,10 +352,12 @@ NSString *const NotificationActionTwoIdent = @"SECOND_ACTION";
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    JDLog(@"进入后台!");
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    JDLog(@"进入qian台!");
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -322,6 +366,9 @@ NSString *const NotificationActionTwoIdent = @"SECOND_ACTION";
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    // 设置一个值来判断程序是否为首次加载
+    JDLog(@"程序终止!!!");
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kIsFirstLaunchKey];
 }
 
 @end

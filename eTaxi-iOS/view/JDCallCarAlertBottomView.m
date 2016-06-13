@@ -150,7 +150,7 @@
     UIButton *sure = [UIButton buttonWithType:UIButtonTypeCustom];
     [self addSubview:sure];
     _sure = sure;
-    [sure setTitle:@"确定" forState:UIControlStateNormal];
+    [sure setTitle:@"确定接单" forState:UIControlStateNormal];
     [sure setTitleColor:COLORWITHRGB(56, 146, 255, 1) forState:UIControlStateNormal];
     [sure addTarget:self action:@selector(clickSure) forControlEvents:UIControlEventTouchUpInside];
     

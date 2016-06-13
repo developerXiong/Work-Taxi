@@ -228,12 +228,12 @@
                         </variation>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ewm-kc-FxS">
-                        <rect key="frame" x="92" y="75" width="136" height="33"/>
+                        <rect key="frame" x="105" y="75" width="110" height="30"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="33" id="YNJ-FE-CM4"/>
-                            <constraint firstAttribute="width" constant="136" id="tnW-Ct-uq7"/>
+                            <constraint firstAttribute="height" constant="30" id="YNJ-FE-CM4"/>
+                            <constraint firstAttribute="width" constant="110" id="tnW-Ct-uq7"/>
                         </constraints>
-                        <state key="normal" image="score积分商城"/>
+                        <state key="normal" backgroundImage="score积分商城"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1NB-6y-MX3">
                         <rect key="frame" x="0.0" y="118" width="320" height="1"/>

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "HeadFile.pch"
+
 @class JDMainBtnView;
 @class JDMainBar;
 @interface JDMainView : UIView

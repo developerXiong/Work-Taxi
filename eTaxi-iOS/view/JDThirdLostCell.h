@@ -9,10 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface JDThirdLostCell : UITableViewCell
-/**
- *  下方的线条
- */
-@property (weak, nonatomic) IBOutlet UILabel *boLine;
 
 /**
  *  图片

@@ -11,11 +11,13 @@
 #import "JDVipCell.h"
 
 
-#define ScaleHW 120/339 // 图片的高宽比例
+#define ImageArr @[@"Q1司机",@"Q2司机"]
 
 @interface JDVipRulesViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (nonatomic, assign) CGFloat imageW; // 图片的宽度
 
 @end
 
@@ -29,6 +31,8 @@
     self.tableView.separatorStyle = 0;
     self.tableView.backgroundColor = ViewBackgroundColor;
     
+    // 图片的宽度
+    self.imageW = JDScreenSize.width-20;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,10 +52,10 @@
     cell = [[NSBundle mainBundle]loadNibNamed:@"JDVipCell" owner:nil options:nil][0];
     cell.selectionStyle = 0;
     
-    NSArray *imageArr = @[@"Q1",@"Q2"];
+    NSArray *imageArr = ImageArr;
     
-    CGFloat w = JDScreenSize.width-20;
-    UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, w, w*ScaleHW)];
+    CGFloat w = self.imageW;
+    UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, w, w*[self scaleWithIndex:indexPath.row])];
     [cell.backView addSubview:imageV];
     imageV.image = [UIImage imageNamed:imageArr[indexPath.row]];
     
@@ -60,7 +64,17 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return (JDScreenSize.width-20)*ScaleHW+20;
+    return self.imageW*[self scaleWithIndex:indexPath.row]+20;
+}
+
+-(CGFloat)scaleWithIndex:(NSInteger)row
+{
+    NSArray *imageArr = ImageArr;
+    
+    UIImage *image = [UIImage imageNamed:imageArr[row]];
+    CGSize size = [image size];
+    CGFloat scaleHW = size.height/size.width;
+    return scaleHW;
 }
 
 @end

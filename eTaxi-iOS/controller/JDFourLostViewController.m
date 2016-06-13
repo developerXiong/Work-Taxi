@@ -19,6 +19,7 @@
 #import "JDDetailLostController.h"
 #import "JDIsNetwork.h"
 #import "UIImageView+photoBrowser.h"
+#import "UIImageView+JDImageMove.h"
 #import "JDLostButton.h"
 
 #import "JDToCarmeView.h"
@@ -314,8 +315,10 @@
 
     if (offsetY>=CellHeaderHeight+LostAndRoadBtnViewH) {
         self.statusViewInSelf.hidden = NO;
+        self.statusView.hidden = YES;
     }else{
         self.statusViewInSelf.hidden = YES;
+        self.statusView.hidden = NO;
     }
 }
 
@@ -428,6 +431,7 @@
             //设置左边的图片
             [cell.imageV sd_setImageWithURL:lostData.lostImage placeholderImage:[UIImage imageNamed:@"站位图92"]];
             [cell.imageV showBiggerPhotoInview:self.view];
+//            [cell.imageV moveFromView:self.view];
             
             //设置物品类型
             cell.goodsType.text = [NSString stringWithFormat:@"物品类型: %@",lostData.lostType];
@@ -453,31 +457,24 @@
     
                 cell.addDetail.hidden = YES;
                 cell.addImage.hidden = YES;
-                cell.boLinebo.hidden = YES;
                 
             }
 
         }else{ //如果没有数据
             
-            for (int i = 0; i < cell.contentView.subviews.count; i ++) {
-                
-                //移除所有子控件
-                [cell.contentView.subviews[i] removeFromSuperview];
-                
-            }
-            
+//
             [cell.addDetail removeFromSuperview];
             [cell.addImage removeFromSuperview];
-            [cell.boLine removeFromSuperview];
+            [cell.boLinebo removeFromSuperview];
             
             // 没有消息的界面
-            CGFloat height = CellHeaderHeight,y = 50;
+            CGFloat height = CellHeaderHeight,y = 65;
             if (JDScreenSize.width==320&&JDScreenSize.height==480) {
                 height = 150;
                 y = 10;
             }
             JDNoMessageView *noMessage = [[JDNoMessageView alloc] initWithFrame:CGRectMake(0, y, JDScreenSize.width, height)];
-            noMessage.message = @"当前没有申报记录";
+            noMessage.message = @"当前没有失物记录";
             [cell.contentView addSubview:noMessage];
             
         }

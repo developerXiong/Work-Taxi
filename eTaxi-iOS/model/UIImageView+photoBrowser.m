@@ -44,10 +44,14 @@ static CGRect _rect;
     backView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.9];
     [_view addSubview:backView];
     
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    NSArray *windows = [[UIApplication sharedApplication] windows];
+    
+    UIWindow *keywindow = (UIWindow *)windows[0];
+    
+    JDLog(@"%@----%p",keywindow,keywindow);
     
     //将图片的坐标转换成window上的坐标
-    CGRect rect = [self convertRect:self.bounds toView:window];
+    CGRect rect = [self convertRect:self.bounds toView:keywindow];
     _rect = rect;
     
     UIImageView *imageV = [[UIImageView alloc] initWithFrame:rect];
@@ -82,7 +86,6 @@ static CGRect _rect;
         _imageView.frame = _rect;
     } completion:^(BOOL finished) {
         [_backView removeFromSuperview];
-        
     }];
     
 }

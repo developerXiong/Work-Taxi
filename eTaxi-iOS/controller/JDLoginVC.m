@@ -17,6 +17,8 @@
 #import "PersonalVC.h"
 #import "GetData.h"
 
+#import "JDGetPublickKey.h"
+
 @interface JDLoginVC ()<UITextFieldDelegate>
 
 @end
@@ -28,7 +30,11 @@
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
     
+    // 隐藏悬浮窗
+    [[CYFloatingBallView shareInstance] hidden];
+    
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -146,6 +152,8 @@
 {
     self.password.text=@"";
 }
+
+
 //登录按钮
 - (IBAction)loginBtn:(id)sender
 {
@@ -166,111 +174,144 @@
     NSString * phoneNo =self.phoneNo.text;
     NSString * password =self.password.text;
     
+//    JDLog(@"password1--->%@",password1);
+    
     //判断手机号和密码的合法性
     if ([MyTool validatePhone:phoneNo]&&[MyTool validatePassword:password])
     {
         [GetData addMBProgressWithView:self.view style:0];
         [GetData showMBWithTitle:@"正在登陆..."];
-        //发送登陆请求
-        MyData * data = [MyData new];
-        [data goLoginWithloginWithPhoneNo:phoneNo WithPsw:password withPostType:@"0" withManual:@"1" withMiles:nil withCompletion:^(NSString *returnCode, NSString *msg, NSString *checkFlg) {
-            if ([returnCode intValue]==0)
-            {
-                NSUserDefaults * us = [NSUserDefaults standardUserDefaults];
-                [us setValue:phoneNo forKey:@"phone"];
-                [us setValue:password forKey:@"password"];
-                [us synchronize];
-                [GetData hiddenMB];
+        
+        // 获取密文
+        [JDGetPublickKey securityTextWithPass:password success:^(NSString *security) {
+            
+            //发送登陆请求
+            MyData * data = [MyData new];
+            [data goLoginWithloginWithPhoneNo:phoneNo WithPsw:security withPostType:@"0" withManual:@"1" withMiles:nil withCompletion:^(NSString *returnCode, NSString *msg, NSString *checkFlg, NSInteger role){
                 
-                [MyData getPersonInfoWithCompletion:^(NSString *returnCode, NSString *msg, NSMutableDictionary *dic) {
+                JDLog(@"%ld",(long)role);
+                
+                if (role==1) {
+                    [GetData addAlertViewInView:self title:@"温馨提示" message:@"您的账户权限不足！" count:0 doWhat:^{
+                        [GetData hiddenMB];
+                    }];
+                }else {
                     
-                }];
-                NSLog(@"%@=====>",checkFlg);
-                switch ([checkFlg intValue])
-                {
-                    case 0:
+                    if (role==2) { // 服务器错误
+                        [GetData addAlertViewInView:self title:@"温馨提示" message:@"服务器错误,请稍后再试！" count:0 doWhat:^{
+                            
+                        }];
+                    }
+                    
+                    if ([returnCode intValue]==0)
                     {
-                        /**
-                         *  还从来没有提交过审核
-                         */
-                        MyTool * tool =[MyTool new];
-                        [self presentViewController:[tool showAlertControllerWithTitle:@"温馨提示" WithMessages:@"请尽快提交您的信息,会有更多积分优惠等着你~" WithCancelTitle:@"确定"] animated:YES completion:nil];
-                        //                        UIAlertController * alert =[UIAlertController alertControllerWithTitle:@"温馨提示" message:@"请尽快提交您的信息,会有更多积分优惠等着你~" preferredStyle:UIAlertControllerStyleAlert];
-                        //                        UIAlertAction * cancel =[UIAlertAction actionWithTitle:@"稍后再说" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                        //                            return ;
-                        //                        }];
-                        //                        UIAlertAction * other =[UIAlertAction actionWithTitle:@"马上就去 >" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                        //                            ChangePersonInfoVC * vc =[[ChangePersonInfoVC alloc] init];
-                        //                            [self.navigationController pushViewController:vc animated:YES];
-                        //                            [vc addNavigationBar:@"上传个人信息"];
-                        //                        }];
-                        //                        [alert addAction:cancel];
-                        //                        [alert addAction:other];
-                        //                        [self presentViewController:alert animated:YES completion:nil];
+                        NSUserDefaults * us = [NSUserDefaults standardUserDefaults];
+                        [us setValue:phoneNo forKey:@"phone"];
+                        [us setValue:password forKey:@"password"];
+                        [us synchronize];
+                        [GetData hiddenMB];
                         
-                        [VC goMain];
+                        [MyData getPersonInfoWithCompletion:^(NSString *returnCode, NSString *msg, NSMutableDictionary *dic) {
+                            
+                        }];
+                        NSLog(@"%@=====>",checkFlg);
+                        switch ([checkFlg intValue])
+                        {
+                            case 0:
+                            {
+                                /**
+                                 *  还从来没有提交过审核
+                                 */
+                                MyTool * tool =[MyTool new];
+                                [self presentViewController:[tool showAlertControllerWithTitle:@"温馨提示" WithMessages:@"请尽快提交您的信息,会有更多积分优惠等着你~" WithCancelTitle:@"确定"] animated:YES completion:nil];
+                                //                        UIAlertController * alert =[UIAlertController alertControllerWithTitle:@"温馨提示" message:@"请尽快提交您的信息,会有更多积分优惠等着你~" preferredStyle:UIAlertControllerStyleAlert];
+                                //                        UIAlertAction * cancel =[UIAlertAction actionWithTitle:@"稍后再说" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                                //                            return ;
+                                //                        }];
+                                //                        UIAlertAction * other =[UIAlertAction actionWithTitle:@"马上就去 >" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                                //                            ChangePersonInfoVC * vc =[[ChangePersonInfoVC alloc] init];
+                                //                            [self.navigationController pushViewController:vc animated:YES];
+                                //                            [vc addNavigationBar:@"上传个人信息"];
+                                //                        }];
+                                //                        [alert addAction:cancel];
+                                //                        [alert addAction:other];
+                                //                        [self presentViewController:alert animated:YES completion:nil];
+                                
+                                [VC goMain];
+                            }
+                                break;
+                            case 1:
+                            {
+                                /**
+                                 *  提交了审核,但是还在审核中...
+                                 */
+                                //                        MyTool * tool =[MyTool new];
+                                //                        [self presentViewController:[tool showAlertControllerWithTitle:@"温馨提示" WithMessages:@"您提交的信息还在审核中,请等待通过审核" WithCancelTitle:@"确定"] animated:YES completion:nil];
+                                [VC goMain];
+                            }
+                                break;
+                            case 2:
+                            {
+                                /**
+                                 *  提交过审核,但是审核没用通过,审核失败
+                                 */
+                                MyTool * tool =[MyTool new];
+                                [self presentViewController:[tool showAlertControllerWithTitle:@"温馨提示" WithMessages:@"您的信息审核有误了,请再重新提交一次吧~" WithCancelTitle:@"确定"] animated:YES completion:nil];
+                                [VC goMain];
+                            }
+                                break;
+                            case 3:
+                            {
+                                /**
+                                 *  审核通过
+                                 */
+                                [VC goMain];
+                            }
+                                break;
+                                
+                            default:
+                                break;
+                        }
                     }
-                        break;
-                    case 1:
+                    else if ([returnCode intValue]==1)
                     {
-                        /**
-                         *  提交了审核,但是还在审核中...
-                         */
-                        //                        MyTool * tool =[MyTool new];
-                        //                        [self presentViewController:[tool showAlertControllerWithTitle:@"温馨提示" WithMessages:@"您提交的信息还在审核中,请等待通过审核" WithCancelTitle:@"确定"] animated:YES completion:nil];
-                        [VC goMain];
-                    }
-                        break;
-                    case 2:
-                    {
-                        /**
-                         *  提交过审核,但是审核没用通过,审核失败
-                         */
-                        MyTool * tool =[MyTool new];
-                        [self presentViewController:[tool showAlertControllerWithTitle:@"温馨提示" WithMessages:@"您的信息审核有误了,请再重新提交一次吧~" WithCancelTitle:@"确定"] animated:YES completion:nil];
-                        [VC goMain];
-                    }
-                        break;
-                    case 3:
-                    {
-                        /**
-                         *  审核通过
-                         */
-                        [VC goMain];
-                    }
-                        break;
+                        [GetData hiddenMB];
+                        JDLog(@"%@",msg);
+                        [GetData addAlertViewInView:self title:@"温馨提示" message:msg count:0 doWhat:^{
+                            
+                        }];
                         
-                    default:
-                        break;
+                    }
+                    else if ([returnCode intValue]==2)
+                    {
+                        [GetData hiddenMB];
+                        JDLog(@"%@",msg);
+                        [GetData addAlertViewInView:self title:@"温馨提示" message:msg count:0 doWhat:^{
+                            PersonalVC * vc =[[PersonalVC alloc] init];
+                            [vc removeFileAndInfo];
+                        }];
+                    }
+                    else
+                    {
+                        [GetData hiddenMB];
+                        JDLog(@"%@",msg);
+                        [GetData addAlertViewInView:self title:@"温馨提示" message:@"网络链接失败,请重试" count:0 doWhat:^{
+                            
+                        }];
+                    }
+                    
                 }
-            }
-            else if ([returnCode intValue]==1)
-            {
-                [GetData hiddenMB];
-                JDLog(@"%@",msg);
-                [GetData addAlertViewInView:self title:@"温馨提示" message:msg count:0 doWhat:^{
-                    
-                }];
                 
-            }
-            else if ([returnCode intValue]==2)
-            {
-                [GetData hiddenMB];
-                JDLog(@"%@",msg);
-                [GetData addAlertViewInView:self title:@"温馨提示" message:msg count:0 doWhat:^{
-                    PersonalVC * vc =[[PersonalVC alloc] init];
-                    [vc removeFileAndInfo];
-                }];
-            }
-            else
-            {
-                [GetData hiddenMB];
-                JDLog(@"%@",msg);
-                [GetData addAlertViewInView:self title:@"温馨提示" message:@"网络链接失败,请重试" count:0 doWhat:^{
-                    
-                }];
-            }
+            }];
+            
+        } failure:^(NSError *error) {
+            
+            [GetData addAlertViewInView:self title:@"温馨提示" message:@"服务器错误！请稍后再试！" count:0 doWhat:^{
+                
+            }];
+            
         }];
+        
     }
     else
     {

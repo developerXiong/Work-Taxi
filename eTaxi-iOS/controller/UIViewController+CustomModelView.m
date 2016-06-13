@@ -16,6 +16,7 @@
 
 static UIImageView *_imageV;
 static UILabel *titleView;
+static UIButton *_btn;
 
 @implementation UIViewController (CustomModelView)
 
@@ -56,6 +57,7 @@ static UILabel *titleView;
      */
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setFrame:CGRectMake(0, 20, imageS.width+30, 44)];
+    _btn = btn;
     btn.tag = 502;
     [btn addTarget:self action:@selector(dismissViewC) forControlEvents:UIControlEventTouchUpInside];
     [imageV addSubview:btn];
@@ -75,6 +77,8 @@ static UILabel *titleView;
     titleV.textAlignment = NSTextAlignmentCenter;
     [imageV addSubview:titleV];
 }
+
+
 
 -(void)addRightBtnWithImage:(NSString *)image action:(SEL)action
 {
@@ -145,6 +149,13 @@ static UILabel *titleView;
     
     [self.view endEditing:YES];
 
+}
+
+// 点击返回按钮回到根界面
+-(void)popToRootViewCntroller
+{
+    [_btn removeTarget:self action:@selector(dismissViewC) forControlEvents:UIControlEventTouchUpInside];
+    [_btn addTarget:self action:@selector(dismissToMainVC) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)dismissViewC

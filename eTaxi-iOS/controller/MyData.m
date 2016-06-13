@@ -12,6 +12,8 @@
 #import "MyTool.h"
 #import "NSString+StringForUrl.h"
 
+#import "RSA.h"
+
 @implementation MyData
 
 
@@ -125,6 +127,8 @@
     NSString * str =[NSString urlWithApiName:@"queryScore.json"];
     [manager POST:str parameters:inDic success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject)
     {
+        JDLog(@"---->%@",responseObject);
+        
         NSString * statusStr =[responseObject objectForKey:@"returnCode"];
         NSString * msg =[responseObject objectForKey:@"msg"];
         int status =[statusStr intValue];
@@ -192,7 +196,7 @@
 
 
 #pragma mark-登陆
--(void)goLoginWithloginWithPhoneNo:(NSString *)phone WithPsw:(NSString *)psw withPostType:(NSString *)type withManual:(NSString *)manual withMiles:(NSString *)miles withCompletion:(void(^)(NSString * returnCode,NSString * msg,NSString * checkFlg))block
+-(void)goLoginWithloginWithPhoneNo:(NSString *)phone WithPsw:(NSString *)psw withPostType:(NSString *)type withManual:(NSString *)manual withMiles:miles withCompletion:(void (^)(NSString *, NSString *, NSString *, NSInteger))block
 {
     NSDictionary * inDic =[[NSDictionary alloc]init];
     if ([type intValue]==0)
@@ -230,7 +234,15 @@
     }
     else
     {
-        NSDictionary * inDic3 =@{@"phoneNo":phone,@"password":psw,@"type":@"5",@"loginTime":LOGINTIME};
+//        NSDictionary * inDic3 =@{@"phoneNo":phone,@"password":psw,@"type":@"5",@"loginTime":LOGINTIME,@"app":@"0"};
+        NSMutableDictionary *inDic3 = [NSMutableDictionary dictionary];
+        
+        inDic3[@"phoneNo"] = phone;
+        inDic3[@"password"] = psw;
+        inDic3[@"type"] = @"5";
+        inDic3[@"loginTime"] = LOGINTIME;
+        inDic3[@"app"] = @"0";
+        
         inDic=inDic3;
     }
     
@@ -243,31 +255,39 @@
     {
         JDLog(@"------>%@",responseObject);
         
-        NSString * statusStr =[responseObject objectForKey:@"returnCode"];
-        NSString * msg =[responseObject objectForKey:@"msg"];
-        NSString * checkFlg =[responseObject objectForKey:@"checkFlg"];
-        NSString * loginTime = [responseObject objectForKey:@"loginTime"];
-        NSUserDefaults * us =[NSUserDefaults standardUserDefaults];
-        [us setValue:checkFlg forKey:@"checkFlg"];
-        if (loginTime != nil)
-        {
-           [us setValue:loginTime forKey:@"loginTime"];
+        NSInteger role = [responseObject[@"role"] integerValue];
+        
+        if (role==1) { // 不是司机，不能登录
+            block(nil,nil,nil,1);
+        }else {
+            NSString * statusStr =[responseObject objectForKey:@"returnCode"];
+            NSString * msg =[responseObject objectForKey:@"msg"];
+            NSString * checkFlg =[responseObject objectForKey:@"checkFlg"];
+            NSString * loginTime = [responseObject objectForKey:@"loginTime"];
+            NSUserDefaults * us =[NSUserDefaults standardUserDefaults];
+            [us setValue:checkFlg forKey:@"checkFlg"];
+            if (loginTime != nil)
+            {
+                [us setValue:loginTime forKey:@"loginTime"];
+            }
+            [us synchronize];
+            if ([statusStr intValue]==0)
+            {
+                block(statusStr,nil,checkFlg,0);
+            }
+            else if ([statusStr intValue]==1)
+            {
+                block(statusStr,msg,nil,0);
+            }
+            else
+            {
+                block(statusStr,msg,nil,0);
+            }
         }
-        [us synchronize];
-        if ([statusStr intValue]==0)
-        {
-            block(statusStr,nil,checkFlg);
-        }
-        else if ([statusStr intValue]==1)
-        {
-            block(statusStr,msg,nil);
-        }
-        else
-        {
-            block(statusStr,msg,nil);
-        }
+        
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-        block(@"666",nil,nil);
+        
+        block(@"666",nil,nil,2);
         
         JDLog(@"%@",error);
     }];
@@ -459,6 +479,8 @@
     {
         NSString * statusStr =[responseObject objectForKey:@"returnCode"];
         NSString * msg =[responseObject objectForKey:@"msg"];
+        
+        JDLog(@"%@",responseObject);
         
         int status =[statusStr intValue];
         if (status==0)

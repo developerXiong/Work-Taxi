@@ -174,6 +174,7 @@
     //区分已经处理的和没有处理的
     if ([p.pecc_result isEqualToString:@"未处理"]) {
         
+        cell.statuImage.hidden = NO;
         [cell.stateBtn setTitle:@"未处理" forState:UIControlStateNormal];
         [cell.stateBtn setTitleColor:RedPColor forState:UIControlStateNormal];
         cell.stateBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -186,7 +187,10 @@
         
         [cell.stateBtn setTitle:@"处理中" forState:UIControlStateNormal];
         [cell.stateBtn setTitleColor:BlueColor forState:UIControlStateNormal];
+        cell.stateBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        cell.stateBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
         cell.stateBtn.enabled = NO;
+        cell.statuImage.hidden = YES;
         
     }
     
@@ -195,7 +199,6 @@
     {
         if (indexPath.row==[number integerValue])
         {
-//            [cell.stateBtn setImage:SelectImage forState:UIControlStateNormal];
             cell.statuImage.image = SelectImage;
         }
         
@@ -245,6 +248,8 @@
         cell.scoreLabel.text = @"有扣分";
         [cell.stateBtn setTitle:@"已扣分" forState:UIControlStateNormal];
         [cell.stateBtn setTitleColor:GrayColor forState:UIControlStateNormal];
+        cell.stateBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        cell.stateBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
         cell.stateBtn.enabled = NO;
     }
     //罚款

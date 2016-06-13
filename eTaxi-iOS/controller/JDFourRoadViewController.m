@@ -275,11 +275,40 @@
 
 
 #pragma mark - 按钮视图的delegate 进入相机界面
+-(void)clickBtnWillAnimation:(UIView *)sender btnName:(NSString *)str
+{
+    // 防止点击一个按钮的同时还能点击其他按钮，返回按钮的点击。
+    for (UIView *view in self.view.subviews) {
+        
+        if ([view isKindOfClass:[UIButton class]]) {
+            [self setUpBtnEnbleInView:view];
+        }else {
+            if (view.subviews) {
+                for (UIView *view1 in view.subviews) {
+                    if ([view1 isKindOfClass:[UIButton class]]) {
+                        [self setUpBtnEnbleInView:view1];
+                    }
+                }
+            }
+        }
+    }
+}
+
 -(void)clickBtnDidAnimation:(UIView *)sender btnName:(NSString *)str
 {
+    
     _statusStr = str;
     UIImagePickerController *picker = [JDToCarmeView presentToCarmeaViewInVC:self];
     picker.delegate = self;
+}
+
+-(void)setUpBtnEnbleInView:(UIView *)view
+{
+    UIButton *btn = (UIButton *)view;
+    btn.enabled = NO;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        btn.enabled = YES;
+    });
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
@@ -346,8 +375,10 @@
     
     if (offsetY>=CellHeaderHeight+LostAndRoadBtnViewH) {
         self.statusViewInSelf.hidden = NO;
+        self.statusView.hidden = YES;
     }else{
         self.statusViewInSelf.hidden = YES;
+        self.statusView.hidden = NO;
     }
 }
 
@@ -478,7 +509,7 @@
             }
             [cell.roadAdd removeFromSuperview];
             //没有申报记录
-            CGFloat height = CellHeaderHeight,y = 50;
+            CGFloat height = CellHeaderHeight,y = 65;
             if (JDScreenSize.width==320&&JDScreenSize.height==480) {
                 height = 150;
                 y=10;

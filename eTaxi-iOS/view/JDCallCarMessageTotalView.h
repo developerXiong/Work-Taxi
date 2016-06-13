@@ -8,9 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol JDCallCarMessageDelegate <NSObject>
+
+@optional
+-(void)messageClickLookDetail:(NSInteger)row;
+
+@end
+
 @class JDCallCarMessageViewFrame;
 @interface JDCallCarMessageTotalView : UIView
 
 @property (nonatomic, strong) JDCallCarMessageViewFrame *ViewFrame;
+
+@property (nonatomic, assign) NSInteger tag_mess;
+
+@property (nonatomic, weak) id<JDCallCarMessageDelegate>delegate;
 
 @end

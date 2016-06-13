@@ -20,6 +20,8 @@
 
 #import "MJRefresh.h"
 
+#import "JDNoMessageView.h"
+
 #define NowUseCarImage [UIImage imageNamed:@"现在用车_list"]
 #define FeaUseCarImage [UIImage imageNamed:@"预约用车_list"]
 
@@ -58,8 +60,14 @@
 
 -(void)getData
 {
+    // 移除没有消息s时的界面
+    for (UIView *view in self.tableView.subviews) {
+        if ([view isKindOfClass:[JDNoMessageView class]]) {
+            [view removeFromSuperview];
+        }
+    }
     
-    [JDCallCarTool getCallCarListWithType:@"2" Success:^(NSMutableArray *modelArr, int orderCount) {
+    [JDCallCarTool getCallCarListWithType:@"2" inVC:self Success:^(NSMutableArray *modelArr, int orderCount) {
         
         // 结束下拉刷新
         [self.tableView.mj_header endRefreshing];
@@ -71,9 +79,13 @@
         
         if (modelArr.count==0) {
             
-            [GetData addMBProgressWithView:self.view style:1];
-            [GetData showMBWithTitle:@"当前没有接单!"];
-            [GetData hiddenMB];
+//            [GetData addMBProgressWithView:self.view style:1];
+//            [GetData showMBWithTitle:@"当前没有接单!"];
+//            [GetData hiddenMB];
+            // 添加没有召车信息的界面
+            JDNoMessageView *noMessView = [[JDNoMessageView alloc] initWithFrame:CGRectMake(0, 0, JDScreenSize.width, self.tableView.bounds.size.height*2/3)];
+            noMessView.message = @"当前没有接单";
+            [self.tableView addSubview:noMessView];
             
         }
         

@@ -26,7 +26,8 @@
 {
     
     MyData * data =[MyData new];
-    [data goLoginWithloginWithPhoneNo:PHONENO WithPsw:PASSWORD withPostType:@"4" withManual:nil withMiles:self.kmTF.text withCompletion:^(NSString *returnCode, NSString *msg, NSString *checkFlg) {
+    [data goLoginWithloginWithPhoneNo:PHONENO WithPsw:PASSWORD withPostType:@"4" withManual:nil withMiles:self.kmTF.text withCompletion:^(NSString *returnCode, NSString *msg, NSString *checkFlg, NSInteger role) {
+        
         if ([returnCode intValue]==0)
         {
             NSUserDefaults * us =[NSUserDefaults standardUserDefaults];

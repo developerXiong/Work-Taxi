@@ -10,6 +10,5 @@
 
 @interface JDMessgeViewController : UIViewController
 
-@property (nonatomic, strong)NSMutableArray *dataArr;
 
 @end

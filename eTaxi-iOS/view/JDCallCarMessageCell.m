@@ -14,10 +14,7 @@
 
 @interface JDCallCarMessageCell ()
 
-/**
- *  整体的View
- */
-@property (nonatomic, weak) JDCallCarMessageTotalView *totalView;
+
 
 @end
 
@@ -28,6 +25,7 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
         [self setUpAllChildViews];
+        self.backgroundColor = [UIColor colorWithRed:232/255.0 green:232/255.0 blue:232/255.0 alpha:1];
         
     }
     return self;

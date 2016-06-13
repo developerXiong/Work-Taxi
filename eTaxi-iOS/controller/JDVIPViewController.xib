@@ -73,7 +73,7 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="普通会员" translatesAutoresizingMaskIntoConstraints="NO" id="5ht-Ai-dFc">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="普通会员1" translatesAutoresizingMaskIntoConstraints="NO" id="5ht-Ai-dFc">
                     <rect key="frame" x="76" y="137" width="17" height="10"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="推荐乘客" translatesAutoresizingMaskIntoConstraints="NO" id="RL4-Zy-bLL">
@@ -99,11 +99,11 @@
                         <constraint firstAttribute="width" constant="1" id="ey9-bY-ZcZ"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="200" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdb-wx-Tlz">
-                    <rect key="frame" x="125" y="175" width="37" height="24"/>
+                    <rect key="frame" x="110" y="175" width="37" height="24"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -149,7 +149,7 @@
                 <constraint firstItem="YfT-kq-O0n" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="31" id="qt5-vy-5Ft"/>
                 <constraint firstItem="mdb-wx-Tlz" firstAttribute="centerY" secondItem="YfT-kq-O0n" secondAttribute="centerY" id="tjp-yn-12P"/>
                 <constraint firstAttribute="trailing" secondItem="Ggy-I5-i84" secondAttribute="trailing" id="tkE-DD-aNJ"/>
-                <constraint firstItem="mdb-wx-Tlz" firstAttribute="leading" secondItem="hwg-Xg-Pdf" secondAttribute="trailing" constant="30" id="umf-ZG-P4G"/>
+                <constraint firstItem="mdb-wx-Tlz" firstAttribute="leading" secondItem="hwg-Xg-Pdf" secondAttribute="trailing" constant="15" id="umf-ZG-P4G"/>
                 <constraint firstItem="bHv-CB-7Py" firstAttribute="top" secondItem="mdb-wx-Tlz" secondAttribute="bottom" constant="5" id="x1g-Vd-Zk9"/>
                 <constraint firstItem="s3d-fM-YFI" firstAttribute="centerY" secondItem="oUS-tA-V8B" secondAttribute="centerY" id="y1m-bm-YOC"/>
                 <constraint firstItem="Ggy-I5-i84" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="zR7-5U-ZNa"/>
@@ -161,7 +161,7 @@
     <resources>
         <image name="信用积分" width="12" height="13"/>
         <image name="推荐乘客" width="14" height="13"/>
-        <image name="普通会员" width="17" height="10"/>
+        <image name="普通会员1" width="17" height="10"/>
         <image name="普通会员高亮" width="320" height="569"/>
         <image name="返回" width="60" height="40"/>
     </resources>

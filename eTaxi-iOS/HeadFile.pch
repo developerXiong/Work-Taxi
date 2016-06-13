@@ -19,6 +19,9 @@
 #import "UIImageView+photoBrowser.h"
 #import "GetData.h"
 #import "NSString+StringForUrl.h"
+#import "JDNoMessageView.h"
+#import "CYFloatingBallView.h"
+
 
 #define JDScreenSize [UIScreen mainScreen].bounds.size
 /*
@@ -47,7 +50,8 @@
 
 //用户手机号和密码
 #define PHONENO [[NSUserDefaults standardUserDefaults]objectForKey:@"phone"]
-#define PASSWORD [[NSUserDefaults standardUserDefaults]objectForKey:@"password"]
+//#define PASSWORD [[NSUserDefaults standardUserDefaults]objectForKey:@"password"]
+#define PASSWORD @""
 //车牌号和发动机后六位
 #define PLATE [[NSUserDefaults standardUserDefaults]objectForKey:@"plateNo"]
 #define ENGINE [[NSUserDefaults standardUserDefaults]objectForKey:@"engineNo"]
@@ -58,6 +62,7 @@
 #define KM [[NSUserDefaults standardUserDefaults]objectForKey:@"KM"]
 #define SCORE [[NSUserDefaults standardUserDefaults]objectForKey:@"leftScore"]
 #define LOGINTIME [[NSUserDefaults standardUserDefaults]objectForKey:@"loginTime"]
+#define ClientId [[NSUserDefaults standardUserDefaults]objectForKey:@"clientID"]
 
 //推送的消息
 #define PUSHDATA [[NSUserDefaults standardUserDefaults]objectForKey:@"pushArr"]
@@ -82,7 +87,7 @@
 /**
  *  蓝色
  */
-#define BLUECOLOR [UIColor colorWithRed:30/255.0 green:103/255.0 blue:203/255.0 alpha:1.0]
+#define BLUECOLOR [UIColor colorWithRed:23/255.0 green:113/255.0 blue:255/255.0 alpha:1.0]
 
 /**
  *  路况申报 失物招领 维修预约的 透明字体颜色
@@ -96,6 +101,7 @@
  */
 #define COLORWITHRGB(R, G, B, A) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]
 
+// is equal NSLog(@"")
 #ifdef DEBUG
 
 #define JDLog(...) NSLog(__VA_ARGS__)

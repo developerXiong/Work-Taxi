@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HeadFile.pch"
 
 @protocol JDIndependentBtnDelegate <NSObject>
 

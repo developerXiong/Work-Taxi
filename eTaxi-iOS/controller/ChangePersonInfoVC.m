@@ -4,7 +4,7 @@
 //
 //  Created by jeader on 16/1/6.
 //  Copyright © 2016年 jeader. All rights reserved.
-//
+// 个人中心
 
 #import "ChangePersonInfoVC.h"
 #import "MyCell.h"
@@ -387,6 +387,8 @@ tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPat
                     [GetData addMBProgressWithView:self.view style:1];
                     [GetData showMBWithTitle:@"上传成功"];
                     [GetData hiddenMB];
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
                 }
                 else if ([str intValue]==1)
                 {

@@ -14,7 +14,8 @@
 
 @optional
 
--(void)clickExchangeBtn:(int)count goodsID:(int)goodsID;
+// 数量
+-(void)clickExchangeBtn:(int)count goodsID:(int)goodsID totalCosts:(NSInteger)costs;
 
 @end
 
@@ -70,7 +71,9 @@
 @property (nonatomic, assign) NSInteger index;
 //
 @property (nonatomic, strong) JDGoodsData *goodsData;
-//
-//@property (nonatomic, assign) CGFloat cellHeight;
+/**
+ *  物品详情图片
+ */
+@property (nonatomic, strong) UIImageView *detailImageV;
 
 @end

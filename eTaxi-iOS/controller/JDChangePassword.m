@@ -15,6 +15,7 @@
 #import "ViewController.h"
 #import "GetData.h"
 #import "PersonalVC.h"
+#import "JDGetPublickKey.h"
 
 @interface JDChangePassword ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
@@ -27,7 +28,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+        
     self.hud =[[MBProgressHUD alloc]init];
     [self.tableVi addSubview:self.hud];
     
@@ -329,6 +330,7 @@
     UITextField * password =(UITextField *)[self.tableVi viewWithTag:222];
     UITextField * nPass =(UITextField *)[self.tableVi viewWithTag:333];
     
+    
     if ([MyTool validatePassword:phoneNo.text]&&[MyTool validatePassword:password.text]&&[MyTool validatePassword:nPass.text])
     {
         if (![password.text isEqualToString:nPass.text])
@@ -341,44 +343,57 @@
         {
             MyData * data =[MyData new];
             
-            [data getChangeNewPasswordWithPhoneNo:PHONENO WithPassword:phoneNo.text WithNewPassword:password.text WithCompletion:^(NSString *returnCode,NSString * msg) {
-                //发送过请求之后 清除文本框上的文字
-                password.text=@"";
-                nPass.text=@"";
-                if ([returnCode intValue]==0)
-                {
-                    
-                    NSUserDefaults * us = [NSUserDefaults standardUserDefaults];
-                    [us setValue:nPass.text forKey:@"password"];
-                    [us synchronize];
-                    [GetData addAlertViewInView:self title:@"温馨提示" message:@"修改密码成功!\n原有密码将不能使用,安全起见请重新登录账户" count:0 doWhat:^{
-                        PersonalVC * vc =[[PersonalVC alloc] init];
-                        [vc removeFileAndInfo];
-                    }];
-                }
-                else if ([returnCode intValue]==1)
-                {
-                    [GetData addAlertViewInView:self title:@"温馨提示" message:msg count:0 doWhat:^{
+//            NSString *oldPass = [[JDGetPublickKey shareInstance] securityTextWithPass:password.text];
+//            NSString *newPass = [[JDGetPublickKey shareInstance] securityTextWithPass:phoneNo.text];
+            
+            // 先请求原密码的密文
+            [JDGetPublickKey securityTextWithPass:password.text newPass:phoneNo.text success:^(NSString *oldSecurity, NSString *newSecurity) {
+                
+                [data getChangeNewPasswordWithPhoneNo:PHONENO WithPassword:oldSecurity WithNewPassword:newSecurity WithCompletion:^(NSString *returnCode,NSString * msg) {
+                    //发送过请求之后 清除文本框上的文字
+                    password.text=@"";
+                    nPass.text=@"";
+                    if ([returnCode intValue]==0)
+                    {
                         
-                    }];
-                }
-                else if ([returnCode intValue]==2)
-                {
-                    [GetData addAlertViewInView:self title:@"温馨提示" message:@"原始密码不正确,请重新输入!" count:0 doWhat:^{
-//                        PersonalVC * vc =[[PersonalVC alloc] init];
-//                        [vc removeFileAndInfo];
-                        phoneNo.text = @"";
-                        
-                    }];
-                }
-                else
-                {
-                    [GetData addAlertViewInView:self title:@"温馨提示" message:@"当前网络状况不太良好,请在网络良好的状况下重试" count:0 doWhat:^{
-                        
-                    }];
-                }
-                [password becomeFirstResponder];
+                        NSUserDefaults * us = [NSUserDefaults standardUserDefaults];
+                        [us setValue:nPass.text forKey:@"password"];
+                        [us synchronize];
+                        [GetData addAlertViewInView:self title:@"温馨提示" message:@"修改密码成功!\n原有密码将不能使用,安全起见请重新登录账户" count:0 doWhat:^{
+                            PersonalVC * vc =[[PersonalVC alloc] init];
+                            [vc removeFileAndInfo];
+                        }];
+                    }
+                    else if ([returnCode intValue]==1)
+                    {
+                        [GetData addAlertViewInView:self title:@"温馨提示" message:msg count:0 doWhat:^{
+                            
+                        }];
+                    }
+                    else if ([returnCode intValue]==2)
+                    {
+                        [GetData addAlertViewInView:self title:@"温馨提示" message:@"原始密码不正确,请重新输入!" count:0 doWhat:^{
+                            //                        PersonalVC * vc =[[PersonalVC alloc] init];
+                            //                        [vc removeFileAndInfo];
+                            phoneNo.text = @"";
+                            
+                        }];
+                    }
+                    else
+                    {
+                        [GetData addAlertViewInView:self title:@"温馨提示" message:@"当前网络状况不太良好,请在网络良好的状况下重试" count:0 doWhat:^{
+                            
+                        }];
+                    }
+                    [password becomeFirstResponder];
+                }];
+
+                
+            } failure:^(NSError *error) {
+                
             }];
+            
+            
         }
         
     }

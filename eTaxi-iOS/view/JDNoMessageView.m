@@ -44,7 +44,7 @@
      *   没有消息的时候的图标
      */
     UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, imageS.width, imageS.height)];
-    imageV.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/3);
+    imageV.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
     [self addSubview:imageV];
     imageV.image = image;
     

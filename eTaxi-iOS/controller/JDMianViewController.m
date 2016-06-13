@@ -18,15 +18,17 @@
 #import "JDFourRoadViewController.h"
 #import "JDFourLostViewController.h"
 #import "PeccancyViewC.h"
-#import "JDMoreViewController.h"
 #import "LeftTransparentView.h"
 #import "MyPointViewController.h"
 #import "MyOrderViewController.h"
 #import "JDVIPViewController.h"
 #import "MyTool.h"
 #import "SetVC.h"
+#import "JDSettingViewController.h"
+
 #import "InviteViewController.h"
 #import "JDCallCarViewController.h"
+#import "JDUserManualViewController.h"
 
 #import "JDGetMainViewDataTool.h"
 #import "JDMainViewData.h"
@@ -36,6 +38,11 @@
 #import "JDMorethanViewController.h"
 
 #import "JDAboutUsViewController.h"
+
+#import "JDPeccancyViewController.h"
+
+#import "JDCallCarTool.h"
+#import "JDShareInstance.h"
 
 @interface JDMianViewController ()<JDMainButtonDelegate,LeftViewDelegate,JDMainBarDelegate>
 
@@ -56,6 +63,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 自动登录
+    [JDGetMainViewDataTool autoLoginWithViewController:self Success:^{
+       
+        
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
     //状态栏字体颜色改为白色
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
@@ -66,6 +82,11 @@
     [self addMainView];
     // 添加个人信息视图
     [self addLayerAndLeftView];
+    
+    // 判断是否为第一次进入app,是的话就打开所有语音开关(防止)
+    if ([[JDShareInstance shareInstance] isFirstLunch]) {
+        [[JDShareInstance shareInstance] setUpAllSwitchOn];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -73,21 +94,59 @@
     [super viewWillAppear:animated];
     
     if (PLATE&&ENGINE) {
-        
         [self getPeccnumber];
     }
+    
+    // 设置浮窗
+    // 按钮设置为可点击状态
+    // 通过block监听按钮悬浮窗的点击事件
+    // 设置悬浮窗的数字
+    // 根据存在偏好设置中的key值取出设置的浮窗bool值，if yes显示，if no隐藏
+    // 根据NavigationController的子控制器来判断浮窗是否能点击
+    NSString *key = [[JDShareInstance shareInstance] settingKey:kCallcarFloatingSwitchKey];
+    JDLog(@"key---====%@",key);
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:key]) {
+        
+        [[CYFloatingBallView shareInstance] show];
+        //    [[CYFloatingBallView shareInstance] startAnimation];
+        [[CYFloatingBallView shareInstance] setUpNumber];
+        
+        [CYFloatingBallView shareInstance].enble = YES;
+        // 浮窗按钮的点击
+        [CYFloatingBallView shareInstance].floatBall = ^(UIButton *sender){
+            
+            JDLog(@"self.navigationController.childViewControllers--->%@",self.navigationController.childViewControllers);
+            if ([[self.navigationController.childViewControllers lastObject] isKindOfClass:[JDCallCarViewController class]]) {
+                [CYFloatingBallView shareInstance].enble = NO;
+            }else{
+                
+                [self.navigationController pushViewController:[[JDCallCarViewController alloc] init] animated:YES];
+            }
+            sender.enabled = NO;
+            
+        };
+        
+    }else {
+        [[CYFloatingBallView shareInstance] hidden];
+    }
+    
+    JDLog(@"loginTime---->%@",LOGINTIME);
     
 }
 
 -(void)getPeccnumber
 {
-    
-    [JDGetMainViewDataTool GetVipInfoWithVc:self plate:PLATE engine:ENGINE success:^(NSMutableDictionary *dictArr) {
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+       
+        // 获取主页信息（积分余额，违章数，罚款等信息）
+        [JDGetMainViewDataTool GetVipInfoWithVc:self plate:PLATE engine:ENGINE success:^(NSMutableDictionary *dictArr) {
+            
+        } failure:^(NSError *error) {
+            
+        }];
         
-    } failure:^(NSError *error) {
-        
-    }];
-   
+    });
 }
 
 
@@ -119,7 +178,6 @@
         case 1: // 召车接单
         {
             JDCallCarViewController *car = [[JDCallCarViewController alloc] init];
-            [car addNavigationBar:@"预约召车"];
             [self.navigationController pushViewController:car animated:NO];
         }
             break;
@@ -131,7 +189,8 @@
             break;
         case 3: // 违章查询
         {
-            PeccancyViewC *ievc = [[PeccancyViewC alloc] init];
+            JDPeccancyViewController *ievc = [[JDPeccancyViewController alloc] init];
+//            PeccancyViewC *ievc = [[PeccancyViewC alloc] init];
             [ievc addNavigationBar:@"违章查询"];
             [self.navigationController pushViewController:ievc animated:NO];
         }
@@ -181,7 +240,6 @@
 #pragma mark - 左边的个人信息
 - (void)addLayerAndLeftView
 {
-    
     //蒙层
     self.controll =[[UIControl alloc]initWithFrame:CGRectMake(-500, 0, 500, JDScreenSize.height)];
     self.controll.backgroundColor=[UIColor blackColor];
@@ -249,14 +307,22 @@
             break;
         case 6:
         {
-            SetVC *vc = [[SetVC alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-            [vc addNavigationBar:@"设\t置"];
+            JDUserManualViewController *abVc = [[JDUserManualViewController alloc] init];
+            
+            [self.navigationController pushViewController:abVc animated:YES];
         }
             break;
         case 7:
         {
+//            SetVC *vc = [[SetVC alloc] init];
+            JDSettingViewController *vc = [[JDSettingViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            [vc addNavigationBar:@"设\t置"];
             
+        }
+            break;
+        case 8:
+        {
             JDAboutUsViewController *abVc = [[JDAboutUsViewController alloc] init];
             
             [self.navigationController pushViewController:abVc animated:YES];
@@ -279,7 +345,6 @@
     [UIView animateWithDuration:.4 animations:^{
         self.myView.transform = CGAffineTransformMakeTranslation(myViewW, 0);
     }];
-    
 }
 
 //点击右侧隐藏 抽屉

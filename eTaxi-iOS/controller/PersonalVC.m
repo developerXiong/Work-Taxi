@@ -20,6 +20,9 @@
 #import "MyTool.h"
 #import "GetData.h"
 #import "JDCallCarListDataTool.h"
+#import "JDPushDataTool.h"
+
+#import "JDShareInstance.h"
 
 @interface PersonalVC ()
 {
@@ -179,10 +182,10 @@
                         cell.contentLab.text=@"上传 >";
                         break;
                     case 1:
-                        cell.contentLab.text=@"上传 >";
+                        cell.contentLab.text=@"审核中";
                         break;
                     case 2:
-                        cell.contentLab.text=@"上传 >";
+                        cell.contentLab.text=@"审核未通过";
                         break;
                     case 3:
                         cell.contentLab.text=@"已审核";
@@ -338,8 +341,9 @@
     UIAlertAction *otherAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         MyData * da =[[MyData alloc] init];
-//        if (!self.kmTF) return;
-        [da goLoginWithloginWithPhoneNo:PHONENO WithPsw:PASSWORD withPostType:@"4" withManual:nil withMiles:self.kmTF withCompletion:^(NSString *returnCode, NSString *msg, NSString *checkFlg) {
+        if (!self.kmTF) return;
+        [da goLoginWithloginWithPhoneNo:PHONENO WithPsw:PASSWORD withPostType:@"4" withManual:nil withMiles:self.kmTF withCompletion:^(NSString *returnCode, NSString *msg, NSString *checkFlg, NSInteger role) {
+
             if ([returnCode intValue]==0)
             {
                 NSLog(@"设置成功");
@@ -406,6 +410,9 @@
 }
 - (void)removeFileAndInfo
 {
+    // 删除推送消息的表
+    [[JDPushDataTool new] deleteTable];
+    
     NSUserDefaults * us = [NSUserDefaults standardUserDefaults];
     [us removeObjectForKey:@"KM"];           //退出时删除存储的公里数
     [us removeObjectForKey:@"name"];         //退出时删除存储的姓名
@@ -420,6 +427,15 @@
     [us removeObjectForKey:@"serviceNo"];    //退出时删除存储的服务证号
     [us removeObjectForKey:@"taxiCompany"];  //退出时删除存储的出租车公司
     [us removeObjectForKey:@"pushArr"];      //退出时删除存储的推送的通知
+    
+    [us removeObjectForKey:[[JDShareInstance shareInstance] settingKey:kIncomeVideoSwitchKey]]; // 删除 营收语音开关的key
+    [us removeObjectForKey:[[JDShareInstance shareInstance] settingKey:kIncomeTimeKey]]; // 删除 营收时间的key
+    [us removeObjectForKey:[[JDShareInstance shareInstance] settingKey:kTrafficVideoSwitchKey]]; // 删除 违章语音开关的key
+    [us removeObjectForKey:[[JDShareInstance shareInstance] settingKey:kCallcarVideoSwitchKey]]; // 删除 召车语音开关的key
+    [us removeObjectForKey:[[JDShareInstance shareInstance] settingKey:kCallcarFloatingSwitchKey]]; // 删除 浮窗开关的key
+    
+    [us removeObjectForKey:kFirstComeInSettingView]; // 删除 是否第一次进入设置界面的key
+    [us removeObjectForKey:kIsFirstLaunchKey]; // 删除 判断是否第一次加载程序key
     [us synchronize];
     
     NSFileManager * fileManager = [[NSFileManager alloc]init];
@@ -431,5 +447,15 @@
     ViewController * vc =[[ViewController alloc] init];
     UIWindow * window =[[[UIApplication sharedApplication]delegate]window];
     window.rootViewController=vc;
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        [[MyData alloc] goLoginWithloginWithPhoneNo:PHONENO WithPsw:PASSWORD withPostType:@"5" withManual:@"" withMiles:@"" withCompletion:^(NSString *returnCode, NSString *msg, NSString *checkFlg, NSInteger role) {
+            
+            JDLog(@"清除clientID成功!");
+            
+        }];
+        
+    });
 }
 @end

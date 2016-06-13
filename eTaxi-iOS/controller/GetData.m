@@ -42,6 +42,42 @@ static MBProgressHUD *_mbV;
     
 }
 
+// 请求数据并根据returnCode做好处理
++(void)getDataWithUrl:(NSString *)url params:(NSMutableDictionary *)params ViewController:(UIViewController *)Vc success:(void (^)(id))success failure:(void (^)(NSError *))failure
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json",@"text/html",@"text/javascript",@"text/xml",nil]];
+    
+    [manager POST:url parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+        // 根据返回值做判断
+        int returnCode = [responseObject[@"returnCode"] intValue];
+        
+        if (returnCode==0) { // 请求成功
+            if (success) {
+                success(responseObject);
+            }
+        }else if(returnCode==1){ // 请求失败
+            
+        }else if(returnCode==2){ // 别处登录
+            
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        if (error) {
+            
+            failure(error);
+            [GetData addAlertViewInView:Vc title:@"温馨提示" message:@"无法连接服务器!" count:0 doWhat:^{
+               
+            }];
+        }
+        
+    }];
+}
+
 //上传图片
 +(void)postDataWithUrl:(NSString *)url params:(NSMutableDictionary *)params imageDatas:(NSArray *)images success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
@@ -132,6 +168,7 @@ static MBProgressHUD *_mbV;
         
     }
     [alert addAction:action];
+    
     [VC presentViewController:alert animated:YES completion:^{
         
     }];

@@ -11,6 +11,9 @@
 #import "MyCell.h"
 #import "UIImageView+AFNetworking.h"
 
+#import "JDGetVipinfoTools.h"
+#import "JDVipInfoData.h"
+
 @implementation LeftTransparentView
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -35,19 +38,32 @@
             self.data =[dic objectForKey:@"info"];
             [tabelVi reloadData];
         }];
+        
+        // 请求并设置
+        [JDGetVipinfoTools GetVipInfoSuccess:^(NSMutableDictionary *dictArr) {
+           
+            JDVipInfoData *data = dictArr[@"vipInfo"];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+            MyCell *cell = [tabelVi cellForRowAtIndexPath:indexPath];
+            cell.vipLab.text = data.grade;
+            
+        } failure:^(NSError *error) {
+            
+        }];
+        
     }
     return self;
 }
 #pragma mark- UITable View DataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 8;
+    return 9;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray * titles =[NSArray arrayWithObjects:@"积 分 明 细",@"会 员 中 心",@"我 的 预 约",@"我 的 营 收",@"邀 请 副 驾",@"设 置",@"关 于", nil];
-    NSArray * imgNames =[NSArray arrayWithObjects:@"积分明细1",@"会员",@"预约",@"营收",@"邀请副驾",@"设置",@"关于我们", nil];
+    NSArray * titles =[NSArray arrayWithObjects:@"积 分 明 细",@"会 员 中 心",@"我 的 预 约",@"我 的 营 收",@"邀 请 副 驾",@"使 用 说 明",@"设 置",@"关 于", nil];
+    NSArray * imgNames =[NSArray arrayWithObjects:@"积分明细1",@"会员",@"预约",@"营收",@"邀请副驾",@"使用说明icon",@"设置",@"关于我们", nil];
     static NSString * cellID1 =@"cell2";
     static NSString * cellID2 =@"cell4";
     MyCell * cell =nil;
